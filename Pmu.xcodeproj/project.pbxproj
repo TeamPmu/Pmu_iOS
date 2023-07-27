@@ -23,9 +23,6 @@
 		B3ECE8062A725AB600AABF89 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = B3ECE7FD2A725AB600AABF89 /* Pretendard-Thin.otf */; };
 		B3ECE8072A725AB600AABF89 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B3ECE7FE2A725AB600AABF89 /* Pretendard-Bold.otf */; };
 		B3ECE8082A725AB600AABF89 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = B3ECE7FF2A725AB600AABF89 /* Pretendard-ExtraLight.otf */; };
-		B3ECE80C2A729B5D00AABF89 /* Music Note.png in Resources */ = {isa = PBXBuildFile; fileRef = B3ECE8092A729B5D00AABF89 /* Music Note.png */; };
-		B3ECE80D2A729B5D00AABF89 /* Line Horizontal 3.png in Resources */ = {isa = PBXBuildFile; fileRef = B3ECE80A2A729B5D00AABF89 /* Line Horizontal 3.png */; };
-		B3ECE80E2A729B5D00AABF89 /* Person.png in Resources */ = {isa = PBXBuildFile; fileRef = B3ECE80B2A729B5D00AABF89 /* Person.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,9 +44,6 @@
 		B3ECE7FD2A725AB600AABF89 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		B3ECE7FE2A725AB600AABF89 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		B3ECE7FF2A725AB600AABF89 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
-		B3ECE8092A729B5D00AABF89 /* Music Note.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Music Note.png"; sourceTree = "<group>"; };
-		B3ECE80A2A729B5D00AABF89 /* Line Horizontal 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Line Horizontal 3.png"; sourceTree = "<group>"; };
-		B3ECE80B2A729B5D00AABF89 /* Person.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Person.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,9 +76,6 @@
 		B33C4BD12A6E50AA0098EE33 /* Pmu */ = {
 			isa = PBXGroup;
 			children = (
-				B3ECE80A2A729B5D00AABF89 /* Line Horizontal 3.png */,
-				B3ECE8092A729B5D00AABF89 /* Music Note.png */,
-				B3ECE80B2A729B5D00AABF89 /* Person.png */,
 				B3ECE7F62A725A7100AABF89 /* Font */,
 				B33C4BD22A6E50AA0098EE33 /* AppDelegate.swift */,
 				B33C4BD42A6E50AA0098EE33 /* SceneDelegate.swift */,
@@ -176,9 +167,6 @@
 				B3ECE8072A725AB600AABF89 /* Pretendard-Bold.otf in Resources */,
 				B33C4BDF2A6E50AB0098EE33 /* LaunchScreen.storyboard in Resources */,
 				B3ECE8042A725AB600AABF89 /* Pretendard-ExtraBold.otf in Resources */,
-				B3ECE80E2A729B5D00AABF89 /* Person.png in Resources */,
-				B3ECE80D2A729B5D00AABF89 /* Line Horizontal 3.png in Resources */,
-				B3ECE80C2A729B5D00AABF89 /* Music Note.png in Resources */,
 				B3ECE8052A725AB600AABF89 /* Pretendard-Light.otf in Resources */,
 				B33C4BDC2A6E50AB0098EE33 /* Assets.xcassets in Resources */,
 				B3ECE8002A725AB600AABF89 /* Pretendard-Regular.otf in Resources */,
