@@ -14,6 +14,14 @@
 		B33C4BDC2A6E50AB0098EE33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B33C4BDB2A6E50AB0098EE33 /* Assets.xcassets */; };
 		B33C4BDF2A6E50AB0098EE33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B33C4BDD2A6E50AB0098EE33 /* LaunchScreen.storyboard */; };
 		B33C4BE72A6E82600098EE33 /* SignUpViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B33C4BE62A6E82600098EE33 /* SignUpViewController.storyboard */; };
+		B37C51562A762AF000C5F93A /* MusicRecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C51552A762AF000C5F93A /* MusicRecommendViewController.swift */; };
+		B37C51582A763B1C00C5F93A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C51572A763B1C00C5F93A /* SignUpViewController.swift */; };
+		B3E36DE62A73AFD1000794F7 /* BaseTableBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36DE52A73AFD1000794F7 /* BaseTableBarController.swift */; };
+		B3E36DE82A73B59B000794F7 /* MusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36DE72A73B59B000794F7 /* MusicViewController.swift */; };
+		B3E36DEA2A73B5AC000794F7 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36DE92A73B5AC000794F7 /* ListViewController.swift */; };
+		B3E36DEC2A73B5BD000794F7 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36DEB2A73B5BD000794F7 /* MyPageViewController.swift */; };
+		B3E36DEE2A755D95000794F7 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36DED2A755D95000794F7 /* TableViewController.swift */; };
+		B3E36DF02A755DFD000794F7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36DEF2A755DFD000794F7 /* DetailViewController.swift */; };
 		B3ECE8002A725AB600AABF89 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B3ECE7F72A725AB600AABF89 /* Pretendard-Regular.otf */; };
 		B3ECE8012A725AB600AABF89 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B3ECE7F82A725AB600AABF89 /* Pretendard-SemiBold.otf */; };
 		B3ECE8022A725AB600AABF89 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = B3ECE7F92A725AB600AABF89 /* Pretendard-Medium.otf */; };
@@ -35,6 +43,14 @@
 		B33C4BDE2A6E50AB0098EE33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B33C4BE02A6E50AB0098EE33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B33C4BE62A6E82600098EE33 /* SignUpViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUpViewController.storyboard; sourceTree = "<group>"; };
+		B37C51552A762AF000C5F93A /* MusicRecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicRecommendViewController.swift; sourceTree = "<group>"; };
+		B37C51572A763B1C00C5F93A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		B3E36DE52A73AFD1000794F7 /* BaseTableBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableBarController.swift; sourceTree = "<group>"; };
+		B3E36DE72A73B59B000794F7 /* MusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicViewController.swift; sourceTree = "<group>"; };
+		B3E36DE92A73B5AC000794F7 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		B3E36DEB2A73B5BD000794F7 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		B3E36DED2A755D95000794F7 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		B3E36DEF2A755DFD000794F7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		B3ECE7F72A725AB600AABF89 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		B3ECE7F82A725AB600AABF89 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		B3ECE7F92A725AB600AABF89 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
@@ -79,12 +95,20 @@
 				B3ECE7F62A725A7100AABF89 /* Font */,
 				B33C4BD22A6E50AA0098EE33 /* AppDelegate.swift */,
 				B33C4BD42A6E50AA0098EE33 /* SceneDelegate.swift */,
-				B33C4BD62A6E50AA0098EE33 /* ViewController.swift */,
 				B33C4BD82A6E50AA0098EE33 /* Main.storyboard */,
 				B33C4BE62A6E82600098EE33 /* SignUpViewController.storyboard */,
 				B33C4BDB2A6E50AB0098EE33 /* Assets.xcassets */,
 				B33C4BDD2A6E50AB0098EE33 /* LaunchScreen.storyboard */,
 				B33C4BE02A6E50AB0098EE33 /* Info.plist */,
+				B33C4BD62A6E50AA0098EE33 /* ViewController.swift */,
+				B3E36DE52A73AFD1000794F7 /* BaseTableBarController.swift */,
+				B3E36DE72A73B59B000794F7 /* MusicViewController.swift */,
+				B3E36DE92A73B5AC000794F7 /* ListViewController.swift */,
+				B3E36DEB2A73B5BD000794F7 /* MyPageViewController.swift */,
+				B3E36DED2A755D95000794F7 /* TableViewController.swift */,
+				B3E36DEF2A755DFD000794F7 /* DetailViewController.swift */,
+				B37C51552A762AF000C5F93A /* MusicRecommendViewController.swift */,
+				B37C51572A763B1C00C5F93A /* SignUpViewController.swift */,
 			);
 			path = Pmu;
 			sourceTree = "<group>";
@@ -186,6 +210,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B37C51582A763B1C00C5F93A /* SignUpViewController.swift in Sources */,
+				B3E36DF02A755DFD000794F7 /* DetailViewController.swift in Sources */,
+				B3E36DE62A73AFD1000794F7 /* BaseTableBarController.swift in Sources */,
+				B3E36DE82A73B59B000794F7 /* MusicViewController.swift in Sources */,
+				B37C51562A762AF000C5F93A /* MusicRecommendViewController.swift in Sources */,
+				B3E36DEC2A73B5BD000794F7 /* MyPageViewController.swift in Sources */,
+				B3E36DEE2A755D95000794F7 /* TableViewController.swift in Sources */,
+				B3E36DEA2A73B5AC000794F7 /* ListViewController.swift in Sources */,
 				B33C4BD72A6E50AA0098EE33 /* ViewController.swift in Sources */,
 				B33C4BD32A6E50AA0098EE33 /* AppDelegate.swift in Sources */,
 				B33C4BD52A6E50AA0098EE33 /* SceneDelegate.swift in Sources */,

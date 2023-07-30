@@ -8,21 +8,12 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var profileImg: UIImageView!
-    @IBOutlet weak var nameLbl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        //getFontName()
-        
-        profileImg.layer.cornerRadius = 80
-        profileImg.clipsToBounds = true
-        
-        nameLbl.layer.cornerRadius = 10
-        nameLbl.clipsToBounds = true
+    
+        getFontName()
     }
     
     func getFontName() {
