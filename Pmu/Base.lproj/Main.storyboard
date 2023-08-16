@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="82k-80-djt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JlK-Z2-kqE">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
@@ -45,6 +45,9 @@
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" backgroundImage="kakaoLogin"/>
+                                <connections>
+                                    <action selector="logInBtnTapped:" destination="JlK-Z2-kqE" eventType="touchUpInside" id="gKX-nr-67y"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="I6h-sF-Bdr"/>
@@ -59,10 +62,13 @@
                             <constraint firstItem="A3B-iY-sDU" firstAttribute="leading" secondItem="I6h-sF-Bdr" secondAttribute="leading" constant="20" id="yEc-Oe-Mmu"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="logInBtn" destination="A3B-iY-sDU" id="gKW-oJ-Q3g"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aum-nD-r4y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="901.53846153846155" y="-27.014218009478672"/>
+            <point key="canvasLocation" x="1828" y="-27"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="AYE-98-STu">
@@ -110,7 +116,7 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="" image="chevron"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KR0-S2-QiW">
+                            <button opaque="NO" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KR0-S2-QiW">
                                 <rect key="frame" x="20" y="734" width="350" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="350" id="AX9-EC-198"/>
@@ -125,7 +131,7 @@
                                     <action selector="signUpBtnTapped:" destination="82k-80-djt" eventType="touchUpInside" id="ym2-5i-4yO"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JC0-Of-ATa">
+                            <button opaque="NO" contentMode="scaleAspectFit" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JC0-Of-ATa">
                                 <rect key="frame" x="20" y="654" width="350" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="6nw-hX-jKA"/>
@@ -187,7 +193,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vGX-cB-ixC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1667.6923076923076" y="-27.014218009478672"/>
+            <point key="canvasLocation" x="2594" y="-27"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tZR-Pr-4IJ">
@@ -319,7 +325,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MKi-hI-ADH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1668" y="644"/>
+            <point key="canvasLocation" x="2594" y="643"/>
         </scene>
         <!--Music View Controller-->
         <scene sceneID="7AK-HV-yPW">
@@ -343,7 +349,7 @@
                                     <color key="baseBackgroundColor" red="0.99607843139999996" green="0.8980392157" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="Nly-Cs-qkP" kind="presentation" id="B55-Eg-znI"/>
+                                    <segue destination="Nly-Cs-qkP" kind="presentation" modalPresentationStyle="fullScreen" id="vaW-Yr-Ign"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4MH-lT-3L1">
@@ -438,6 +444,7 @@
                     <connections>
                         <outlet property="musicButton" destination="LWj-dc-J3G" id="JL7-uQ-SRJ"/>
                         <outlet property="profileImg" destination="ST2-QK-CEQ" id="VwN-FN-F1j"/>
+                        <outlet property="textCountLbl" destination="vQe-05-CzS" id="Ssg-tj-u7t"/>
                         <outlet property="txtView" destination="4MH-lT-3L1" id="fmf-BA-e9B"/>
                     </connections>
                 </viewController>
@@ -445,10 +452,10 @@
             </objects>
             <point key="canvasLocation" x="4480" y="-533.17535545023691"/>
         </scene>
-        <!--View Controller-->
+        <!--Unregister View Controller-->
         <scene sceneID="W7W-Zl-lof">
             <objects>
-                <viewController id="644-xj-B8p" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UnregisterVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="644-xj-B8p" customClass="UnregisterViewController" customModule="Pmu" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fhg-o3-AG6">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -471,6 +478,9 @@
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="" image="chevron"/>
+                                <connections>
+                                    <action selector="backBtnTapped:" destination="644-xj-B8p" eventType="touchUpInside" id="UB0-Aw-b6G"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SuY-ps-e6o">
                                 <rect key="frame" x="20" y="734" width="350" height="56"/>
@@ -485,6 +495,9 @@
                                     <fontDescription key="titleFontDescription" name="Pretendard-Bold" family="Pretendard" pointSize="16"/>
                                     <color key="baseBackgroundColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="unregisterBtnTapped:" destination="644-xj-B8p" eventType="touchUpInside" id="pgq-Lj-oHe"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pFE-fX-MNN">
                                 <rect key="frame" x="20" y="131" width="350" height="72"/>
@@ -532,27 +545,32 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="EE1-Ub-ueb"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="backBtn" destination="bX7-Wb-klF" id="q7M-hV-ulw"/>
+                        <outlet property="unregisterBtn" destination="SuY-ps-e6o" id="fJ3-8g-pQR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E6m-9j-2rp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5305" y="195"/>
+            <point key="canvasLocation" x="5480" y="195"/>
         </scene>
         <!--Music Recommend View Controller-->
         <scene sceneID="Wec-8b-LYB">
             <objects>
                 <viewController storyboardIdentifier="MusicReco" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Nly-Cs-qkP" customClass="MusicRecommendViewController" customModule="Pmu" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pf3-s6-NIa">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="834"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sample" translatesAutoresizingMaskIntoConstraints="NO" id="tWS-LL-bG1">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="133.33333333333334"/>
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OMa-J8-PzC">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="133.33333333333334"/>
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Tti-kD-zRe">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="133.33333333333334"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sample" translatesAutoresizingMaskIntoConstraints="NO" id="jh6-JP-Vcr">
@@ -587,6 +605,9 @@
                                             </constraints>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" image="heart"/>
+                                            <connections>
+                                                <action selector="heartBtnTapped:" destination="Nly-Cs-qkP" eventType="touchUpInside" id="0Fh-Od-6uV"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iau-kw-Dxo">
                                             <rect key="frame" x="20" y="67" width="48" height="48"/>
@@ -596,6 +617,9 @@
                                             </constraints>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" image="dismiss"/>
+                                            <connections>
+                                                <action selector="dismissBtnTapped:" destination="Nly-Cs-qkP" eventType="touchUpInside" id="xdP-se-kuM"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="프로필 뮤직" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t7J-8K-IIo">
                                             <rect key="frame" x="78" y="79" width="234" height="24"/>
@@ -730,6 +754,9 @@
                                             <fontDescription key="titleFontDescription" name="Pretendard-Medium" family="Pretendard" pointSize="16"/>
                                             <color key="baseBackgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="documentBtnTapped:" destination="qFk-YP-tFs" eventType="touchUpInside" id="tba-G7-twq"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2PL-VU-OHj">
                                         <rect key="frame" x="0.0" y="60" width="350" height="60"/>
@@ -753,6 +780,9 @@
                                             <fontDescription key="titleFontDescription" name="Pretendard-Medium" family="Pretendard" pointSize="16"/>
                                             <color key="baseBackgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="logOutBtnTapped:" destination="qFk-YP-tFs" eventType="touchUpInside" id="Dcv-SG-jWb"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E8n-ad-VIG">
                                         <rect key="frame" x="0.0" y="120" width="350" height="60"/>
@@ -776,6 +806,9 @@
                                             <fontDescription key="titleFontDescription" name="Pretendard-Medium" family="Pretendard" pointSize="16"/>
                                             <color key="baseBackgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="unregisterBtnTapped:" destination="qFk-YP-tFs" eventType="touchUpInside" id="SR0-kc-67i"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -801,7 +834,10 @@
                     <tabBarItem key="tabBarItem" title="" image="myPage" selectedImage="myPageFilled" id="dmL-O3-qpu"/>
                     <connections>
                         <outlet property="StackView" destination="cj8-cM-jRj" id="2sW-x8-rVT"/>
+                        <outlet property="documentBtn" destination="1sK-os-6wy" id="DPz-Sn-73F"/>
+                        <outlet property="logOutBtn" destination="2PL-VU-OHj" id="NxT-6X-SeC"/>
                         <outlet property="profileImg" destination="m1g-ZB-SrJ" id="XVU-e8-hWc"/>
+                        <outlet property="unregisterBtn" destination="E8n-ad-VIG" id="iGE-pA-Sje"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4gk-AT-cZ6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -811,12 +847,12 @@
         <!--Base Table Bar Controller-->
         <scene sceneID="BeP-QS-zcb">
             <objects>
-                <tabBarController storyboardIdentifier="Main" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eZ9-u3-44S" customClass="BaseTableBarController" customModule="Pmu" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="Main" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eZ9-u3-44S" customClass="BaseTableBarController" customModule="Pmu" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" itemPositioning="fill" id="vg1-WA-7Xj">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <tabBarAppearance key="standardAppearance"/>
                     </tabBar>
@@ -871,6 +907,9 @@
                                                         <fontDescription key="titleFontDescription" name="Pretendard-Bold" family="Pretendard" pointSize="16"/>
                                                         <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="youtubeBtnTapped:" destination="TRj-tJ-KUq" eventType="touchUpInside" id="wjv-bA-VAf"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m3B-iV-UTn">
                                                     <rect key="frame" x="322" y="67" width="48" height="48"/>
@@ -880,6 +919,9 @@
                                                     </constraints>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="heart"/>
+                                                    <connections>
+                                                        <action selector="heartBtnTapped:" destination="TRj-tJ-KUq" eventType="touchUpInside" id="pjd-fE-aSM"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJk-Nk-mdU">
                                                     <rect key="frame" x="20" y="67" width="48" height="48"/>
@@ -889,6 +931,9 @@
                                                     </constraints>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="dismiss"/>
+                                                    <connections>
+                                                        <action selector="dismissBtnTapped:" destination="TRj-tJ-KUq" eventType="touchUpInside" id="1cC-8D-3HH"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="프로필 뮤직" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wRf-Gz-aEy">
                                                     <rect key="frame" x="78" y="79" width="234" height="24"/>
@@ -965,20 +1010,25 @@
                         <viewLayoutGuide key="safeArea" id="5Ld-bI-Ni8"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="h8m-Wo-q4f"/>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="h8m-Wo-q4f"/>
+                    <connections>
+                        <outlet property="dismissBtn" destination="BJk-Nk-mdU" id="ZVF-VY-xNV"/>
+                        <outlet property="heartBtn" destination="m3B-iV-UTn" id="IoJ-CS-gjz"/>
+                        <outlet property="youtubeBtn" destination="0sC-YE-45P" id="5Nx-xb-Bc4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fDY-iP-abe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6552" y="-1273"/>
         </scene>
-        <!--Table View Controller-->
+        <!--플레이리스트-->
         <scene sceneID="rfK-vY-Kax">
             <objects>
-                <tableViewController id="Dg2-1p-JXT" customClass="TableViewController" customModule="Pmu" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="uXg-Yd-SMY">
+                <tableViewController storyboardIdentifier="ListVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dg2-1p-JXT" customClass="TableViewController" customModule="Pmu" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="uXg-Yd-SMY">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="3uA-nC-RZY">
                             <rect key="frame" x="0.0" y="0.0" width="390" height="98"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1015,7 +1065,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="80" id="kLL-qN-vbL">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Tablecell" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Tablecell" rowHeight="80" id="kLL-qN-vbL">
                                 <rect key="frame" x="0.0" y="148" width="390" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kLL-qN-vbL" id="Ed5-TL-y1c">
@@ -1062,7 +1112,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="TRj-tJ-KUq" kind="show" id="dyj-q0-5p0"/>
+                                    <segue destination="TRj-tJ-KUq" kind="presentation" modalPresentationStyle="fullScreen" id="3dy-Ue-BIP"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1071,7 +1121,7 @@
                             <outlet property="delegate" destination="Dg2-1p-JXT" id="U7y-3e-UbH"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="8rS-RC-aJg"/>
+                    <navigationItem key="navigationItem" title="플레이리스트" largeTitleDisplayMode="never" id="8rS-RC-aJg"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iQD-X2-fOM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1081,13 +1131,22 @@
         <scene sceneID="gFn-nd-oC8">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cpJ-hc-FGB" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="" image="list" selectedImage="listFilled" id="bMM-Gr-6Wn"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LGk-1p-w18">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="Pretendard-Bold" family="Pretendard" pointSize="18"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="h03-Uf-h9E">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="Dg2-1p-JXT" kind="relationship" relationship="rootViewController" id="kav-md-zmk"/>
                     </connections>
@@ -1232,6 +1291,110 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cad-gJ-Xb5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6551" y="-533"/>
+        </scene>
+        <!--Unregister View Controller-->
+        <scene sceneID="HI3-Sa-pvR">
+            <objects>
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="mdd-6u-FLl" customClass="UnregisterViewController" customModule="Pmu" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TQ5-7g-2UU">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="회원탈퇴" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CYS-es-HOi">
+                                <rect key="frame" x="75" y="67" width="240" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="9Pl-ea-Ar5"/>
+                                    <constraint firstAttribute="width" constant="240" id="YOZ-PC-5Dl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Pretendard-Bold" family="Pretendard" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qao-0P-n8b">
+                                <rect key="frame" x="20" y="67" width="24" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="P73-TG-aE5"/>
+                                    <constraint firstAttribute="width" constant="24" id="Y0a-Ju-EGO"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="" image="chevron"/>
+                                <connections>
+                                    <action selector="backBtnTapped:" destination="mdd-6u-FLl" eventType="touchUpInside" id="wgA-8F-Pv3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oU8-x0-u2L">
+                                <rect key="frame" x="20" y="734" width="350" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="x3f-E9-lRy"/>
+                                    <constraint firstAttribute="width" constant="350" id="zGI-Wk-e8i"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="탈퇴하기">
+                                    <backgroundConfiguration key="background" cornerRadius="12"/>
+                                    <fontDescription key="titleFontDescription" name="Pretendard-Bold" family="Pretendard" pointSize="16"/>
+                                    <color key="baseBackgroundColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="unregisterBtnTapped:" destination="mdd-6u-FLl" eventType="touchUpInside" id="XeI-i5-4cu"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8V2-NU-swW">
+                                <rect key="frame" x="20" y="131" width="350" height="72"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="350" id="4DW-3x-7ls"/>
+                                    <constraint firstAttribute="height" constant="72" id="dbu-x2-7K4"/>
+                                </constraints>
+                                <string key="text">계정을 
+탈퇴하시겠습니까?</string>
+                                <fontDescription key="fontDescription" name="Pretendard-Bold" family="Pretendard" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YA5-bP-qCp">
+                                <rect key="frame" x="20" y="215" width="350" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="350" id="MS5-dz-xw1"/>
+                                    <constraint firstAttribute="height" constant="48" id="Rdc-7C-guK"/>
+                                </constraints>
+                                <string key="text">계정 탈퇴 시, 데이터는 전부 삭제되며 
+복구 불가능 합니다.</string>
+                                <fontDescription key="fontDescription" name="Pretendard-Regular" family="Pretendard" pointSize="16"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="UVw-K6-1e0"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="8V2-NU-swW" firstAttribute="leading" secondItem="UVw-K6-1e0" secondAttribute="leading" constant="20" id="06K-f6-Ddb"/>
+                            <constraint firstItem="CYS-es-HOi" firstAttribute="leading" secondItem="qao-0P-n8b" secondAttribute="trailing" constant="31" id="3QS-i5-0R8"/>
+                            <constraint firstItem="UVw-K6-1e0" firstAttribute="trailing" secondItem="CYS-es-HOi" secondAttribute="trailing" constant="75" id="5qQ-D4-ocQ"/>
+                            <constraint firstItem="UVw-K6-1e0" firstAttribute="trailing" secondItem="8V2-NU-swW" secondAttribute="trailing" constant="20" id="ATk-B5-G1A"/>
+                            <constraint firstItem="qao-0P-n8b" firstAttribute="leading" secondItem="UVw-K6-1e0" secondAttribute="leading" constant="20" id="E2Z-Zp-YHD"/>
+                            <constraint firstItem="8V2-NU-swW" firstAttribute="top" secondItem="CYS-es-HOi" secondAttribute="bottom" constant="40" id="FPl-WK-FQ4"/>
+                            <constraint firstItem="UVw-K6-1e0" firstAttribute="trailing" secondItem="oU8-x0-u2L" secondAttribute="trailing" constant="20" id="IU7-tI-NSr"/>
+                            <constraint firstItem="oU8-x0-u2L" firstAttribute="top" secondItem="YA5-bP-qCp" secondAttribute="bottom" constant="471" id="Pbn-2T-kkn"/>
+                            <constraint firstItem="UVw-K6-1e0" firstAttribute="trailing" secondItem="YA5-bP-qCp" secondAttribute="trailing" constant="20" id="fRM-Xi-tK1"/>
+                            <constraint firstItem="YA5-bP-qCp" firstAttribute="top" secondItem="8V2-NU-swW" secondAttribute="bottom" constant="12" id="frd-nV-GcJ"/>
+                            <constraint firstItem="YA5-bP-qCp" firstAttribute="leading" secondItem="UVw-K6-1e0" secondAttribute="leading" constant="20" id="khf-bS-IbI"/>
+                            <constraint firstItem="oU8-x0-u2L" firstAttribute="leading" secondItem="UVw-K6-1e0" secondAttribute="leading" constant="20" id="mDf-Kg-u9D"/>
+                            <constraint firstAttribute="bottom" secondItem="oU8-x0-u2L" secondAttribute="bottom" constant="54" id="med-Ys-jDo"/>
+                            <constraint firstItem="CYS-es-HOi" firstAttribute="top" secondItem="UVw-K6-1e0" secondAttribute="top" constant="20" id="xK9-Mu-LQC"/>
+                            <constraint firstItem="qao-0P-n8b" firstAttribute="top" secondItem="UVw-K6-1e0" secondAttribute="top" constant="20" id="xRq-kW-fe4"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Uvh-jJ-wOW"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="backBtn" destination="qao-0P-n8b" id="cKc-rj-HVa"/>
+                        <outlet property="unregisterBtn" destination="oU8-x0-u2L" id="3XK-6h-nqG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vR8-oR-J8a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6551" y="195"/>
         </scene>
     </scenes>
     <resources>

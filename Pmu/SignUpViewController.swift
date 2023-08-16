@@ -77,16 +77,21 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func signUpBtnTapped(_ sender: UIButton) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        //let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         // 스토리보드 ID로 두 번째 뷰 컨트롤러 인스턴스화
-        if let MainVC = storyboard.instantiateViewController(withIdentifier: "Main") as? BaseTableBarController {
+        /* if let MainVC = storyboard.instantiateViewController(withIdentifier: "Main") as? BaseTableBarController {
             // 윈도우 씬을 찾아서 루트 뷰 컨트롤러 변경
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                 let window = windowScene.windows.first {
                 window.rootViewController = MainVC
             }
-        }
+        }*/
+        
+        let MainVC =  UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "Main")
+        
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(MainVC, animated: true)
     }
     
     

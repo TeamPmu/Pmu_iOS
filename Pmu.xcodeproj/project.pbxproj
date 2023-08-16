@@ -16,6 +16,7 @@
 		B33C4BE72A6E82600098EE33 /* SignUpViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B33C4BE62A6E82600098EE33 /* SignUpViewController.storyboard */; };
 		B37C51562A762AF000C5F93A /* MusicRecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C51552A762AF000C5F93A /* MusicRecommendViewController.swift */; };
 		B37C51582A763B1C00C5F93A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C51572A763B1C00C5F93A /* SignUpViewController.swift */; };
+		B394809C2A7E6BC90014C92D /* UnregisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394809B2A7E6BC90014C92D /* UnregisterViewController.swift */; };
 		B3E36DE62A73AFD1000794F7 /* BaseTableBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36DE52A73AFD1000794F7 /* BaseTableBarController.swift */; };
 		B3E36DE82A73B59B000794F7 /* MusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36DE72A73B59B000794F7 /* MusicViewController.swift */; };
 		B3E36DEA2A73B5AC000794F7 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36DE92A73B5AC000794F7 /* ListViewController.swift */; };
@@ -31,9 +32,12 @@
 		B3ECE8062A725AB600AABF89 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = B3ECE7FD2A725AB600AABF89 /* Pretendard-Thin.otf */; };
 		B3ECE8072A725AB600AABF89 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B3ECE7FE2A725AB600AABF89 /* Pretendard-Bold.otf */; };
 		B3ECE8082A725AB600AABF89 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = B3ECE7FF2A725AB600AABF89 /* Pretendard-ExtraLight.otf */; };
+		D779D965F164C364A4EB615C /* Pods_Pmu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66E80017FF209CCB83D32454 /* Pods_Pmu.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		66E80017FF209CCB83D32454 /* Pods_Pmu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pmu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		81097802FB0E747BBACF0CD4 /* Pods-Pmu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pmu.debug.xcconfig"; path = "Target Support Files/Pods-Pmu/Pods-Pmu.debug.xcconfig"; sourceTree = "<group>"; };
 		B33C4BCF2A6E50AA0098EE33 /* Pmu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pmu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B33C4BD22A6E50AA0098EE33 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B33C4BD42A6E50AA0098EE33 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +49,7 @@
 		B33C4BE62A6E82600098EE33 /* SignUpViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUpViewController.storyboard; sourceTree = "<group>"; };
 		B37C51552A762AF000C5F93A /* MusicRecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicRecommendViewController.swift; sourceTree = "<group>"; };
 		B37C51572A763B1C00C5F93A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		B394809B2A7E6BC90014C92D /* UnregisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisterViewController.swift; sourceTree = "<group>"; };
 		B3E36DE52A73AFD1000794F7 /* BaseTableBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableBarController.swift; sourceTree = "<group>"; };
 		B3E36DE72A73B59B000794F7 /* MusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicViewController.swift; sourceTree = "<group>"; };
 		B3E36DE92A73B5AC000794F7 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +65,7 @@
 		B3ECE7FD2A725AB600AABF89 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		B3ECE7FE2A725AB600AABF89 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		B3ECE7FF2A725AB600AABF89 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
+		D3FA6F5F931E88F28BA0A48A /* Pods-Pmu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pmu.release.xcconfig"; path = "Target Support Files/Pods-Pmu/Pods-Pmu.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D779D965F164C364A4EB615C /* Pods_Pmu.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,8 @@
 			children = (
 				B33C4BD12A6E50AA0098EE33 /* Pmu */,
 				B33C4BD02A6E50AA0098EE33 /* Products */,
+				D697E5548CB55D1A42B444DD /* Pods */,
+				CDB839B87BFC75AB5D3F5F79 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,14 +110,15 @@
 				B33C4BDD2A6E50AB0098EE33 /* LaunchScreen.storyboard */,
 				B33C4BE02A6E50AB0098EE33 /* Info.plist */,
 				B33C4BD62A6E50AA0098EE33 /* ViewController.swift */,
+				B37C51572A763B1C00C5F93A /* SignUpViewController.swift */,
 				B3E36DE52A73AFD1000794F7 /* BaseTableBarController.swift */,
 				B3E36DE72A73B59B000794F7 /* MusicViewController.swift */,
+				B37C51552A762AF000C5F93A /* MusicRecommendViewController.swift */,
 				B3E36DE92A73B5AC000794F7 /* ListViewController.swift */,
-				B3E36DEB2A73B5BD000794F7 /* MyPageViewController.swift */,
 				B3E36DED2A755D95000794F7 /* TableViewController.swift */,
 				B3E36DEF2A755DFD000794F7 /* DetailViewController.swift */,
-				B37C51552A762AF000C5F93A /* MusicRecommendViewController.swift */,
-				B37C51572A763B1C00C5F93A /* SignUpViewController.swift */,
+				B3E36DEB2A73B5BD000794F7 /* MyPageViewController.swift */,
+				B394809B2A7E6BC90014C92D /* UnregisterViewController.swift */,
 			);
 			path = Pmu;
 			sourceTree = "<group>";
@@ -129,6 +139,23 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
+		CDB839B87BFC75AB5D3F5F79 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				66E80017FF209CCB83D32454 /* Pods_Pmu.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D697E5548CB55D1A42B444DD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				81097802FB0E747BBACF0CD4 /* Pods-Pmu.debug.xcconfig */,
+				D3FA6F5F931E88F28BA0A48A /* Pods-Pmu.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -136,9 +163,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B33C4BE32A6E50AB0098EE33 /* Build configuration list for PBXNativeTarget "Pmu" */;
 			buildPhases = (
+				7994C6DE140B1D27CC5C8334 /* [CP] Check Pods Manifest.lock */,
 				B33C4BCB2A6E50AA0098EE33 /* Sources */,
 				B33C4BCC2A6E50AA0098EE33 /* Frameworks */,
 				B33C4BCD2A6E50AA0098EE33 /* Resources */,
+				883C7E7B18C430ED099A701A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -205,11 +234,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7994C6DE140B1D27CC5C8334 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pmu-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		883C7E7B18C430ED099A701A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pmu/Pods-Pmu-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pmu/Pods-Pmu-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pmu/Pods-Pmu-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B33C4BCB2A6E50AA0098EE33 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B394809C2A7E6BC90014C92D /* UnregisterViewController.swift in Sources */,
 				B37C51582A763B1C00C5F93A /* SignUpViewController.swift in Sources */,
 				B3E36DF02A755DFD000794F7 /* DetailViewController.swift in Sources */,
 				B3E36DE62A73AFD1000794F7 /* BaseTableBarController.swift in Sources */,
@@ -362,6 +434,7 @@
 		};
 		B33C4BE42A6E50AB0098EE33 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 81097802FB0E747BBACF0CD4 /* Pods-Pmu.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -389,6 +462,7 @@
 		};
 		B33C4BE52A6E50AB0098EE33 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D3FA6F5F931E88F28BA0A48A /* Pods-Pmu.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

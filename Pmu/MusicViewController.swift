@@ -13,6 +13,7 @@ class MusicViewController: UIViewController {
     @IBOutlet weak var profileImg: UIImageView!
     @IBOutlet weak var txtView: UITextView!
     @IBOutlet weak var musicButton: UIButton!
+    @IBOutlet weak var textCountLbl: UILabel!
     
     let borderGray = UIColor(red: 245, green: 245, blue: 245, alpha: 1)
     
@@ -28,13 +29,16 @@ class MusicViewController: UIViewController {
         txtView.clipsToBounds = true
                
         //처음 화면이 로드되었을 때 플레이스 홀더처럼 보이게끔 만들어주기
-        txtView.text = "프로필 사진 찍을 때 어떤 기분이셨나요?\n알려주세요!(최대 150자)"
+        txtView.text = "프로필 사진 찍을 때 어떤 기분이셨나요?\n알려주세요! (최대 150자)"
         txtView.textColor = UIColor.lightGray
-               
                
         //텍스트뷰가 구분되게끔 테두리를 주도록 하겠습니다.
         txtView.layer.borderWidth = 1
         txtView.layer.borderColor = borderGray.cgColor
+        
+        
+        // UITextView의 delegate를 설정
+        txtView.delegate = self
     }
     /*
     @IBAction func musicBtnTapped(_ sender: UIButton) {
@@ -52,9 +56,8 @@ class MusicViewController: UIViewController {
     */
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            self.txtView.resignFirstResponder()
-        }
-    
+        self.txtView.resignFirstResponder()
+    }
     
 }
 
@@ -72,6 +75,19 @@ extension MusicViewController: UITextViewDelegate {
         if txtView.textColor == UIColor.lightGray {
             txtView.text = nil
             txtView.textColor = UIColor.black
+        }
+    }
+    
+    // UITextView의 텍스트가 변경될 때마다 호출되는 메서드
+    func textViewDidChange(_ textView: UITextView) {
+        // 현재 텍스트 뷰의 텍스트 길이를 가져와서 라벨에 표시
+        let text = textView.text
+        let characterCount = text?.count ?? 0
+        textCountLbl.text = "\(characterCount)"
+        
+        // 최대 글자 수를 초과하면 입력 방지
+        if characterCount > 150 {
+            textView.deleteBackward()
         }
     }
 }

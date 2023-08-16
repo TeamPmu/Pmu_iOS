@@ -9,13 +9,58 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    @IBOutlet weak var heartBtn: UIButton!
+    @IBOutlet weak var dismissBtn: UIButton!
+    @IBOutlet weak var youtubeBtn: UIButton!
+    
+    var num = 0
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        //self.navigationController?.isNavigationBarHidden = true
     }
     
-
+    @IBAction func heartBtnTapped(_ sender: UIButton) {
+        if num % 2 == 0 {
+            heartBtn.setImage(UIImage(named: "heartYellow"), for: .normal)
+            num+=1
+            
+        } else {
+            heartBtn.setImage(UIImage(named: "heart"), for: .normal)
+            num+=1
+        }
+    }
+    
+    @IBAction func dismissBtnTapped(_ sender: UIButton) {
+        
+        /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        // 스토리보드 ID로 두 번째 뷰 컨트롤러 인스턴스화
+        if let MusicVC = storyboard.instantiateViewController(withIdentifier: "ListVC") as? BaseTableBarController {
+            // 윈도우 씬을 찾아서 루트 뷰 컨트롤러 변경
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                let window = windowScene.windows.first {
+                window.rootViewController = MusicVC
+            }
+        }*/
+        
+        // 버튼을 누를 때 이전 화면으로 이동
+        //navigationController?.popViewController(animated: true)
+        
+        self.dismiss(animated: true, completion: nil)
+        
+    }
+    
+    @IBAction func youtubeBtnTapped(_ sender: UIButton) {
+        if let url = URL(string: "https://www.youtube.com/") {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
