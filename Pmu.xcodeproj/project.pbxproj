@@ -16,7 +16,12 @@
 		B33C4BE72A6E82600098EE33 /* SignUpViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B33C4BE62A6E82600098EE33 /* SignUpViewController.storyboard */; };
 		B37C51562A762AF000C5F93A /* MusicRecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C51552A762AF000C5F93A /* MusicRecommendViewController.swift */; };
 		B37C51582A763B1C00C5F93A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C51572A763B1C00C5F93A /* SignUpViewController.swift */; };
+		B3943E792A8FA13200D1AAB6 /* KakaoLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3943E782A8FA13200D1AAB6 /* KakaoLoginService.swift */; };
+		B3943E7B2A8FA5F400D1AAB6 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3943E7A2A8FA5F400D1AAB6 /* NetworkHelper.swift */; };
 		B394809C2A7E6BC90014C92D /* UnregisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394809B2A7E6BC90014C92D /* UnregisterViewController.swift */; };
+		B397723B2A8CBAD40026A6CC /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B397723A2A8CBAD40026A6CC /* APIConstants.swift */; };
+		B39772412A8CDD4B0026A6CC /* KakaoLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39772402A8CDD4B0026A6CC /* KakaoLoginResponse.swift */; };
+		B39772432A8CE5860026A6CC /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39772422A8CE5860026A6CC /* NetworkResult.swift */; };
 		B3E36DE62A73AFD1000794F7 /* BaseTableBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36DE52A73AFD1000794F7 /* BaseTableBarController.swift */; };
 		B3E36DE82A73B59B000794F7 /* MusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36DE72A73B59B000794F7 /* MusicViewController.swift */; };
 		B3E36DEA2A73B5AC000794F7 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36DE92A73B5AC000794F7 /* ListViewController.swift */; };
@@ -49,7 +54,12 @@
 		B33C4BE62A6E82600098EE33 /* SignUpViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUpViewController.storyboard; sourceTree = "<group>"; };
 		B37C51552A762AF000C5F93A /* MusicRecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicRecommendViewController.swift; sourceTree = "<group>"; };
 		B37C51572A763B1C00C5F93A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		B3943E782A8FA13200D1AAB6 /* KakaoLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KakaoLoginService.swift; path = ../KakaoLoginService.swift; sourceTree = "<group>"; };
+		B3943E7A2A8FA5F400D1AAB6 /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		B394809B2A7E6BC90014C92D /* UnregisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisterViewController.swift; sourceTree = "<group>"; };
+		B397723A2A8CBAD40026A6CC /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
+		B39772402A8CDD4B0026A6CC /* KakaoLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginResponse.swift; sourceTree = "<group>"; };
+		B39772422A8CE5860026A6CC /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		B3E36DE52A73AFD1000794F7 /* BaseTableBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableBarController.swift; sourceTree = "<group>"; };
 		B3E36DE72A73B59B000794F7 /* MusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicViewController.swift; sourceTree = "<group>"; };
 		B3E36DE92A73B5AC000794F7 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -119,8 +129,21 @@
 				B3E36DEF2A755DFD000794F7 /* DetailViewController.swift */,
 				B3E36DEB2A73B5BD000794F7 /* MyPageViewController.swift */,
 				B394809B2A7E6BC90014C92D /* UnregisterViewController.swift */,
+				B3943E772A8F93FF00D1AAB6 /* Models */,
+				B397723A2A8CBAD40026A6CC /* APIConstants.swift */,
+				B39772422A8CE5860026A6CC /* NetworkResult.swift */,
+				B3943E782A8FA13200D1AAB6 /* KakaoLoginService.swift */,
+				B3943E7A2A8FA5F400D1AAB6 /* NetworkHelper.swift */,
 			);
 			path = Pmu;
+			sourceTree = "<group>";
+		};
+		B3943E772A8F93FF00D1AAB6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B39772402A8CDD4B0026A6CC /* KakaoLoginResponse.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		B3ECE7F62A725A7100AABF89 /* Font */ = {
@@ -281,16 +304,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B39772412A8CDD4B0026A6CC /* KakaoLoginResponse.swift in Sources */,
 				B394809C2A7E6BC90014C92D /* UnregisterViewController.swift in Sources */,
 				B37C51582A763B1C00C5F93A /* SignUpViewController.swift in Sources */,
+				B397723B2A8CBAD40026A6CC /* APIConstants.swift in Sources */,
 				B3E36DF02A755DFD000794F7 /* DetailViewController.swift in Sources */,
 				B3E36DE62A73AFD1000794F7 /* BaseTableBarController.swift in Sources */,
 				B3E36DE82A73B59B000794F7 /* MusicViewController.swift in Sources */,
+				B39772432A8CE5860026A6CC /* NetworkResult.swift in Sources */,
 				B37C51562A762AF000C5F93A /* MusicRecommendViewController.swift in Sources */,
 				B3E36DEC2A73B5BD000794F7 /* MyPageViewController.swift in Sources */,
+				B3943E7B2A8FA5F400D1AAB6 /* NetworkHelper.swift in Sources */,
 				B3E36DEE2A755D95000794F7 /* TableViewController.swift in Sources */,
 				B3E36DEA2A73B5AC000794F7 /* ListViewController.swift in Sources */,
 				B33C4BD72A6E50AA0098EE33 /* ViewController.swift in Sources */,
+				B3943E792A8FA13200D1AAB6 /* KakaoLoginService.swift in Sources */,
 				B33C4BD32A6E50AA0098EE33 /* AppDelegate.swift in Sources */,
 				B33C4BD52A6E50AA0098EE33 /* SceneDelegate.swift in Sources */,
 			);

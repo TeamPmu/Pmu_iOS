@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        getFontName()
+        //getFontName()
     }
     
     /*func setUserInfo() {
@@ -86,9 +86,9 @@ class ViewController: UIViewController {
                         SignUpVC.modalPresentationStyle = .fullScreen
                         self.present(SignUpVC, animated: true, completion: nil)
                     
-                    //UserDefaults.standard.set(_ = oauthToken, forKey: "token")
+                    UserDefaults.standard.set(_ = oauthToken, forKey: "token")
                     
-                    //print(type(of: oauthToken))
+                    print(type(of: oauthToken))
                 }
             }
         }
@@ -101,7 +101,7 @@ class ViewController: UIViewController {
                 } else {
                     print("카카오 계정으로 로그인 성공")
                     _ = oauthToken
-                    //UserDefaults.standard.set(_ = oauthToken, forKey: "token")
+                    UserDefaults.standard.set(_ = oauthToken, forKey: "token")
                     
                     guard let SignUpVC = self.storyboard?.instantiateViewController(withIdentifier: "SignUp") as? SignUpViewController else { return }
                         // 화면 전환 애니메이션 설정
@@ -112,10 +112,19 @@ class ViewController: UIViewController {
                 }
             }
         }
+        signIn()
     }
     
+    // Helper method to display alerts
+        func showAlert(title: String, message: String) {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+        }
+    
 
-    func getFontName() {
+    /*func getFontName() {
             for family in UIFont.familyNames {
 
                 let sName: String = family as String
@@ -125,6 +134,35 @@ class ViewController: UIViewController {
                     print("name: \(name as String)")
                 }
             }
+        }*/
+    
+    
+}
+
+extension ViewController {
+    func signIn() {
+        KakaoLoginService.shared.login { result in
+            switch result {
+            case .success(_):
+                print("로그인 성공")
+            case .badRequest: //400 잘못된 요청
+                print("400 잘못된 요청")
+            case .unauthorized: //401 리소스 접근 권한 없음, 토큰 조회 오류
+                print("401 리소스 접근 권한 없음, 토큰 조회 오류")
+            case .forbidden: // 403 리소스 접근 권한 없음
+                print("403 리소스 접근 권한 없음")
+            case .notFound: //404 엔티티 없거나, 회원 찾기 불가
+                print("404 엔티티 없거나, 회원 찾기 불가")
+            case .methodNotAllowed: //405 잘못된 HTTP method 요청
+                print("405 잘못된 HTTP method 요청")
+            case .conflict: //409 이미 존재하는 리소스
+                print("409 이미 존재하는 리소스")
+            case .internalServerError: // 500 서버 내부 오류
+                print("500 서버 내부 오류")
+            case .unknown:
+                print("실패")
+            }
         }
+    }
 }
 
