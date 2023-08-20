@@ -11,7 +11,7 @@ struct APIConstants {
     
     // MARK: - base URL
     
-    static let baseURL = "http://127.0.0.1:8080"
+    static let baseURL = "http://3.39.18.66:8080"
     
     // MARK: - Kakao
     

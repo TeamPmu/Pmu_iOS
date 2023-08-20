@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NetworkHelper {
+/*struct NetworkHelper {
     private init() {}
     
     // 상태 코드와 데이터, decoding type을 가지고 통신의 결과를 핸들링하는 함수
@@ -28,4 +28,4 @@ struct NetworkHelper {
         default: return .unknown
         }
     }
-}
+}*/

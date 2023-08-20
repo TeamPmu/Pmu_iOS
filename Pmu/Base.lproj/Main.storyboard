@@ -68,7 +68,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aum-nD-r4y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1828" y="-27"/>
+            <point key="canvasLocation" x="1843" y="-27"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="AYE-98-STu">
@@ -78,7 +78,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fsk-8N-E5x">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fsk-8N-E5x">
                                 <rect key="frame" x="20" y="331" width="350" height="60"/>
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -115,6 +115,9 @@
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="" image="chevron"/>
+                                <connections>
+                                    <action selector="backBtnTapped:" destination="82k-80-djt" eventType="touchUpInside" id="EfM-rY-GqU"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KR0-S2-QiW">
                                 <rect key="frame" x="20" y="734" width="350" height="56"/>
@@ -155,6 +158,12 @@
                                     <action selector="urlBtnTapped:" destination="82k-80-djt" eventType="touchUpInside" id="3Tb-ik-Are"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="이름" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UzS-18-96q">
+                                <rect key="frame" x="20" y="344" width="350" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gFd-hl-hX2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -184,8 +193,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backBtn" destination="tZp-qF-AIB" id="byW-gb-4WY"/>
                         <outlet property="checkBtn" destination="JC0-Of-ATa" id="cEg-B3-JV4"/>
                         <outlet property="nameLbl" destination="Fsk-8N-E5x" id="ycD-KQ-sIg"/>
+                        <outlet property="nameTextField" destination="UzS-18-96q" id="zkq-we-QyL"/>
                         <outlet property="profileImg" destination="rAK-ht-bsg" id="Y6n-H4-dfu"/>
                         <outlet property="signUpBtn" destination="KR0-S2-QiW" id="1EY-Mh-J0a"/>
                         <outlet property="urlBtn" destination="DiI-LF-k9Y" id="Tft-Nt-o7v"/>
@@ -193,7 +204,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vGX-cB-ixC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2594" y="-27"/>
+            <point key="canvasLocation" x="2608" y="-27"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tZR-Pr-4IJ">
@@ -273,7 +284,7 @@
                                 </constraints>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" title="회원가입">
+                                <buttonConfiguration key="configuration" style="gray" title="시작하기">
                                     <backgroundConfiguration key="background" cornerRadius="12"/>
                                     <fontDescription key="titleFontDescription" name="Pretendard-Bold" family="Pretendard" pointSize="16"/>
                                     <color key="baseBackgroundColor" red="0.99607843139999996" green="0.8980392157" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -325,7 +336,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MKi-hI-ADH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2594" y="643"/>
+            <point key="canvasLocation" x="2608" y="677"/>
         </scene>
         <!--Music View Controller-->
         <scene sceneID="7AK-HV-yPW">
