@@ -25,7 +25,7 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         profileImg.layer.cornerRadius = profileImg.frame.width / 2
@@ -37,34 +37,57 @@ class SignUpViewController: UIViewController {
         // 초기에 버튼을 비활성화
         signUpBtn.isEnabled = false
         
+        // 프로필 이미지 로드 및 설정 호출
+        loadProfileImage()
+        
+        // Add a tap gesture recognizer to the view
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+        
+        // Set the delegate of the text field
+        self.nameTextField.delegate = self
+        
     }
     
-    @IBAction func checkBtnTapped(_ sender: UIButton) {
-        
-        /*if checkBtn.backgroundColor == checkBackGround {
-            checkBtn.backgroundColor = UIColor.black
-            checkBtn.setTitle("이용약관에 동의합니다.", for: .normal)
-            checkBtn.setTitleColor(UIColor.white, for: .normal)
-            checkBtn.setImage(UIImage(named: "checkedmark"), for: .normal)
-            
-            // 버튼이 눌려진 상태일 때의 이미지와 텍스트 설정
-            checkBtn.setTitle("이용약관에 동의합니다.", for: .highlighted)
-            checkBtn.setTitleColor(UIColor.white, for: .highlighted)
-            checkBtn.setImage(UIImage(named: "checkedmark"), for: .highlighted)
+    @objc func dismissKeyboard() {
+        // Resign first responder status to dismiss the keyboard
+        self.nameTextField.resignFirstResponder()
+        self.view.endEditing(true)
+    }
+    
+    // 프로필 이미지 로드 및 설정하는 함수
+    func loadProfileImage() {
+        // KakaoLoginService 등의 다른 코드 내에서 데이터 사용 방법
+        if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
+            if let profileImgURLString = loginResponse.data.profileImageURL,
+               let profileImgURL = URL(string: profileImgURLString) {
+                print("프로필 이미지 URL: \(profileImgURLString)") // 디버그 출력
+                // 이미지 다운로드 및 설정
+                DispatchQueue.global().async { // 비동기적으로 이미지 다운로드 수행
+                    if let imageData = try? Data(contentsOf: profileImgURL),
+                       let profileImage = UIImage(data: imageData) {
+                        DispatchQueue.main.async { // 다운로드 완료 후 메인 쓰레드에서 UI 업데이트
+                            print("프로필 이미지 다운로드 및 설정 성공") // 디버그 출력
+                            self.profileImg.image = profileImage
+                        }
+                    } else {
+                        self.profileImg.image = UIImage(named: "myPageFilled")
+                        self.profileImg.backgroundColor = UIColor.gray
+                        print("프로필 이미지 다운로드 실패") // 디버그 출력
+                    }
+                }
+            } else {
+                self.profileImg.image = UIImage(named: "myPageFilled")
+                self.profileImg.backgroundColor = UIColor.gray
+                print("프로필 이미지 URL 변환 실패") // 디버그 출력
             }
-         
-        else {
-            checkBtn.backgroundColor = checkBackGround
-            checkBtn.setTitle("이용약관에 동의합니다.", for: .normal)
-            checkBtn.setTitleColor(UIColor.black, for: .normal)
-            checkBtn.setImage(UIImage(named: "checkmark"), for: .normal)
-            
-            // 버튼이 눌려진 상태일 때의 이미지와 텍스트 설정
-            checkBtn.setTitle("이용약관에 동의합니다.", for: .highlighted)
-            checkBtn.setTitleColor(UIColor.black, for: .highlighted)
-            checkBtn.setImage(UIImage(named: "checkmark"), for: .highlighted)
-            } */
-        
+        } else {
+            print("로그인 응답 데이터가 없음") // 디버그 출력
+        }
+    }
+       
+    @IBAction func checkBtnTapped(_ sender: UIButton) {
+
         if num % 2 == 0 {
             checkBtn.setImage(UIImage(named: "agreedbutton"), for: .normal)
             signUpBtn.setImage(UIImage(named: "signUpYellow"), for: .normal)
@@ -80,76 +103,19 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func signUpBtnTapped(_ sender: UIButton) {
-        //let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        // 스토리보드 ID로 두 번째 뷰 컨트롤러 인스턴스화
-        /* if let MainVC = storyboard.instantiateViewController(withIdentifier: "Main") as? BaseTableBarController {
-            // 윈도우 씬을 찾아서 루트 뷰 컨트롤러 변경
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                let window = windowScene.windows.first {
-                window.rootViewController = MainVC
-            }
-        }*/
-        
-       /* if let inputText = nameTextField.text {
-            // inputText에 UITextField에서 입력한 문자열이 저장됩니다.
-            print("입력값: \(inputText)")
-        }
-        
-        if let savedToken = UserDefaults.standard.string(forKey: "token") {
-            if let nickname = nameTextField.text {
-                signUp(with: savedToken, nickname: nickname)
-                print(nickname)
-            }
-        } else {
-            // 토큰이 없는 경우 처리
-            print("처리 불가")
-        }
-        
-        let MainVC =  UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewController(withIdentifier: "Main")
-        
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(MainVC, animated: true)*/
-        
         if let savedToken = UserDefaults.standard.string(forKey: "token"), let nickname = nameTextField.text {
-            // 토큰이 있는 경우 회원 가입 시도
-            signUp(with: savedToken, nickname: nickname)
+                    // 토큰이 있는 경우 회원 가입 시도
+                    signUp(with: savedToken, nickname: nickname)
+                    
+                    print(savedToken)
+                    print(nickname)
             
-            print(savedToken)
-            // 회원 가입이 성공하면 현재 화면을 종료하고 메인 화면으로 이동
-            /*self.dismiss(animated: true) {
-                let MainVC = UIStoryboard(name: "Main", bundle: nil)
-                    .instantiateViewController(withIdentifier: "Main")
-                
-                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
-                    .changeRootViewController(MainVC, animated: true)
-            }*/
             
-            print(nickname)
-        } else {
-            // 토큰이 없는 경우 처리
-            print("토큰이 없어 회원 가입을 진행할 수 없습니다.")
-        }
+                } else {
+                    // 토큰이 없는 경우 처리
+                    print("토큰이 없어 회원 가입을 진행할 수 없습니다.")
+                }
     }
-    
- /*   func signUp(with token: String, nickname: String) {
-        // 이 함수 내에서 KakaoLoginService의 signUp 메서드를 호출하면서 토큰과 닉네임을 전달합니다.
-        KakaoLoginService.signUp(auth: token, nickname: nickname) { networkResult in
-            switch networkResult {
-            case .success(_):
-                // 가입 성공 시 처리
-                print("가입 성공")
-            case .requestErr(_):
-                print("requestErr")
-            case .pathErr:
-                print("pathErr")
-            case .serverErr:
-                print("serverErr")
-            case .networkFail:
-                print("networkFail")
-            }
-        }
-    } */
     
     func signUp(with token: String, nickname: String) {
         // 이 함수 내에서 KakaoLoginService의 signUp 메서드를 호출하면서 토큰과 닉네임을 전달합니다.
@@ -157,28 +123,32 @@ class SignUpViewController: UIViewController {
             guard let self = self else { return }
             
             switch networkResult {
-            case .success(_):
+            case .success(let kakaoResponse):
                 // 가입 성공 시 처리
                 print("가입 성공")
                 
+                // Response 값 출력
+                print("Status: \(kakaoResponse.status)")
+                print("Message: \(kakaoResponse.message)")
+                print("AccessToken: \(kakaoResponse.data.accessToken)")
+                print("RefreshToken: \(kakaoResponse.data.refreshToken)")
+                print("UserID: \(kakaoResponse.data.userID)")
+                
                 // 회원 가입이 성공하면 현재 화면을 종료하고 메인 화면으로 이동
-                /*self.dismiss(animated: true) {
+                self.dismiss(animated: true) {
                     let MainVC = UIStoryboard(name: "Main", bundle: nil)
                         .instantiateViewController(withIdentifier: "Main")
                     
                     (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
                         .changeRootViewController(MainVC, animated: true)
-                }*/
+                }
                 
-                // 회원 정보가 있는 경우
-                let MainVC = UIStoryboard(name: "Main", bundle: nil)
-                    .instantiateViewController(withIdentifier: "Main")
-                
-                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(MainVC, animated: true)
-                
-            case .requestErr(_):
+            case .requestErr(let kakaoResponse):
                 print("sign up requestErr")
                 // 에러 처리 로직 추가
+                print("Status: \(kakaoResponse.status)")
+                print("Message: \(kakaoResponse.message)")
+                
             case .pathErr:
                 print("sign up pathErr")
                 // 에러 처리 로직 추가
@@ -209,4 +179,13 @@ class SignUpViewController: UIViewController {
         self.present(signUpVC, animated: true, completion: nil)
     }
     */
+}
+
+// UITextFieldDelegate method to dismiss keyboard when Return key is pressed
+extension SignUpViewController : UITextFieldDelegate{
+    
+func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+      textField.resignFirstResponder()
+      return true
+  }
 }

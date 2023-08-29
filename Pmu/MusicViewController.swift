@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 class MusicViewController: UIViewController {
     
@@ -14,24 +15,25 @@ class MusicViewController: UIViewController {
     @IBOutlet weak var txtView: UITextView!
     @IBOutlet weak var musicButton: UIButton!
     @IBOutlet weak var textCountLbl: UILabel!
+    @IBOutlet weak var nickNameLbl: UILabel!
     
     let borderGray = UIColor(red: 245, green: 245, blue: 245, alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        profileImg.layer.cornerRadius = 32
+        profileImg.layer.cornerRadius = profileImg.frame.size.width/2
         profileImg.clipsToBounds = true
         
         txtView.delegate = self
         
         txtView.layer.cornerRadius = 10
         txtView.clipsToBounds = true
-               
+        
         //처음 화면이 로드되었을 때 플레이스 홀더처럼 보이게끔 만들어주기
         txtView.text = "프로필 사진 찍을 때 어떤 기분이셨나요?\n알려주세요! (최대 150자)"
         txtView.textColor = UIColor.lightGray
-               
+        
         //텍스트뷰가 구분되게끔 테두리를 주도록 하겠습니다.
         txtView.layer.borderWidth = 1
         txtView.layer.borderColor = borderGray.cgColor
@@ -39,7 +41,15 @@ class MusicViewController: UIViewController {
         
         // UITextView의 delegate를 설정
         txtView.delegate = self
+        
+        // 프로필 이미지 로드 및 설정 호출
+        loadProfileImage()
+        
+        // Set the nickname label
+        setNickNameLabel()
+        //loadUsername()
     }
+    
     /*
     @IBAction func musicBtnTapped(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -54,6 +64,68 @@ class MusicViewController: UIViewController {
         }
     }
     */
+    
+    // 프로필 이미지 로드 및 설정하는 함수
+    func loadProfileImage() {
+        // KakaoLoginService 등의 다른 코드 내에서 데이터 사용 방법
+        if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
+            if let profileImgURLString = loginResponse.data.profileImageURL,
+               let profileImgURL = URL(string: profileImgURLString) {
+                print("프로필 이미지 URL: \(profileImgURLString)") // 디버그 출력
+                // 이미지 다운로드 및 설정
+                DispatchQueue.global().async { // 비동기적으로 이미지 다운로드 수행
+                    if let imageData = try? Data(contentsOf: profileImgURL),
+                       let profileImage = UIImage(data: imageData) {
+                        DispatchQueue.main.async { // 다운로드 완료 후 메인 쓰레드에서 UI 업데이트
+                            print("프로필 이미지 다운로드 및 설정 성공") // 디버그 출력
+                            self.profileImg.image = profileImage
+                        }
+                    } else {
+                        self.profileImg.image = UIImage(named: "myPageFilled")
+                        self.profileImg.backgroundColor = UIColor.gray
+                        print("프로필 이미지 다운로드 실패") // 디버그 출력
+                    }
+                }
+            } else {
+                self.profileImg.image = UIImage(named: "myPageFilled")
+                self.profileImg.backgroundColor = UIColor.gray
+                print("프로필 이미지 URL 변환 실패") // 디버그 출력
+            }
+        } else {
+            print("로그인 응답 데이터가 없음") // 디버그 출력
+        }
+    }
+    
+    /*func loadProfileImage() {
+        if let profileImageURL = KakaoDataManager.shared.getLoginResponse()?.data.profileImageURL {
+            // Alamofire를 사용하여 프로필 이미지 다운로드
+            AF.request(profileImageURL).responseImage { response in
+                switch response.result {
+                case .success(let image):
+                    self.profileImg.image = image
+                case .failure(let error):
+                    print("Error downloading profile image: \(error)")
+                }
+            }
+        }
+    }*/
+       
+    /*func loadUsername() {
+        if let username = KakaoDataManager.shared.getLoginResponse()?.data.nickname {
+            nickNameLbl.text = username
+        }*/
+    
+    
+    func setNickNameLabel() {
+        if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
+            let nickname = loginResponse.data.nickname
+            let formattedNickname = "\(nickname) 님을 위한"
+            print("변경된 닉네임: \(formattedNickname)") // 디버그 출력
+            nickNameLbl.text = formattedNickname
+        } else {
+            print("로그인 응답 데이터가 없음") // 디버그 출력
+        }
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.txtView.resignFirstResponder()

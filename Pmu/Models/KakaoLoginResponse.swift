@@ -30,7 +30,7 @@ struct KakaoLoginResponse: Codable {
 struct LoginData: Codable {
     let accessToken, refreshToken: String
     let userID: Int
-    let profileImageURL: String
+    let profileImageURL: String?
     let nickname: String
     
     enum CodingKeys: String, CodingKey {
@@ -40,3 +40,25 @@ struct LoginData: Codable {
         case nickname
     }
 }
+
+class KakaoDataManager {
+    static let shared = KakaoDataManager() // 싱글톤 인스턴스
+    
+    private init() {}
+    
+    // 데이터를 저장하는 프로퍼티
+    private var loginResponse: KakaoLoginResponse?
+    
+    // 데이터 업데이트 메서드
+    func updateLoginResponse(with response: KakaoLoginResponse) {
+        self.loginResponse = response
+        print("Login response updated: \(loginResponse)") // 디버그용 출력
+    }
+    
+    // 데이터를 가져오는 메서드
+    func getLoginResponse() -> KakaoLoginResponse? {
+        print("Getting login response: \(loginResponse)") // 디버그용 출력
+        return loginResponse
+    }
+}
+

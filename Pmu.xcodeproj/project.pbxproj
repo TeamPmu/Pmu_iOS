@@ -16,6 +16,7 @@
 		B33C4BE72A6E82600098EE33 /* SignUpViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B33C4BE62A6E82600098EE33 /* SignUpViewController.storyboard */; };
 		B37C51562A762AF000C5F93A /* MusicRecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C51552A762AF000C5F93A /* MusicRecommendViewController.swift */; };
 		B37C51582A763B1C00C5F93A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C51572A763B1C00C5F93A /* SignUpViewController.swift */; };
+		B388BC412A9CA47E0057615E /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B388BC402A9CA47E0057615E /* KeyChain.swift */; };
 		B3943E792A8FA13200D1AAB6 /* KakaoLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3943E782A8FA13200D1AAB6 /* KakaoLoginService.swift */; };
 		B3943E7B2A8FA5F400D1AAB6 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3943E7A2A8FA5F400D1AAB6 /* NetworkHelper.swift */; };
 		B394809C2A7E6BC90014C92D /* UnregisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394809B2A7E6BC90014C92D /* UnregisterViewController.swift */; };
@@ -54,6 +55,7 @@
 		B33C4BE62A6E82600098EE33 /* SignUpViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUpViewController.storyboard; sourceTree = "<group>"; };
 		B37C51552A762AF000C5F93A /* MusicRecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicRecommendViewController.swift; sourceTree = "<group>"; };
 		B37C51572A763B1C00C5F93A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		B388BC402A9CA47E0057615E /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
 		B3943E782A8FA13200D1AAB6 /* KakaoLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KakaoLoginService.swift; path = ../KakaoLoginService.swift; sourceTree = "<group>"; };
 		B3943E7A2A8FA5F400D1AAB6 /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		B394809B2A7E6BC90014C92D /* UnregisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisterViewController.swift; sourceTree = "<group>"; };
@@ -116,8 +118,8 @@
 				B33C4BD42A6E50AA0098EE33 /* SceneDelegate.swift */,
 				B33C4BD82A6E50AA0098EE33 /* Main.storyboard */,
 				B33C4BE62A6E82600098EE33 /* SignUpViewController.storyboard */,
-				B33C4BDB2A6E50AB0098EE33 /* Assets.xcassets */,
 				B33C4BDD2A6E50AB0098EE33 /* LaunchScreen.storyboard */,
+				B33C4BDB2A6E50AB0098EE33 /* Assets.xcassets */,
 				B33C4BE02A6E50AB0098EE33 /* Info.plist */,
 				B33C4BD62A6E50AA0098EE33 /* ViewController.swift */,
 				B37C51572A763B1C00C5F93A /* SignUpViewController.swift */,
@@ -134,6 +136,7 @@
 				B39772422A8CE5860026A6CC /* NetworkResult.swift */,
 				B3943E782A8FA13200D1AAB6 /* KakaoLoginService.swift */,
 				B3943E7A2A8FA5F400D1AAB6 /* NetworkHelper.swift */,
+				B388BC402A9CA47E0057615E /* KeyChain.swift */,
 			);
 			path = Pmu;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				B3E36DF02A755DFD000794F7 /* DetailViewController.swift in Sources */,
 				B3E36DE62A73AFD1000794F7 /* BaseTableBarController.swift in Sources */,
 				B3E36DE82A73B59B000794F7 /* MusicViewController.swift in Sources */,
+				B388BC412A9CA47E0057615E /* KeyChain.swift in Sources */,
 				B39772432A8CE5860026A6CC /* NetworkResult.swift in Sources */,
 				B37C51562A762AF000C5F93A /* MusicRecommendViewController.swift in Sources */,
 				B3E36DEC2A73B5BD000794F7 /* MyPageViewController.swift in Sources */,
@@ -468,6 +472,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5KGCPRX2P8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pmu/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -496,6 +501,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5KGCPRX2P8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pmu/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

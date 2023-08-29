@@ -63,7 +63,7 @@ struct KakaoLoginService {
                                      headers: headers)
         
         dataRequest.responseData(completionHandler: { (response) in
-            switch response.result{
+            switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else {
                     return
@@ -73,17 +73,24 @@ struct KakaoLoginService {
                 }
                 
                 print("Received response with Status Code: \(statusCode)")
+                print(response)
                 
                 let decoder = JSONDecoder()
-                guard let decodedData = try? decoder.decode(LoginData.self, from: data) else {return}
-                
-                let kakaoResponse = KakaoLoginResponse(status: statusCode, message: "", data: decodedData)
-                            
-                switch statusCode {
-                case 200..<300: completion(.success(kakaoResponse))
-                case 400..<500: completion(.requestErr(kakaoResponse))
-                case 500..<600: completion(.serverErr)
-                default: completion(.networkFail)
+                do {
+                    let decodedData = try decoder.decode(KakaoLoginResponse.self, from: data)
+                    
+                    switch statusCode {
+                    case 200..<300:
+                        // Update login response in KakaoDataManager
+                        KakaoDataManager.shared.updateLoginResponse(with: decodedData)
+                        completion(.success(decodedData))
+                    case 400..<500: completion(.requestErr(decodedData))
+                    case 500..<600: completion(.serverErr)
+                    default: completion(.networkFail)
+                    }
+                } catch {
+                    print("Decoding failed with error: \(error)")
+                    completion(.networkFail)
                 }
                 
             case .failure(let error):

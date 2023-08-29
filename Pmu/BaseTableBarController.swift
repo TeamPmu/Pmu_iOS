@@ -51,6 +51,17 @@ class BaseTableBarController: UITabBarController {
                 UITabBar.appearance().scrollEdgeAppearance = appearance
             }
         }*/
+    
+    /*if var response = KakaoLoginResponse {
+        // 성공 응답을 파싱하여 데이터에 접근
+        let loginData = response.data
+        print("로그인 성공")
+        print("AccessToken: \(loginData.accessToken)")
+        print("RefreshToken: \(loginData.refreshToken)")
+        print("UserID: \(loginData.userID)")
+        print("ProfileImageURL: \(loginData.profileImageURL)")
+        print("Nickname: \(loginData.nickname)")
+    }*/
 }
 
 /* extension BaseTableBarController: UITabBarControllerDelegate{

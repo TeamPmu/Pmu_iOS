@@ -15,6 +15,7 @@ class MyPageViewController: UIViewController {
     
     @IBOutlet weak var StackView: UIStackView!
     @IBOutlet weak var profileImg: UIImageView!
+    @IBOutlet weak var nickNameLbl: UILabel!
     
     @IBOutlet weak var documentBtn: UIButton!
     @IBOutlet weak var logOutBtn: UIButton!
@@ -24,12 +25,79 @@ class MyPageViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 
-        profileImg.layer.cornerRadius = 80
+        profileImg.layer.cornerRadius = profileImg.frame.size.width/2
         profileImg.clipsToBounds = true
         
         StackView.layer.cornerRadius = 10
         StackView.clipsToBounds = true
         
+        // 프로필 이미지 로드 및 설정하는 함수
+        loadProfileImage()
+        
+        setNickNameLabel()
+        
+    }
+    
+    // 프로필 이미지 로드 및 설정하는 함수
+    func loadProfileImage() {
+        // KakaoLoginService 등의 다른 코드 내에서 데이터 사용 방법
+        if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
+            if let profileImgURLString = loginResponse.data.profileImageURL,
+               let profileImgURL = URL(string: profileImgURLString) {
+                print("프로필 이미지 URL: \(profileImgURLString)") // 디버그 출력
+                // 이미지 다운로드 및 설정
+                DispatchQueue.global().async { // 비동기적으로 이미지 다운로드 수행
+                    if let imageData = try? Data(contentsOf: profileImgURL),
+                       let profileImage = UIImage(data: imageData) {
+                        DispatchQueue.main.async { // 다운로드 완료 후 메인 쓰레드에서 UI 업데이트
+                            print("프로필 이미지 다운로드 및 설정 성공") // 디버그 출력
+                            self.profileImg.image = profileImage
+                        }
+                    } else {
+                        self.profileImg.image = UIImage(named: "myPageFilled")
+                        self.profileImg.backgroundColor = UIColor.gray
+                        print("프로필 이미지 다운로드 실패") // 디버그 출력
+                    }
+                }
+            } else {
+                self.profileImg.image = UIImage(named: "myPageFilled")
+                self.profileImg.backgroundColor = UIColor.gray
+                print("프로필 이미지 URL 변환 실패") // 디버그 출력
+            }
+        } else {
+            print("로그인 응답 데이터가 없음") // 디버그 출력
+        }
+    }
+    
+    /*func loadProfileImage() {
+        if let profileImageURL = KakaoDataManager.shared.getLoginResponse()?.data.profileImageURL {
+            // Alamofire를 사용하여 프로필 이미지 다운로드
+            AF.request(profileImageURL).responseImage { response in
+                switch response.result {
+                case .success(let image):
+                    self.profileImg.image = image
+                case .failure(let error):
+                    print("Error downloading profile image: \(error)")
+                }
+            }
+        }
+    }*/
+       
+    /*func loadUsername() {
+        if let username = KakaoDataManager.shared.getLoginResponse()?.data.nickname {
+            nickNameLbl.text = username
+        }*/
+    
+    
+    func setNickNameLabel() {
+        if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
+            let nickname = loginResponse.data.nickname
+            let formattedNickname = nickname
+            print("변경된 닉네임: \(formattedNickname)") // 디버그 출력
+            nickNameLbl.text = formattedNickname
+        } else {
+            print("로그인 응답 데이터가 없음") // 디버그 출력
+        }
     }
     
     
