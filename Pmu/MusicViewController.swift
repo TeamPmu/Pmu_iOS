@@ -48,6 +48,19 @@ class MusicViewController: UIViewController {
         // Set the nickname label
         setNickNameLabel()
         //loadUsername()
+        
+        // 노티피케이션 수신 등록
+        NotificationCenter.default.addObserver(self, selector: #selector(clearTextView(_:)), name: NSNotification.Name("clearTextView"), object: nil)
+    }
+    
+    // 'clearTextView' 노티피케이션 수신 시 호출되는 메서드
+    @objc func clearTextView(_ notification: Notification) {
+        // 텍스트 뷰 초기화 작업
+        txtView.text = ""
+        
+        //처음 화면이 로드되었을 때 플레이스 홀더처럼 보이게끔 만들어주기
+        txtView.text = "프로필 사진 찍을 때 어떤 기분이셨나요?\n알려주세요! (최대 150자)"
+        txtView.textColor = UIColor.lightGray
     }
     
     /*

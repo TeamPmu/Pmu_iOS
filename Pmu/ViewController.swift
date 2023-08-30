@@ -29,6 +29,30 @@ class ViewController: UIViewController {
                 } else if let oauthToken = oauthToken {
                     print("loginWithKakaoTalk() success.")
                     
+                    //KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
+                    
+                    //self.presentSignUpViewController()
+                    
+                    if let savedToken = KeyChain.loadToken(forKey: "accessToken") {
+                        // 이미 저장된 토큰이 있는 경우 로그인 처리
+                        self.signIn(with: savedToken)
+                    } else {
+                        // AccessToken을 Keychain에 저장
+                        KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
+                        // 저장된 토큰이 없는 경우 회원가입 화면으로 이동
+                        self.presentSignUpViewController()
+                    }
+                }
+            }
+        }
+
+        /*if UserApi.isKakaoTalkLoginAvailable() {
+            UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
+                if let error = error {
+                    print(error)
+                } else if let oauthToken = oauthToken {
+                    print("loginWithKakaoTalk() success.")
+                    
                     // AccessToken을 Keychain에 저장
                     KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
                     
@@ -53,7 +77,7 @@ class ViewController: UIViewController {
                     //self.presentMainViewController()
                 }
             }
-        }
+        }*/
     }
     
     func checkAppMembershipAndProceed(with token: String) {

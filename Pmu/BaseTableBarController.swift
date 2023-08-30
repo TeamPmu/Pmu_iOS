@@ -10,6 +10,17 @@ import UIKit
 
 class BaseTableBarController: UITabBarController {
     
+    override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            // 탭 바 배경색 변경
+            tabBar.barTintColor = UIColor.white // 원하는 배경색으로 변경
+            
+            // 탭 바 경계(border) 제거
+            tabBar.layer.borderWidth = 0
+            tabBar.layer.borderColor = UIColor.clear.cgColor
+        }
+    
     //let titles = ["홈", "Shorts", "추가", "구독", "보관함"]
     
     /*let defaultImages = [UIImage(named: "music.png"),UIImage(named: "list.png"),UIImage(named: "myPage.png")]

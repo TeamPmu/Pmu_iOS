@@ -10,7 +10,7 @@ import Security
 
 class KeyChain {
     
-    static let serviceIdentifier: String = "YourAppIdentifier"
+    /*static let serviceIdentifier: String = "YourAppIdentifier"
     
     class func saveToken(_ token: String, forKey key: String) -> Bool {
         let query = [
@@ -56,7 +56,47 @@ class KeyChain {
         
         let status = SecItemDelete(query as CFDictionary)
         return status == errSecSuccess
-    }
+    }*/
+    
+    static func saveToken(_ token: String, forKey key: String) {
+            if let data = token.data(using: .utf8) {
+                let query: [String: Any] = [
+                    kSecClass as String: kSecClassGenericPassword as String,
+                    kSecAttrAccount as String: key,
+                    kSecValueData as String: data
+                ]
+                
+                SecItemDelete(query as CFDictionary)
+                SecItemAdd(query as CFDictionary, nil)
+            }
+        }
+        
+        static func loadToken(forKey key: String) -> String? {
+            let query: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword as String,
+                kSecAttrAccount as String: key,
+                kSecMatchLimit as String: kSecMatchLimitOne,
+                kSecReturnData as String: kCFBooleanTrue as CFBoolean
+            ]
+            
+            var dataTypeRef: AnyObject?
+            let status = SecItemCopyMatching(query as CFDictionary, &dataTypeRef)
+            
+            if status == errSecSuccess, let retrievedData = dataTypeRef as? Data, let token = String(data: retrievedData, encoding: .utf8) {
+                return token
+            } else {
+                return nil
+            }
+        }
+        
+        static func deleteToken(forKey key: String) {
+            let query: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword as String,
+                kSecAttrAccount as String: key
+            ]
+            
+            SecItemDelete(query as CFDictionary)
+        }
 }
 
 

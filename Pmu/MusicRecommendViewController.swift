@@ -59,7 +59,15 @@ class MusicRecommendViewController: UIViewController {
 
     @IBAction func dismissBtnTapped(_ sender: UIButton) {
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        //MusicViewController.txtView.text = "" // textView 초기화
+        
+        // 'clearTextView' Notification 보내기
+        NotificationCenter.default.post(name: NSNotification.Name("clearTextView"), object: nil)
+
+        
+        self.dismiss(animated: true, completion: nil)
+        
+       /* let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
         if let musicVC = storyboard.instantiateViewController(withIdentifier: "Main") as? BaseTableBarController {
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -73,7 +81,7 @@ class MusicRecommendViewController: UIViewController {
                     self.dismiss(animated: true, completion: nil)
                 }
             }
-        }
+        }*/
 
         
        /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -91,7 +99,7 @@ class MusicRecommendViewController: UIViewController {
         /*let MainVC =  UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(withIdentifier: "Main")
         
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(MainVC, animated: false)*/
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(MainVC, animated: true)*/
         
         // 버튼을 누를 때 이전 화면으로 이동
         

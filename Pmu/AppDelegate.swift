@@ -16,6 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         KakaoSDK.initSDK(appKey: "c81ad232b644d624526a8977ee6ea8c3")
         
+        // 탭 바 배경색 변경
+        UITabBar.appearance().barTintColor = UIColor.white
+        
+        // 탭 바 경계(border) 제거
+        UITabBar.appearance().layer.borderWidth = 0
+        UITabBar.appearance().layer.borderColor = UIColor.clear.cgColor
+        
         return true
     }
 

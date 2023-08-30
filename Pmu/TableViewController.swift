@@ -11,18 +11,23 @@ class TableViewController: UITableViewController {
 
     var data = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6","Item 7","Item 8", "Item 9"]
 
-       override func viewDidLoad() {
-           super.viewDidLoad()
-
-           tableView.delegate = self
-           tableView.dataSource = self
-           
-           //self.navigationController?.navigationBar.prefersLargeTitles = true
-           
-           //navigationBar bottom bolder line 제거하기
-           self.navigationController?.navigationBar.shadowImage = UIImage()
-
-       }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        //self.navigationController?.navigationBar.prefersLargeTitles = true
+        
+        //navigationBar bottom bolder line 제거하기
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        //navigationController?.isToolbarHidden = true
+        
+        // 빈 뷰를 생성하여 tableFooterView로 설정
+        //let emptyFooterView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 0))
+        //tableView.tableFooterView = emptyFooterView
+    }
     
 
        // MARK: - UITableViewDataSource

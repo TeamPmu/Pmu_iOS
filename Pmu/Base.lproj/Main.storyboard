@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eZ9-u3-44S">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JlK-Z2-kqE">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
@@ -1159,12 +1159,14 @@
             </objects>
             <point key="canvasLocation" x="5480" y="-1273.2227488151659"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Music List Navigation View Controller-->
         <scene sceneID="gFn-nd-oC8">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cpJ-hc-FGB" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cpJ-hc-FGB" customClass="MusicListNavigationViewController" customModule="Pmu" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="" image="list" selectedImage="listFilled" id="bMM-Gr-6Wn"/>
+                    <tabBarItem key="tabBarItem" title="" image="list" selectedImage="listFilled" id="bMM-Gr-6Wn">
+                        <color key="badgeColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LGk-1p-w18">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>

@@ -23,6 +23,7 @@
 		B397723B2A8CBAD40026A6CC /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B397723A2A8CBAD40026A6CC /* APIConstants.swift */; };
 		B39772412A8CDD4B0026A6CC /* KakaoLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39772402A8CDD4B0026A6CC /* KakaoLoginResponse.swift */; };
 		B39772432A8CE5860026A6CC /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39772422A8CE5860026A6CC /* NetworkResult.swift */; };
+		B3CA0F282A9E3C3E0037B598 /* MusicListNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA0F272A9E3C3E0037B598 /* MusicListNavigationViewController.swift */; };
 		B3E36DE62A73AFD1000794F7 /* BaseTableBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36DE52A73AFD1000794F7 /* BaseTableBarController.swift */; };
 		B3E36DE82A73B59B000794F7 /* MusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36DE72A73B59B000794F7 /* MusicViewController.swift */; };
 		B3E36DEA2A73B5AC000794F7 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36DE92A73B5AC000794F7 /* ListViewController.swift */; };
@@ -62,6 +63,7 @@
 		B397723A2A8CBAD40026A6CC /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		B39772402A8CDD4B0026A6CC /* KakaoLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginResponse.swift; sourceTree = "<group>"; };
 		B39772422A8CE5860026A6CC /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
+		B3CA0F272A9E3C3E0037B598 /* MusicListNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListNavigationViewController.swift; sourceTree = "<group>"; };
 		B3E36DE52A73AFD1000794F7 /* BaseTableBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableBarController.swift; sourceTree = "<group>"; };
 		B3E36DE72A73B59B000794F7 /* MusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicViewController.swift; sourceTree = "<group>"; };
 		B3E36DE92A73B5AC000794F7 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				B3E36DE52A73AFD1000794F7 /* BaseTableBarController.swift */,
 				B3E36DE72A73B59B000794F7 /* MusicViewController.swift */,
 				B37C51552A762AF000C5F93A /* MusicRecommendViewController.swift */,
+				B3CA0F272A9E3C3E0037B598 /* MusicListNavigationViewController.swift */,
 				B3E36DE92A73B5AC000794F7 /* ListViewController.swift */,
 				B3E36DED2A755D95000794F7 /* TableViewController.swift */,
 				B3E36DEF2A755DFD000794F7 /* DetailViewController.swift */,
@@ -313,6 +316,7 @@
 				B397723B2A8CBAD40026A6CC /* APIConstants.swift in Sources */,
 				B3E36DF02A755DFD000794F7 /* DetailViewController.swift in Sources */,
 				B3E36DE62A73AFD1000794F7 /* BaseTableBarController.swift in Sources */,
+				B3CA0F282A9E3C3E0037B598 /* MusicListNavigationViewController.swift in Sources */,
 				B3E36DE82A73B59B000794F7 /* MusicViewController.swift in Sources */,
 				B388BC412A9CA47E0057615E /* KeyChain.swift in Sources */,
 				B39772432A8CE5860026A6CC /* NetworkResult.swift in Sources */,

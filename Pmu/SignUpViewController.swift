@@ -103,14 +103,13 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func signUpBtnTapped(_ sender: UIButton) {
-        if let savedToken = UserDefaults.standard.string(forKey: "token"), let nickname = nameTextField.text {
+        if let savedToken = KeyChain.loadToken(forKey: "accessToken") /*UserDefaults.standard.string(forKey: "token")*/, let nickname = nameTextField.text {
                     // 토큰이 있는 경우 회원 가입 시도
                     signUp(with: savedToken, nickname: nickname)
                     
                     print(savedToken)
                     print(nickname)
-            
-            
+
                 } else {
                     // 토큰이 없는 경우 처리
                     print("토큰이 없어 회원 가입을 진행할 수 없습니다.")
@@ -124,42 +123,60 @@ class SignUpViewController: UIViewController {
             
             switch networkResult {
             case .success(let kakaoResponse):
-                // 가입 성공 시 처리
-                print("가입 성공")
-                
-                // Response 값 출력
-                print("Status: \(kakaoResponse.status)")
-                print("Message: \(kakaoResponse.message)")
-                print("AccessToken: \(kakaoResponse.data.accessToken)")
-                print("RefreshToken: \(kakaoResponse.data.refreshToken)")
-                print("UserID: \(kakaoResponse.data.userID)")
-                
-                // 회원 가입이 성공하면 현재 화면을 종료하고 메인 화면으로 이동
-                self.dismiss(animated: true) {
-                    let MainVC = UIStoryboard(name: "Main", bundle: nil)
-                        .instantiateViewController(withIdentifier: "Main")
+                if let response = kakaoResponse as? KakaoLoginResponse {
+                    let signUpData = response.data
                     
-                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
-                        .changeRootViewController(MainVC, animated: true)
+                    if !signUpData.accessToken.isEmpty {
+                        DispatchQueue.main.async {
+                            print("회원가입 성공")
+                            print("AccessToken: \(signUpData.accessToken)")
+                            print("RefreshToken: \(signUpData.refreshToken)")
+                            print("UserID: \(signUpData.userID)")
+                            print("ProfileImageURL: \(signUpData.profileImageURL)")
+                            print("Nickname: \(signUpData.nickname)")
+                            
+                            self.presentMainViewController()
+                        }
+                    } else {
+                        print("AccessToken is empty")
+                        DispatchQueue.main.async {
+                            self.showAlert(title: "signUp Error", message: "An error occurred while processing the response.")
+                        }
+                    }
+                } else {
+                    print("Response parsing error")
+                    DispatchQueue.main.async {
+                        self.showAlert(title: "signUp Error", message: "An error occurred while processing the response.")
+                    }
                 }
-                
-            case .requestErr(let kakaoResponse):
-                print("sign up requestErr")
-                // 에러 처리 로직 추가
-                print("Status: \(kakaoResponse.status)")
-                print("Message: \(kakaoResponse.message)")
-                
-            case .pathErr:
-                print("sign up pathErr")
-                // 에러 처리 로직 추가
-            case .serverErr:
-                print("sign up serverErr")
-                // 에러 처리 로직 추가
-            case .networkFail:
-                print("sign up networkFail")
-                // 에러 처리 로직 추가
+            case .requestErr(let errorData):
+                print("Request Error:", errorData)
+                DispatchQueue.main.async {
+                    self.showAlert(title: "signUp Request Error", message: "Please try again.")
+                }
+            case .pathErr, .serverErr, .networkFail:
+                print("Network Error")
+                DispatchQueue.main.async {
+                    self.showAlert(title: "signUp Network Error", message: "Please try again later.")
+                }
             }
         }
+    }
+    
+    
+    func presentMainViewController() {
+        let mainVC = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "Main")
+        
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
+            .changeRootViewController(mainVC, animated: true)
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     @IBAction func urlBtnTapped(_ sender: UIButton) {
