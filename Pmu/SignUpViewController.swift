@@ -58,8 +58,8 @@ class SignUpViewController: UIViewController {
     // 프로필 이미지 로드 및 설정하는 함수
     func loadProfileImage() {
         // KakaoLoginService 등의 다른 코드 내에서 데이터 사용 방법
-        if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
-            if let profileImgURLString = loginResponse.data.profileImageURL,
+        if let signUpResponse = KakaoDataManager.shared.getLoginResponse() {
+            if let profileImgURLString = signUpResponse.data.profileImageURL,
                let profileImgURL = URL(string: profileImgURLString) {
                 print("프로필 이미지 URL: \(profileImgURLString)") // 디버그 출력
                 // 이미지 다운로드 및 설정
@@ -71,15 +71,19 @@ class SignUpViewController: UIViewController {
                             self.profileImg.image = profileImage
                         }
                     } else {
-                        self.profileImg.image = UIImage(named: "myPageFilled")
-                        self.profileImg.backgroundColor = UIColor.gray
-                        print("프로필 이미지 다운로드 실패") // 디버그 출력
+                        DispatchQueue.main.async {
+                            self.profileImg.image = UIImage(named: "myPageFilled")
+                            self.profileImg.backgroundColor = UIColor.gray
+                            print("프로필 이미지 다운로드 실패") // 디버그 출력
+                        }
                     }
                 }
             } else {
-                self.profileImg.image = UIImage(named: "myPageFilled")
-                self.profileImg.backgroundColor = UIColor.gray
-                print("프로필 이미지 URL 변환 실패") // 디버그 출력
+                DispatchQueue.main.async {
+                    self.profileImg.image = UIImage(named: "myPageFilled")
+                    self.profileImg.backgroundColor = UIColor.gray
+                    print("프로필 이미지 URL 변환 실패") // 디버그 출력
+                }
             }
         } else {
             print("로그인 응답 데이터가 없음") // 디버그 출력
@@ -104,23 +108,21 @@ class SignUpViewController: UIViewController {
     
     @IBAction func signUpBtnTapped(_ sender: UIButton) {
         if let savedToken = KeyChain.loadToken(forKey: "accessToken") /*UserDefaults.standard.string(forKey: "token")*/, let nickname = nameTextField.text {
-                    // 토큰이 있는 경우 회원 가입 시도
-                    signUp(with: savedToken, nickname: nickname)
-                    
-                    print(savedToken)
-                    print(nickname)
-
-                } else {
-                    // 토큰이 없는 경우 처리
-                    print("토큰이 없어 회원 가입을 진행할 수 없습니다.")
-                }
+            // 토큰이 있는 경우 회원 가입 시도
+            self.signUp(with: savedToken, nickname: nickname)
+            
+            print(savedToken)
+            print(nickname)
+            
+        } else {
+            // 토큰이 없는 경우 처리
+            print("토큰이 없어 회원 가입을 진행할 수 없습니다.")
+        }
     }
     
     func signUp(with token: String, nickname: String) {
         // 이 함수 내에서 KakaoLoginService의 signUp 메서드를 호출하면서 토큰과 닉네임을 전달합니다.
-        KakaoLoginService.signUp(auth: token, nickname: nickname) { [weak self] networkResult in
-            guard let self = self else { return }
-            
+        KakaoLoginService.signUp(auth: token, nickname: nickname) { networkResult in
             switch networkResult {
             case .success(let kakaoResponse):
                 if let response = kakaoResponse as? KakaoLoginResponse {
@@ -129,11 +131,11 @@ class SignUpViewController: UIViewController {
                     if !signUpData.accessToken.isEmpty {
                         DispatchQueue.main.async {
                             print("회원가입 성공")
-                            print("AccessToken: \(signUpData.accessToken)")
-                            print("RefreshToken: \(signUpData.refreshToken)")
-                            print("UserID: \(signUpData.userID)")
-                            print("ProfileImageURL: \(signUpData.profileImageURL)")
-                            print("Nickname: \(signUpData.nickname)")
+                            print("signUp AccessToken: \(signUpData.accessToken)")
+                            print("signUp RefreshToken: \(signUpData.refreshToken)")
+                            print("signUp UserID: \(signUpData.userID)")
+                            print("signUp ProfileImageURL: \(signUpData.profileImageURL)")
+                            print("signUp Nickname: \(signUpData.nickname)")
                             
                             self.presentMainViewController()
                         }
@@ -162,7 +164,6 @@ class SignUpViewController: UIViewController {
             }
         }
     }
-    
     
     func presentMainViewController() {
         let mainVC = UIStoryboard(name: "Main", bundle: nil)

@@ -42,6 +42,11 @@ class MusicViewController: UIViewController {
         // UITextView의 delegate를 설정
         txtView.delegate = self
         
+        
+        // 프로필 이미지 초기화
+        //self.profileImg.image = UIImage(named: "myPageFilled")
+        //self.profileImg.backgroundColor = UIColor.gray
+        
         // 프로필 이미지 로드 및 설정 호출
         loadProfileImage()
         
@@ -94,15 +99,19 @@ class MusicViewController: UIViewController {
                             self.profileImg.image = profileImage
                         }
                     } else {
-                        self.profileImg.image = UIImage(named: "myPageFilled")
-                        self.profileImg.backgroundColor = UIColor.gray
-                        print("프로필 이미지 다운로드 실패") // 디버그 출력
+                        DispatchQueue.main.async {
+                            self.profileImg.image = UIImage(named: "myPageFilled")
+                            self.profileImg.backgroundColor = UIColor.gray
+                            print("프로필 이미지 다운로드 실패") // 디버그 출력
+                        }
                     }
                 }
             } else {
-                self.profileImg.image = UIImage(named: "myPageFilled")
-                self.profileImg.backgroundColor = UIColor.gray
-                print("프로필 이미지 URL 변환 실패") // 디버그 출력
+                DispatchQueue.main.async {
+                    self.profileImg.image = UIImage(named: "myPageFilled")
+                    self.profileImg.backgroundColor = UIColor.gray
+                    print("프로필 이미지 URL 변환 실패") // 디버그 출력
+                }
             }
         } else {
             print("로그인 응답 데이터가 없음") // 디버그 출력

@@ -23,4 +23,10 @@ struct APIConstants {
     
     //jwt 재발급 (post)
     static let jwtURL = baseURL + "/api/user/reissue"
+    
+    //로그아웃 (patch)
+    static let signOutURL = baseURL + "/api/user/signout"
+    
+    //회원탈퇴 (delete)
+    static let withDrawURL = baseURL + "/api/user/withdraw"
 }

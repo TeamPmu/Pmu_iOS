@@ -10,8 +10,8 @@ import Security
 
 class KeyChain {
     
-    /*static let serviceIdentifier: String = "YourAppIdentifier"
-    
+    static let serviceIdentifier: String = Bundle.main.bundleIdentifier!
+
     class func saveToken(_ token: String, forKey key: String) -> Bool {
         let query = [
             kSecClass as String       : kSecClassGenericPassword as String,
@@ -56,9 +56,9 @@ class KeyChain {
         
         let status = SecItemDelete(query as CFDictionary)
         return status == errSecSuccess
-    }*/
+    }
     
-    static func saveToken(_ token: String, forKey key: String) {
+    /*static func saveToken(_ token: String, forKey key: String) {
             if let data = token.data(using: .utf8) {
                 let query: [String: Any] = [
                     kSecClass as String: kSecClassGenericPassword as String,
@@ -96,7 +96,7 @@ class KeyChain {
             ]
             
             SecItemDelete(query as CFDictionary)
-        }
+        }*/
 }
 
 

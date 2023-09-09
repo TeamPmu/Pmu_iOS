@@ -1,85 +1,52 @@
 //
-//  TableViewController.swift
+//  MusicSlidePageViewController.swift
 //  Pmu
 //
-//  Created by seohuibaek on 2023/07/29.
+//  Created by seohuibaek on 2023/09/07.
 //
 
 import UIKit
 
-class TableViewController: UITableViewController {
+/*class Song {
+    var name: String
+    var coverImage: UIImage? // 이미지를 직접 저장
+    var genre: String
+    var musicURL: URL? // 음악 파일 URL을 직접 저장
+    var artist: String
+
+    init(name: String, coverImage: UIImage?, genre: String, musicURL: URL?, artist: String) {
+        self.name = name
+        self.coverImage = coverImage
+        self.genre = genre
+        self.musicURL = musicURL
+        self.artist = artist
+    }
+}*/
+
+class MusicSlidePageViewController: UIPageViewController, UIPageViewControllerDataSource {
     
-    var data = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6","Item 7","Item 8", "Item 9"]
+    var songs: [AroundMusic] = [] // 노래 목록을 저장하는 배열
+    var currentIndex: Int = 0 // 현재 노래의 인덱스
     
     var images: [UIImage] = []
     var titles: [String] = []
-    var genres: [String] = []
+    var musicPre: [String] = []
     var artists: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        dataSource = self
         
-        //tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MusicTableCell")
-
-        //self.navigationController?.navigationBar.prefersLargeTitles = true
-        
-        //navigationBar bottom bolder line 제거하기
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        
-        //navigationController?.isToolbarHidden = true
-        
-        // 빈 뷰를 생성하여 tableFooterView로 설정
-        //let emptyFooterView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 0))
-        //tableView.tableFooterView = emptyFooterView
-        
-        // 더미 음악 데이터를 가져오는 함수 호출
+        // 더미 음악 데이터 가져오기
         getDummyMusic()
-    }
-    
-    
-    // MARK: - UITableViewDataSource
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return images.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Tablecell", for: indexPath) as! TableViewCell
-        cell.titleLbl?.text = titles[indexPath.row]
-        cell.artistLbl?.text = artists[indexPath.row]
-        cell.musicAlbumImg?.image = images[indexPath.row]
-        return cell
-    }
-    
-    // MARK: - UITableViewDelegate
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // 선택한 셀에 대한 동작을 정의
         
-        //tableView.deselectItem(at: indexPath, animated: true)
-        
-        // 상세보기 모드 처리
-        let modalViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
-        
-        modalViewController.modalPresentationStyle = .fullScreen
-        // 선택한 이미지를 모달 뷰 컨트롤러에 전달
-        modalViewController.albumImg = images[indexPath.row]
-        modalViewController.titleText = titles[indexPath.row]
-        modalViewController.artistText = artists[indexPath.row]
-        //modalViewController.genreText = "Genre: " + genres[indexPath.row]
-        
-        present(modalViewController, animated: true, completion: nil)
+        // 초기 페이지 설정
+        if let initialViewController = viewControllerAtIndex(currentIndex) {
+            setViewControllers([initialViewController], direction: .forward, animated: true, completion: nil)
+        }
     }
     
-    // 새로운 셀을 추가하는 메서드
-    func addNewItem() {
-        titles.append("New Item")
-        let indexPath = IndexPath(row: titles.count - 1, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
-    }
     
     //DummyMusic 갖고오기
     func getDummyMusic(){
@@ -151,6 +118,18 @@ class TableViewController: UITableViewController {
         
         let dummyMusics: [AroundMusic] = [dummyMusic1, dummyMusic2, dummyMusic3, dummyMusic4, dummyMusic5, dummyMusic6]
         
+        // songs 배열에 더미 음악 데이터를 추가
+        /*for dummyMusic in dummyMusics {
+         if let coverImgURL = URL(string: dummyMusic.coverImg),
+         let musicURL = URL(string: dummyMusic.musicPre) {
+         if let imageData = try? Data(contentsOf: coverImgURL),
+         let coverImage = UIImage(data: imageData) {
+         songs.append(AroundMusic(name: dummyMusic.name, coverImage: coverImage, genre: dummyMusic.genre, musicURL: musicURL, artist: dummyMusic.artist))
+         }
+         }
+         }*/
+        
+        
         // 더미 음악 데이터에서 coverImg URL을 사용하여 UIImage 배열 생성
         for dummyMusic in dummyMusics {
             if let coverImgURL = URL(string: dummyMusic.coverImg),
@@ -159,9 +138,52 @@ class TableViewController: UITableViewController {
                 
                 images.append(coverImage)
                 titles.append(dummyMusic.name) // 음악 이름 배열에 추가
-                genres.append(dummyMusic.genre) // 장르 배열에 추가
+                musicPre.append(dummyMusic.musicPre) // 장르 배열에 추가
                 artists.append(dummyMusic.artist) // 아티스트 배열에 추가
             }
         }
     }
+    
+    func viewControllerAtIndex(_ index: Int) -> MusicRecommendViewController? {
+        guard index >= 0, index < images.count else {
+            return nil
+        }
+        
+        // DetailViewController를 생성하고 노래 정보를 전달
+        if let musicRecommendViewController = storyboard?.instantiateViewController(withIdentifier: "MusicReco") as? MusicRecommendViewController {
+            musicRecommendViewController.albumImg = images[index]
+            musicRecommendViewController.titleText = titles[index]
+            musicRecommendViewController.artistText = artists[index]
+            return musicRecommendViewController
+        }
+        
+        return nil
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        // 이전 노래로 이동
+        if let musicRecommendViewController = viewController as? MusicRecommendViewController {
+            var index = musicRecommendViewController.pageIndex
+            if index == 0 {
+                return nil
+            }
+            index -= 1
+            return viewControllerAtIndex(index)
+        }
+        return nil
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        // 다음 노래로 이동
+        if let musicRecommendViewController = viewController as? MusicRecommendViewController {
+            var index = musicRecommendViewController.pageIndex
+            index += 1
+            if index == images.count {
+                return nil
+            }
+            return viewControllerAtIndex(index)
+        }
+        return nil
+    }
 }
+

@@ -13,13 +13,32 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var dismissBtn: UIButton!
     @IBOutlet weak var youtubeBtn: UIButton!
     
-    var num = 0
+    @IBOutlet weak var musicAlbumImg: UIImageView!
+    @IBOutlet weak var titleLbl: UILabel!
+    @IBOutlet weak var artistLbl: UILabel!
+    @IBOutlet weak var bgMusicAlbumImg: UIImageView!
+    
+    var num = 1
+    var albumImg: UIImage?
+    var titleText: String?
+    var artistText: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
         //self.navigationController?.isNavigationBarHidden = true
+        
+        // Do any additional setup after loading the view.
+        musicAlbumImg.image = albumImg
+        bgMusicAlbumImg.image = albumImg
+        titleLbl.text = titleText
+        artistLbl.text = artistText
+        
+        musicAlbumImg.layer.cornerRadius = 10
+        
+        heartBtn.setImage(UIImage(named: "heartYellow"), for: .normal)
     }
     
     @IBAction func heartBtnTapped(_ sender: UIButton) {
