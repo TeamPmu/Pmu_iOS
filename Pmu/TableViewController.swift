@@ -15,6 +15,9 @@ class TableViewController: UITableViewController {
     var titles: [String] = []
     var genres: [String] = []
     var artists: [String] = []
+    var musicURL: [String] = []
+    
+    @IBOutlet weak var nicknameLbl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +40,19 @@ class TableViewController: UITableViewController {
         
         // 더미 음악 데이터를 가져오는 함수 호출
         getDummyMusic()
+        
+        setNickNameLabel()
+    }
+    
+    func setNickNameLabel() {
+        if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
+            let nickname = loginResponse.data.nickname
+            let formattedNickname = "\(nickname) 님을 위한"
+            print("변경된 닉네임: \(formattedNickname)") // 디버그 출력
+            nicknameLbl.text = formattedNickname
+        } else {
+            print("로그인 응답 데이터가 없음") // 디버그 출력
+        }
     }
     
     
@@ -69,6 +85,7 @@ class TableViewController: UITableViewController {
         modalViewController.albumImg = images[indexPath.row]
         modalViewController.titleText = titles[indexPath.row]
         modalViewController.artistText = artists[indexPath.row]
+        modalViewController.musicURL = musicURL[indexPath.row]
         //modalViewController.genreText = "Genre: " + genres[indexPath.row]
         
         present(modalViewController, animated: true, completion: nil)
@@ -161,6 +178,7 @@ class TableViewController: UITableViewController {
                 titles.append(dummyMusic.name) // 음악 이름 배열에 추가
                 genres.append(dummyMusic.genre) // 장르 배열에 추가
                 artists.append(dummyMusic.artist) // 아티스트 배열에 추가
+                musicURL.append(dummyMusic.musicPull)
             }
         }
     }

@@ -22,6 +22,7 @@ class DetailViewController: UIViewController {
     var albumImg: UIImage?
     var titleText: String?
     var artistText: String?
+    var musicURL: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,7 +74,7 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func youtubeBtnTapped(_ sender: UIButton) {
-        if let url = URL(string: "https://www.youtube.com/") {
+        if let url = URL(string: musicURL) {
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }

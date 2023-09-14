@@ -38,7 +38,7 @@ class SignUpViewController: UIViewController {
         signUpBtn.isEnabled = false
         
         // 프로필 이미지 로드 및 설정 호출
-        loadProfileImage()
+        //loadProfileImage()
         
         // Add a tap gesture recognizer to the view
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -55,11 +55,10 @@ class SignUpViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-    // 프로필 이미지 로드 및 설정하는 함수
     func loadProfileImage() {
         // KakaoLoginService 등의 다른 코드 내에서 데이터 사용 방법
-        if let signUpResponse = KakaoDataManager.shared.getLoginResponse() {
-            if let profileImgURLString = signUpResponse.data.profileImageURL,
+        if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
+            if let profileImgURLString = loginResponse.data.profileImageURL,
                let profileImgURL = URL(string: profileImgURLString) {
                 print("프로필 이미지 URL: \(profileImgURLString)") // 디버그 출력
                 // 이미지 다운로드 및 설정
@@ -71,19 +70,15 @@ class SignUpViewController: UIViewController {
                             self.profileImg.image = profileImage
                         }
                     } else {
-                        DispatchQueue.main.async {
-                            self.profileImg.image = UIImage(named: "myPageFilled")
-                            self.profileImg.backgroundColor = UIColor.gray
-                            print("프로필 이미지 다운로드 실패") // 디버그 출력
-                        }
+                        self.profileImg.image = UIImage(named: "dress")
+                        self.profileImg.backgroundColor = UIColor.gray
+                        print("프로필 이미지 다운로드 실패") // 디버그 출력
                     }
                 }
             } else {
-                DispatchQueue.main.async {
-                    self.profileImg.image = UIImage(named: "myPageFilled")
-                    self.profileImg.backgroundColor = UIColor.gray
-                    print("프로필 이미지 URL 변환 실패") // 디버그 출력
-                }
+                self.profileImg.image = UIImage(named: "dress")
+                self.profileImg.backgroundColor = UIColor.gray
+                print("프로필 이미지 URL 변환 실패") // 디버그 출력
             }
         } else {
             print("로그인 응답 데이터가 없음") // 디버그 출력

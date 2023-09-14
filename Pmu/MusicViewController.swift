@@ -100,7 +100,7 @@ class MusicViewController: UIViewController {
                         }
                     } else {
                         DispatchQueue.main.async {
-                            self.profileImg.image = UIImage(named: "myPageFilled")
+                            self.profileImg.image = UIImage(named: "dress")
                             self.profileImg.backgroundColor = UIColor.gray
                             print("프로필 이미지 다운로드 실패") // 디버그 출력
                         }
@@ -108,7 +108,7 @@ class MusicViewController: UIViewController {
                 }
             } else {
                 DispatchQueue.main.async {
-                    self.profileImg.image = UIImage(named: "myPageFilled")
+                    self.profileImg.image = UIImage(named: "dress")
                     self.profileImg.backgroundColor = UIColor.gray
                     print("프로필 이미지 URL 변환 실패") // 디버그 출력
                 }

@@ -23,13 +23,14 @@ class MusicRecommendViewController: UIViewController {
     
     
     var num = 0
+    var heartBtnTap = true
     var pageIndex = 0
     
     var images: [UIImage] = []
     var titles: [String] = []
     var genres: [String] = []
     var artists: [String] = []
-    var musicPres: [String] = []
+    var musicURL: [String] = []
     
     var albumImg: UIImage?
     var titleText: String?
@@ -97,7 +98,7 @@ class MusicRecommendViewController: UIViewController {
     
     @IBAction func youtubeBtnTapped(_ sender: UIButton) {
         
-        if let url = URL(string: musicPres[currentIndex]) {
+        if let url = URL(string: musicURL[currentIndex]) {
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
@@ -154,13 +155,15 @@ class MusicRecommendViewController: UIViewController {
     }
     
     @IBAction func heartBtnTapped(_ sender: UIButton) {
-        if num % 2 == 0 {
+        if heartBtnTap == false {
             heartBtn.setImage(UIImage(named: "heartYellow"), for: .normal)
             num+=1
             
+            heartBtnTap = true
         } else {
             heartBtn.setImage(UIImage(named: "heart"), for: .normal)
             num+=1
+            heartBtnTap = false
         }
     }
     
@@ -194,6 +197,10 @@ class MusicRecommendViewController: UIViewController {
             self.musicAlbumImg.image = self.images[self.currentIndex]
         }, completion: nil)
         
+        UIView.transition(with: bgMusicAlbumImg, duration: 0.6, options: .transitionCrossDissolve, animations: {
+            self.bgMusicAlbumImg.image = self.images[self.currentIndex]
+        }, completion: nil)
+        
         updateUI(with: currentIndex)
     }
      
@@ -204,11 +211,25 @@ class MusicRecommendViewController: UIViewController {
         if currentIndex < 0 {
             currentIndex = artists.count - 1 // 첫 번째 노래에서 이전 노래로 이동할 경우 마지막 노래로 돌아감
         }
+        
+        // musicAlbumImg에 애니메이션 효과 주기
+        UIView.transition(with: musicAlbumImg, duration: 0.2, options: .transitionCrossDissolve, animations: {
+            self.musicAlbumImg.image = self.images[self.currentIndex]
+        }, completion: nil)
+        
+        UIView.transition(with: bgMusicAlbumImg, duration: 0.6, options: .transitionCrossDissolve, animations: {
+            self.bgMusicAlbumImg.image = self.images[self.currentIndex]
+        }, completion: nil)
+        
+        
         updateUI(with: currentIndex)
     }
     
     // 노래 정보 업데이트 함수
     func updateUI(with index: Int) {
+        
+        heartBtnTapped(heartBtn)
+        
         if index >= 0 && index < artists.count {
             musicAlbumImg.image = images[index]
             bgMusicAlbumImg.image = images[index]
@@ -309,7 +330,7 @@ class MusicRecommendViewController: UIViewController {
                 titles.append(dummyMusic.name) // 음악 이름 배열에 추가
                 genres.append(dummyMusic.genre) // 장르 배열에 추가
                 artists.append(dummyMusic.artist) // 아티스트 배열에 추가
-                musicPres.append(dummyMusic.musicPull)
+                musicURL.append(dummyMusic.musicPull)
             }
         }
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eZ9-u3-44S">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JlK-Z2-kqE">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
@@ -102,7 +102,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rAK-ht-bsg">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dress" translatesAutoresizingMaskIntoConstraints="NO" id="rAK-ht-bsg">
                                 <rect key="frame" x="115" y="131" width="160" height="160"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="IFe-On-j4J"/>
@@ -399,7 +399,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ST2-QK-CEQ">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dress" translatesAutoresizingMaskIntoConstraints="NO" id="ST2-QK-CEQ">
                                 <rect key="frame" x="310" y="89" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="2Tz-2X-Vip"/>
@@ -759,7 +759,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="myPageFilled" translatesAutoresizingMaskIntoConstraints="NO" id="m1g-ZB-SrJ">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dress" translatesAutoresizingMaskIntoConstraints="NO" id="m1g-ZB-SrJ">
                                 <rect key="frame" x="115" y="67" width="160" height="160"/>
                                 <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -931,11 +931,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="님의" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iI1-RU-OPq">
-                                    <rect key="frame" x="20" y="14" width="70" height="20"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="70" id="7t1-cc-uZy"/>
-                                        <constraint firstAttribute="height" constant="20" id="qWF-Js-C1S"/>
-                                    </constraints>
+                                    <rect key="frame" x="20" y="14" width="362" height="20"/>
                                     <fontDescription key="fontDescription" name="Pretendard-Medium" family="Pretendard" pointSize="16"/>
                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -953,7 +949,7 @@
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="trailing" secondItem="iI1-RU-OPq" secondAttribute="trailing" constant="270" id="6mh-aN-jiE"/>
+                                <constraint firstAttribute="trailing" secondItem="iI1-RU-OPq" secondAttribute="trailing" constant="8" id="5uw-0s-jjS"/>
                                 <constraint firstItem="iI1-RU-OPq" firstAttribute="leading" secondItem="3uA-nC-RZY" secondAttribute="leading" constant="20" id="9zM-Un-ROS"/>
                                 <constraint firstAttribute="bottom" secondItem="AdW-Yo-jGH" secondAttribute="bottom" constant="20" id="BNF-aE-UGY"/>
                                 <constraint firstAttribute="trailing" secondItem="AdW-Yo-jGH" secondAttribute="trailing" constant="204" id="E2X-p4-nph"/>
@@ -1021,6 +1017,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="플레이리스트" largeTitleDisplayMode="never" id="8rS-RC-aJg"/>
+                    <connections>
+                        <outlet property="nicknameLbl" destination="iI1-RU-OPq" id="UMq-Ip-me0"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iQD-X2-fOM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1469,6 +1468,7 @@
         <image name="chevron" width="24" height="24"/>
         <image name="chevron2" width="20" height="20"/>
         <image name="dismiss" width="72" height="72"/>
+        <image name="dress" width="182.66667175292969" height="171.33332824707031"/>
         <image name="heart" width="72" height="72"/>
         <image name="kakaoLogin" width="200" height="30"/>
         <image name="list" width="28" height="28"/>

@@ -102,7 +102,7 @@ class ViewController: UIViewController {
                     print("로그인 토큰: \(KeyChain.loadToken(forKey: "accessToken"))")
                     print("카카오 로그인 토큰: \(oauthToken.accessToken)")
                     // 로그인 처리
-                    self.signIn(with: oauthToken.accessToken)
+                    //self.signIn(with: oauthToken.accessToken)
                     //self.presentMainViewController()
                     //self.presentSignUpViewController()
                     
@@ -131,47 +131,13 @@ class ViewController: UIViewController {
                     // AccessToken을 Keychain에 저장
                     KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
                     
+                    print("로그인 토큰: \(KeyChain.loadToken(forKey: "accessToken"))")
+                    print("카카오 로그인 토큰: \(oauthToken.accessToken)")
                     // 로그인 처리
-                    //self.signIn(with: oauthToken.accessToken)
+                    self.signIn(with: oauthToken.accessToken)
                     //self.presentMainViewController()
-                }
-            }
-        }
-    }
-    
-    func checkAppMembershipAndProceed(with token: String) {
-        if UserApi.isKakaoTalkLoginAvailable() {
-            UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
-                if let error = error {
-                    print(error)
-                } else if let oauthToken = oauthToken {
-                    print("loginWithKakaoTalk() success.")
-                    self.signInAndCheckAppMembership(with: oauthToken.accessToken)
-                }
-            }
-        } else {
-            UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
-                if let error = error {
-                    print(error)
-                } else if let oauthToken = oauthToken {
-                    print("카카오 계정으로 로그인 성공")
-                    self.signInAndCheckAppMembership(with: oauthToken.accessToken)
-                }
-            }
-        }
-    }
-    
-    func signInAndCheckAppMembership(with token: String) {
-        KakaoLoginService.login(auth: token) { networkResult in
-            switch networkResult {
-            case .success(_):
-                self.signIn(with: token)
-            case .requestErr(_):
-                self.presentSignUpViewController()
-            case .pathErr, .serverErr, .networkFail:
-                print("signInAndCheckAppMembership Network Error")
-                DispatchQueue.main.async {
-                    self.showAlert(title: "signInAndCheckAppMembership Network Error", message: "Please try again later.")
+                    
+                    //self.presentSignUpViewController()
                 }
             }
         }

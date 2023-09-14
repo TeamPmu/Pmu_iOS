@@ -54,13 +54,13 @@ class MyPageViewController: UIViewController {
                             self.profileImg.image = profileImage
                         }
                     } else {
-                        self.profileImg.image = UIImage(named: "myPageFilled")
+                        self.profileImg.image = UIImage(named: "dress")
                         self.profileImg.backgroundColor = UIColor.gray
                         print("프로필 이미지 다운로드 실패") // 디버그 출력
                     }
                 }
             } else {
-                self.profileImg.image = UIImage(named: "myPageFilled")
+                self.profileImg.image = UIImage(named: "dress")
                 self.profileImg.backgroundColor = UIColor.gray
                 print("프로필 이미지 URL 변환 실패") // 디버그 출력
             }
@@ -225,7 +225,13 @@ class MyPageViewController: UIViewController {
             }
         } */
     
-        appwithdraw()
+        //appwithdraw()
+        
+        let UnregisterVC = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "UnregisterVC")
+        
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
+            .changeRootViewController(UnregisterVC, animated: true)
         
         print("회원탈퇴 토큰: \(KeyChain.loadToken(forKey: "appaccessToken"))")
         
