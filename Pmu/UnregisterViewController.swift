@@ -29,34 +29,36 @@ class UnregisterViewController: UIViewController {
             }
         }*/
         
-        if let tabBarController = self.tabBarController {
-            tabBarController.selectedIndex = 1 // 두 번째 탭 선택
+        /*if let tabBarController = self.tabBarController {
+            tabBarController.selectedIndex = 3 // 두 번째 탭 선택
             if let navigationController = tabBarController.selectedViewController as? UINavigationController {
                 navigationController.popToRootViewController(animated: true) // 선택된 탭의 루트 뷰 컨트롤러로 이동
             }
-        }
+        }*/
         
         /*let UnregisterVC = UIStoryboard(name: "MyPageVC", bundle: nil)
             .instantiateViewController(withIdentifier: "UnregisterViewController")
         
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
             .changeRootViewController(UnregisterVC, animated: true)*/
+        
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func unregisterBtnTapped(_ sender: UIButton) {
         appwithdraw()
         
-        print("회원탈퇴 토큰: \(KeyChain.loadToken(forKey: "appaccessToken"))")
+        print("회원탈퇴 토큰: \(KeyChain.loadToken(forKey: "pmuaccessToken"))")
     }
     
     func appwithdraw() {
-        if let savedToken = KeyChain.loadToken(forKey: "appaccessToken") {
+        if let savedToken = KeyChain.loadToken(forKey: "pmuaccessToken") {
             KakaoLogoutService.withdraw(auth: savedToken) { networkResult in
                 switch networkResult {
                 case .success:
                     print("Kakao withdraw success")
                     // 탈퇴 성공 시, UI 및 데이터 초기화 또는 필요한 작업 수행
-                    KeyChain.deleteToken(forKey: "appaccessToken")
+                    KeyChain.deleteToken(forKey: "pmuaccessToken")
                     KeyChain.deleteToken(forKey: "accessToken")
                     // 예시: 로그아웃 또는 탈퇴 후, 다시 로그인 화면으로 이동
                     if let loginViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as? ViewController {

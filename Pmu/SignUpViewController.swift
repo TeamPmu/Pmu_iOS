@@ -132,6 +132,10 @@ class SignUpViewController: UIViewController {
                             print("signUp ProfileImageURL: \(signUpData.profileImageURL)")
                             print("signUp Nickname: \(signUpData.nickname)")
                             
+                            // AccessToken을 Keychain에 저장
+                            KeyChain.saveToken(signUpData.accessToken, forKey: "pmuaccessToken")
+                            KeyChain.saveToken(signUpData.refreshToken, forKey: "pmurefreshToken")
+                            
                             self.presentMainViewController()
                         }
                     } else {

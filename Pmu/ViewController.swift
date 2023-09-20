@@ -19,76 +19,79 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         //getFontName()
+        
+        // 자동 로그인 시도
+        tryAutoLogin()
     }
     
     @IBAction func logInBtnTapped(_ sender: UIButton) {
         /*if UserApi.isKakaoTalkLoginAvailable() {
-            UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
-                if let error = error {
-                    print(error)
-                } else if let oauthToken = oauthToken {
-                    print("loginWithKakaoTalk() success.")
-                    
-                    //KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
-                    
-                    //self.presentSignUpViewController()
-                    
-                    //print(KeyChain.loadToken(forKey: "accessToken"))
-                    
-                    if let savedToken = KeyChain.loadToken(forKey: "accessToken") {
-                        // 이미 저장된 토큰이 있는 경우 로그인 처리
-                        //print(savedToken)
-                        self.signIn(with: savedToken)
-                    } else {
-                        // AccessToken을 Keychain에 저장
-                        KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
-                        // 저장된 토큰이 없는 경우 회원가입 화면으로 이동
-                        self.presentSignUpViewController()
-                    }
-                }
-            }
-        }
-        else {
-            UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
-                if let error = error {
-                    print(error)
-                } else if let oauthToken = oauthToken {
-                    print("loginWithKakao계정() success.")
-                    
-                    //KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
-                    
-                    //self.presentSignUpViewController()
-                    
-                    if let savedToken = KeyChain.loadToken(forKey: "accessToken") {
-                        // 이미 저장된 토큰이 있는 경우 로그인 처리
-                        //print(savedToken)
-                        self.signIn(with: savedToken)
-                    } else {
-                        // AccessToken을 Keychain에 저장
-                        KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
-                        // 저장된 토큰이 없는 경우 회원가입 화면으로 이동
-                        self.presentSignUpViewController()
-                    }
-                    
-                    // Get the saved token from Keychain
-                    /*if let savedToken = KeyChain.loadToken(forKey: "accessToken") {
-                        if savedToken == oauthToken.accessToken {
-                            // If the saved token matches the current token, proceed with login
-                            self.signIn(with: savedToken)
-                        } else {
-                            // If the saved token is different, save the new token and proceed with signup
-                            KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
-                            self.presentSignUpViewController()
-                        }
-                    } else {
-                        // If no saved token is found, save the new token and proceed with signup
-                        KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
-                        self.presentSignUpViewController()
-                    }*/
-                }
-            }
-        }*/
-
+         UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
+         if let error = error {
+         print(error)
+         } else if let oauthToken = oauthToken {
+         print("loginWithKakaoTalk() success.")
+         
+         //KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
+         
+         //self.presentSignUpViewController()
+         
+         //print(KeyChain.loadToken(forKey: "accessToken"))
+         
+         if let savedToken = KeyChain.loadToken(forKey: "accessToken") {
+         // 이미 저장된 토큰이 있는 경우 로그인 처리
+         //print(savedToken)
+         self.signIn(with: savedToken)
+         } else {
+         // AccessToken을 Keychain에 저장
+         KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
+         // 저장된 토큰이 없는 경우 회원가입 화면으로 이동
+         self.presentSignUpViewController()
+         }
+         }
+         }
+         }
+         else {
+         UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
+         if let error = error {
+         print(error)
+         } else if let oauthToken = oauthToken {
+         print("loginWithKakao계정() success.")
+         
+         //KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
+         
+         //self.presentSignUpViewController()
+         
+         if let savedToken = KeyChain.loadToken(forKey: "accessToken") {
+         // 이미 저장된 토큰이 있는 경우 로그인 처리
+         //print(savedToken)
+         self.signIn(with: savedToken)
+         } else {
+         // AccessToken을 Keychain에 저장
+         KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
+         // 저장된 토큰이 없는 경우 회원가입 화면으로 이동
+         self.presentSignUpViewController()
+         }
+         
+         // Get the saved token from Keychain
+         /*if let savedToken = KeyChain.loadToken(forKey: "accessToken") {
+          if savedToken == oauthToken.accessToken {
+          // If the saved token matches the current token, proceed with login
+          self.signIn(with: savedToken)
+          } else {
+          // If the saved token is different, save the new token and proceed with signup
+          KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
+          self.presentSignUpViewController()
+          }
+          } else {
+          // If no saved token is found, save the new token and proceed with signup
+          KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
+          self.presentSignUpViewController()
+          }*/
+         }
+         }
+         }*/
+        
         if UserApi.isKakaoTalkLoginAvailable() {
             UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
                 if let error = error {
@@ -101,6 +104,19 @@ class ViewController: UIViewController {
                     
                     print("로그인 토큰: \(KeyChain.loadToken(forKey: "accessToken"))")
                     print("카카오 로그인 토큰: \(oauthToken.accessToken)")
+                    
+                    print("프뮤로그인 토큰: \(KeyChain.loadToken(forKey: "pmuaccessToken"))")
+                    // 로그인 처리
+                    
+                    self.signIn(with: oauthToken.accessToken)
+                    
+                    if KeyChain.loadToken(forKey: "pmuaccessToken") != nil {
+                        self.signIn(with: oauthToken.accessToken)
+                    }
+                    else {
+                        self.presentSignUpViewController()
+                    }
+                    
                     // 로그인 처리
                     //self.signIn(with: oauthToken.accessToken)
                     //self.presentMainViewController()
@@ -110,15 +126,15 @@ class ViewController: UIViewController {
                     //self.refreshAccessTokenAndProceed()
                     
                     /*if let savedToken = KeyChain.loadToken(forKey: "accessToken") {
-                        // 이미 저장된 토큰이 있는 경우 로그인 처리
-                        //print(savedToken)
-                        self.signIn(with: savedToken)
-                    } else {
-                        // AccessToken을 Keychain에 저장
-                        //KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
-                        // 저장된 토큰이 없는 경우 회원가입 화면으로 이동
-                        self.presentSignUpViewController()
-                    }*/
+                     // 이미 저장된 토큰이 있는 경우 로그인 처리
+                     //print(savedToken)
+                     self.signIn(with: savedToken)
+                     } else {
+                     // AccessToken을 Keychain에 저장
+                     //KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
+                     // 저장된 토큰이 없는 경우 회원가입 화면으로 이동
+                     self.presentSignUpViewController()
+                     }*/
                 }
             }
         } else {
@@ -133,11 +149,18 @@ class ViewController: UIViewController {
                     
                     print("로그인 토큰: \(KeyChain.loadToken(forKey: "accessToken"))")
                     print("카카오 로그인 토큰: \(oauthToken.accessToken)")
-                    // 로그인 처리
-                    self.signIn(with: oauthToken.accessToken)
-                    //self.presentMainViewController()
                     
-                    //self.presentSignUpViewController()
+                    print("프뮤로그인 토큰: \(KeyChain.loadToken(forKey: "pmuaccessToken"))")
+                    // 로그인 처리
+                    
+                    self.signIn(with: oauthToken.accessToken)
+                    
+                    if KeyChain.loadToken(forKey: "pmuaccessToken") != nil {
+                        self.signIn(with: oauthToken.accessToken)
+                    }
+                    else {
+                        self.presentSignUpViewController()
+                    }
                 }
             }
         }
@@ -165,24 +188,31 @@ class ViewController: UIViewController {
                 if let response = kakaoResponse as? KakaoLoginResponse {
                     let loginData = response.data
                     
-                    if !loginData.accessToken.isEmpty {
-                        DispatchQueue.main.async {
-                            print("signIn 로그인 성공")
-                            print("AccessToken: \(loginData.accessToken)")
-                            print("RefreshToken: \(loginData.refreshToken)")
-                            print("UserID: \(loginData.userID)")
-                            print("ProfileImageURL: \(loginData.profileImageURL)")
-                            print("Nickname: \(loginData.nickname)")
-                            
-                            // AccessToken을 Keychain에 저장
-                            KeyChain.saveToken(loginData.accessToken, forKey: "appaccessToken")
-                            
-                            self.presentMainViewController()
-                        }
-                    } else {
-                        print("AccessToken is empty")
-                        DispatchQueue.main.async {
-                            self.showAlert(title: "signIn Error", message: "An error occurred while processing the response.")
+                    // AccessToken을 Keychain에 저장
+                    KeyChain.saveToken(loginData.accessToken, forKey: "pmuaccessToken")
+                    
+                    if KeyChain.loadToken(forKey: "pmuaccessToken") == loginData.accessToken
+                    {
+                        if !loginData.accessToken.isEmpty {
+                            DispatchQueue.main.async {
+                                print("signIn 로그인 성공")
+                                print("AccessToken: \(loginData.accessToken)")
+                                print("RefreshToken: \(loginData.refreshToken)")
+                                print("UserID: \(loginData.userID)")
+                                print("ProfileImageURL: \(loginData.profileImageURL)")
+                                print("Nickname: \(loginData.nickname)")
+                                
+                                // AccessToken을 Keychain에 저장
+                                KeyChain.saveToken(loginData.accessToken, forKey: "pmuaccessToken")
+                                KeyChain.saveToken(loginData.refreshToken, forKey: "pmurefreshToken")
+                                
+                                self.presentMainViewController()
+                            }
+                        } else {
+                            print("AccessToken is empty")
+                            DispatchQueue.main.async {
+                                self.showAlert(title: "signIn Error", message: "An error occurred while processing the response.")
+                            }
                         }
                     }
                 } else {
@@ -217,7 +247,7 @@ class ViewController: UIViewController {
         refreshAccessToken() { (success) in
             if success {
                 // 갱신이 성공한 경우 로그인 또는 회원 가입 처리를 진행
-                if let savedToken = KeyChain.loadToken(forKey: "accessToken") {
+                if let savedToken = KeyChain.loadToken(forKey: "pmuaccessToken") {
                     self.signIn(with: savedToken)
                 } else {
                     self.presentSignUpViewController()
@@ -230,6 +260,51 @@ class ViewController: UIViewController {
         }
     }
     
+    // 자동 로그인 시도하는 함수
+    func tryAutoLogin() {
+        // KeyChain에서 저장된 토큰을 불러옵니다.
+        if let savedToken = KeyChain.loadToken(forKey: "pmuaccessToken") {
+            // 저장된 토큰이 있는 경우 자동 로그인을 시도합니다.
+            self.signIn(with: savedToken)
+        } else if let refreshToken = KeyChain.loadToken(forKey: "pmurefreshToken") {
+            // 저장된 토큰이 없고 대신 refreshToken이 있는 경우 JWT 토큰을 요청하고 응답을 처리합니다.
+            let authorizationHeader = "Bearer \(refreshToken)" // 사용자 refreshToken을 Bearer 토큰 형식으로 설정
+            jwtTokenService.jwtToken(auth: authorizationHeader) { result in
+                switch result {
+                case .success(let jwtResponse):
+                    // JWT 토큰 요청 성공, jwtResponse에 응답 데이터가 포함됩니다.
+                    print("JWT 토큰 요청 성공")
+                    print("AccessToken: \(jwtResponse.data.accessToken)")
+                    print("RefreshToken: \(jwtResponse.data.refreshToken)")
+                    
+                    // JWT 토큰을 저장합니다.
+                    KeyChain.saveToken(jwtResponse.data.accessToken, forKey: "pmuaccessToken")
+                    KeyChain.saveToken(jwtResponse.data.refreshToken, forKey: "pmurefreshToken")
+                    
+                    // 자동 로그인 또는 다른 작업 수행 가능
+                    self.signIn(with: jwtResponse.data.accessToken)
+                    
+                case .requestErr(let errorData):
+                    // 요청 오류 처리
+                    print("JWT 토큰 요청 실패 - 요청 오류")
+                    // 자동 로그인 실패 처리 등을 수행하세요.
+                    
+                case .serverErr:
+                    // 서버 오류 처리
+                    print("JWT 토큰 요청 실패 - 서버 오류")
+                    // 자동 로그인 실패 처리 등을 수행하세요.
+                    
+                case .networkFail:
+                    // 네트워크 오류 처리
+                    print("JWT 토큰 요청 실패 - 네트워크 오류")
+                    // 자동 로그인 실패 처리 등을 수행하세요.
+                    
+                case .pathErr:
+                    print("JWT 토큰 요청 실패 - 경로 오류")
+                }
+            }
+        }
+    }
     
     // 액세스 토큰을 갱신하는 함수
     func refreshAccessToken(completion: @escaping (Bool) -> Void) {

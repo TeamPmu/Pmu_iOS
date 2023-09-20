@@ -137,21 +137,23 @@ class MyPageViewController: UIViewController {
          }*/
         
         // 1. 사용자의 인증 토큰을 얻어온다. (이 부분은 로그인 성공 후에 토큰을 저장하는 곳에서 이미 처리하고 있어야 합니다.)
-        guard let appaccessToken = KeyChain.loadToken(forKey: "appaccessToken") else {
+        guard let appAccessToken = KeyChain.loadToken(forKey: "pmuaccessToken") else {
             // 사용자 토큰이 없으면 이미 로그아웃된 상태
             print("사용자 토큰이 없음. 이미 로그아웃되었습니다.")
             return
         }
         
         // 2. KakaoLogoutService를 사용하여 로그아웃 요청을 보낸다.
-        KakaoLogoutService.signout(auth: appaccessToken) { result in
+        KakaoLogoutService.signout(auth: appAccessToken) { result in
             switch result {
             case .success(let response):
                 // 로그아웃 성공
                 print("로그아웃 성공")
                 
                 // 3. 사용자 토큰을 삭제한다. (토큰을 저장하고 삭제하는 부분은 KeyChain 클래스에서 처리)
-                KeyChain.deleteToken(forKey: "appaccessToken")
+                KeyChain.deleteToken(forKey: "pmuaccessToken")
+                KeyChain.deleteToken(forKey: "pmurefreshToken")
+                KeyChain.deleteToken(forKey: "accessToken")
                 
                 // 4. 로그아웃 후에 필요한 UI 업데이트 또는 화면 전환을 수행한다.
                 // 예를 들어, 로그아웃 후 로그인 화면으로 이동하는 등의 작업을 수행할 수 있습니다.
@@ -233,7 +235,7 @@ class MyPageViewController: UIViewController {
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
             .changeRootViewController(UnregisterVC, animated: true)
         
-        print("회원탈퇴 토큰: \(KeyChain.loadToken(forKey: "appaccessToken"))")
+        print("회원탈퇴 토큰: \(KeyChain.loadToken(forKey: "pmuaccessToken"))")
         
         // 액세스 토큰을 갱신하고 갱신 성공 시 탈퇴 요청 보내기
         //refreshAccessTokenAndWithdraw()
@@ -247,7 +249,7 @@ class MyPageViewController: UIViewController {
                 // 에러 메시지를 사용자에게 표시하거나 다른 처리를 수행할 수 있습니다.
             } else {
                 // 액세스 토큰 갱신 성공
-                if let savedToken = KeyChain.loadToken(forKey: "accessToken") {
+                if let savedToken = KeyChain.loadToken(forKey: "pmuaccessToken") {
                     self.withdraw(with: savedToken)
                 } else {
                     // 로그인 정보가 없는 경우 처리
@@ -257,14 +259,16 @@ class MyPageViewController: UIViewController {
     }
     
     func appwithdraw() {
-        if let savedToken = KeyChain.loadToken(forKey: "appaccessToken") {
+        if let savedToken = KeyChain.loadToken(forKey: "pmuaccessToken") {
             KakaoLogoutService.withdraw(auth: savedToken) { networkResult in
                 switch networkResult {
                 case .success:
                     print("Kakao withdraw success")
                     // 탈퇴 성공 시, UI 및 데이터 초기화 또는 필요한 작업 수행
-                    KeyChain.deleteToken(forKey: "appaccessToken")
+                    KeyChain.deleteToken(forKey: "pmuaccessToken")
+                    KeyChain.deleteToken(forKey: "pmurefreshToken")
                     KeyChain.deleteToken(forKey: "accessToken")
+                    
                     // 예시: 로그아웃 또는 탈퇴 후, 다시 로그인 화면으로 이동
                     if let loginViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as? ViewController {
                         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginViewController, animated: true)
