@@ -60,7 +60,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = vc // 전환
         
         UIView.transition(with: window, duration: 0.2, options: [.transitionCrossDissolve], animations: nil, completion: nil)
-       
     }
 
 

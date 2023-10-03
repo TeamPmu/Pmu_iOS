@@ -7,6 +7,11 @@
 
 import UIKit
 
+// 삭제 요청을 받을 프로토콜 정의
+protocol DetailViewControllerDelegate: AnyObject {
+    func deleteItem(atIndex index: Int)
+}
+
 class DetailViewController: UIViewController {
 
     @IBOutlet weak var heartBtn: UIButton!
@@ -18,18 +23,17 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var artistLbl: UILabel!
     @IBOutlet weak var bgMusicAlbumImg: UIImageView!
     
-    var num = 1
+    var isHeartSelected = true
     var albumImg: UIImage?
     var titleText: String?
     var artistText: String?
     var musicURL: String = ""
     
+    weak var delegate: DetailViewControllerDelegate?
+    var selectedIndex: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
-        //self.navigationController?.isNavigationBarHidden = true
         
         // Do any additional setup after loading the view.
         musicAlbumImg.image = albumImg
@@ -39,38 +43,35 @@ class DetailViewController: UIViewController {
         
         musicAlbumImg.layer.cornerRadius = 10
         
-        heartBtn.setImage(UIImage(named: "heartYellow"), for: .normal)
+        // 초기 상태에서는 heartYellow 이미지를 사용
+        setHeartButtonImage()
     }
     
     @IBAction func heartBtnTapped(_ sender: UIButton) {
-        if num % 2 == 0 {
+        // 버튼을 누를 때마다 isHeartSelected 상태를 토글
+        isHeartSelected.toggle()
+        
+        // 상태에 따라 이미지 설정
+        setHeartButtonImage()
+    }
+    
+    func setHeartButtonImage() {
+        if isHeartSelected {
             heartBtn.setImage(UIImage(named: "heartYellow"), for: .normal)
-            num+=1
-            
         } else {
             heartBtn.setImage(UIImage(named: "heart"), for: .normal)
-            num+=1
         }
+        
     }
     
     @IBAction func dismissBtnTapped(_ sender: UIButton) {
-        
-        /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        // 스토리보드 ID로 두 번째 뷰 컨트롤러 인스턴스화
-        if let MusicVC = storyboard.instantiateViewController(withIdentifier: "ListVC") as? BaseTableBarController {
-            // 윈도우 씬을 찾아서 루트 뷰 컨트롤러 변경
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                let window = windowScene.windows.first {
-                window.rootViewController = MusicVC
-            }
-        }*/
-        
-        // 버튼을 누를 때 이전 화면으로 이동
-        //navigationController?.popViewController(animated: true)
-        
+        // 추가: isHeartSelected가 false인 경우 삭제 요청을 보내기
+        if !isHeartSelected, let selectedIndex = selectedIndex {
+            delegate?.deleteItem(atIndex: selectedIndex)
+        }
+        print(isHeartSelected)
+        print("인덱스", selectedIndex)
         self.dismiss(animated: true, completion: nil)
-        
     }
     
     @IBAction func youtubeBtnTapped(_ sender: UIButton) {
@@ -80,15 +81,4 @@ class DetailViewController: UIViewController {
             }
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

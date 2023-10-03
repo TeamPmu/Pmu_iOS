@@ -18,15 +18,8 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var signUpBtn: UIButton!
     @IBOutlet weak var urlBtn: UIButton!
     
-    let checkBackGround = UIColor(red: 250, green: 250, blue: 250, alpha: 1)
-    //let checkedBackGround = UIColor(red: 245, green: 245, blue: 245, alpha: 1)
-
-    var num = 0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
         
         profileImg.layer.cornerRadius = profileImg.frame.width / 2
         profileImg.clipsToBounds = true
@@ -38,7 +31,7 @@ class SignUpViewController: UIViewController {
         signUpBtn.isEnabled = false
         
         // 프로필 이미지 로드 및 설정 호출
-        //loadProfileImage()
+        loadProfileImage()
         
         // Add a tap gesture recognizer to the view
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -46,7 +39,6 @@ class SignUpViewController: UIViewController {
         
         // Set the delegate of the text field
         self.nameTextField.delegate = self
-        
     }
     
     @objc func dismissKeyboard() {
@@ -58,46 +50,43 @@ class SignUpViewController: UIViewController {
     func loadProfileImage() {
         // KakaoLoginService 등의 다른 코드 내에서 데이터 사용 방법
         if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
-            if let profileImgURLString = loginResponse.data.profileImageURL,
+            if let profileImgURLString = loginResponse.data!.profileImageURL,
                let profileImgURL = URL(string: profileImgURLString) {
-                print("프로필 이미지 URL: \(profileImgURLString)") // 디버그 출력
+                print("회원가입 프로필 이미지 URL: \(profileImgURLString)") // 디버그 출력
                 // 이미지 다운로드 및 설정
                 DispatchQueue.global().async { // 비동기적으로 이미지 다운로드 수행
                     if let imageData = try? Data(contentsOf: profileImgURL),
                        let profileImage = UIImage(data: imageData) {
                         DispatchQueue.main.async { // 다운로드 완료 후 메인 쓰레드에서 UI 업데이트
-                            print("프로필 이미지 다운로드 및 설정 성공") // 디버그 출력
+                            print("회원가입 프로필 이미지 다운로드 및 설정 성공") // 디버그 출력
                             self.profileImg.image = profileImage
                         }
                     } else {
                         self.profileImg.image = UIImage(named: "dress")
                         self.profileImg.backgroundColor = UIColor.gray
-                        print("프로필 이미지 다운로드 실패") // 디버그 출력
+                        print("회원가입 프로필 이미지 다운로드 실패") // 디버그 출력
                     }
                 }
             } else {
                 self.profileImg.image = UIImage(named: "dress")
                 self.profileImg.backgroundColor = UIColor.gray
-                print("프로필 이미지 URL 변환 실패") // 디버그 출력
+                print("회원가입 프로필 이미지 URL 변환 실패") // 디버그 출력
             }
         } else {
-            print("로그인 응답 데이터가 없음") // 디버그 출력
+            print("회원가입 응답 데이터가 없음") // 디버그 출력
         }
     }
-       
+    
     @IBAction func checkBtnTapped(_ sender: UIButton) {
-
-        if num % 2 == 0 {
+        if signUpBtn.isEnabled == false, let text = nameTextField.text, !text.isEmpty {
             checkBtn.setImage(UIImage(named: "agreedbutton"), for: .normal)
             signUpBtn.setImage(UIImage(named: "signUpYellow"), for: .normal)
             signUpBtn.isEnabled = true
-            num+=1
             
         } else {
             checkBtn.setImage(UIImage(named: "agreebutton"), for: .normal)
             signUpBtn.setImage(UIImage(named: "signUpGray"), for: .normal)
             signUpBtn.isEnabled = false
-            num+=1
         }
     }
     
@@ -106,8 +95,8 @@ class SignUpViewController: UIViewController {
             // 토큰이 있는 경우 회원 가입 시도
             self.signUp(with: savedToken, nickname: nickname)
             
-            print(savedToken)
-            print(nickname)
+            //print(savedToken)
+            //print(nickname)
             
         } else {
             // 토큰이 없는 경우 처리
@@ -123,18 +112,18 @@ class SignUpViewController: UIViewController {
                 if let response = kakaoResponse as? KakaoLoginResponse {
                     let signUpData = response.data
                     
-                    if !signUpData.accessToken.isEmpty {
+                    if !signUpData!.accessToken.isEmpty {
                         DispatchQueue.main.async {
                             print("회원가입 성공")
-                            print("signUp AccessToken: \(signUpData.accessToken)")
-                            print("signUp RefreshToken: \(signUpData.refreshToken)")
-                            print("signUp UserID: \(signUpData.userID)")
-                            print("signUp ProfileImageURL: \(signUpData.profileImageURL)")
-                            print("signUp Nickname: \(signUpData.nickname)")
+                            print("signUp AccessToken: \(signUpData!.accessToken)")
+                            print("signUp RefreshToken: \(signUpData!.refreshToken)")
+                            print("signUp UserID: \(signUpData!.userID)")
+                            print("signUp ProfileImageURL: \(signUpData!.profileImageURL)")
+                            print("signUp Nickname: \(signUpData!.nickname)")
                             
                             // AccessToken을 Keychain에 저장
-                            KeyChain.saveToken(signUpData.accessToken, forKey: "pmuaccessToken")
-                            KeyChain.saveToken(signUpData.refreshToken, forKey: "pmurefreshToken")
+                            KeyChain.saveToken(signUpData!.accessToken, forKey: "pmuaccessToken")
+                            KeyChain.saveToken(signUpData!.refreshToken, forKey: "pmurefreshToken")
                             
                             self.presentMainViewController()
                         }
@@ -185,22 +174,22 @@ class SignUpViewController: UIViewController {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }
-        
     }
     
-    /*
     @IBAction func backBtnTapped(_ sender: UIButton) {
-        guard let logoVC = self.storyboard?.instantiateViewController(withIdentifier: "SignUp") as? SignUpViewController else { return }
-        signUpVC.modalTransitionStyle = .coverVertical
-        signUpVC.modalPresentationStyle = .fullScreen
-        self.present(signUpVC, animated: true, completion: nil)
+        KeyChain.deleteToken(forKey: "pmuaccessToken")
+        KeyChain.deleteToken(forKey: "pmurefreshToken")
+        KeyChain.deleteToken(forKey: "accessToken")
+
+        let loginVC =  UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "LoginVC")
+        
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginVC, animated: true)
     }
-    */
 }
 
 // UITextFieldDelegate method to dismiss keyboard when Return key is pressed
 extension SignUpViewController : UITextFieldDelegate{
-    
 func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       textField.resignFirstResponder()
       return true

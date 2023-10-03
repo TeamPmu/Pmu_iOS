@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableViewController: UITableViewController {
+class TableViewController: UITableViewController, DetailViewControllerDelegate {
     
     var data = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6","Item 7","Item 8", "Item 9"]
     
@@ -25,28 +25,24 @@ class TableViewController: UITableViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        //tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MusicTableCell")
-
-        //self.navigationController?.navigationBar.prefersLargeTitles = true
-        
         //navigationBar bottom bolder line 제거하기
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        
-        //navigationController?.isToolbarHidden = true
-        
-        // 빈 뷰를 생성하여 tableFooterView로 설정
-        //let emptyFooterView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 0))
-        //tableView.tableFooterView = emptyFooterView
-        
+
         // 더미 음악 데이터를 가져오는 함수 호출
         getDummyMusic()
         
         setNickNameLabel()
+        
+        
+        
+        for i in 0..<titles.count {
+            print("Title: \(titles[i]), Artist: \(artists[i]), MusicURL: \(musicURL[i])")
+        }
     }
     
     func setNickNameLabel() {
         if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
-            let nickname = loginResponse.data.nickname
+            let nickname = loginResponse.data!.nickname
             let formattedNickname = "\(nickname) 님을 위한"
             print("변경된 닉네임: \(formattedNickname)") // 디버그 출력
             nicknameLbl.text = formattedNickname
@@ -54,7 +50,6 @@ class TableViewController: UITableViewController {
             print("로그인 응답 데이터가 없음") // 디버그 출력
         }
     }
-    
     
     // MARK: - UITableViewDataSource
     
@@ -180,6 +175,48 @@ class TableViewController: UITableViewController {
                 artists.append(dummyMusic.artist) // 아티스트 배열에 추가
                 musicURL.append(dummyMusic.musicPull)
             }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "DetailSegue" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let destinationVC = segue.destination as! DetailViewController
+                destinationVC.albumImg = images[indexPath.row]
+                destinationVC.titleText = titles[indexPath.row]
+                destinationVC.artistText = artists[indexPath.row]
+                destinationVC.musicURL = musicURL[indexPath.row]
+                
+                // 수정: selectedIndex 설정
+                destinationVC.selectedIndex = indexPath.row
+                
+                destinationVC.delegate = self // delegate를 설정하여 삭제 요청을 받을 수 있도록 함
+            }
+        }
+    }
+    
+    // 삭제 요청을 처리하는 메서드
+    func deleteItem(atIndex index: Int) {
+        // 데이터 배열에서 해당 음악 정보 삭제
+        let deletedItem = titles[index] // 삭제하기 전 항목을 저장
+        titles.remove(at: index)
+        artists.remove(at: index)
+        images.remove(at: index)
+        musicURL.remove(at: index)
+        
+        // 테이블 뷰 업데이트
+        tableView.beginUpdates() // 업데이트 시작
+        
+        // 테이블 뷰에서 해당 셀 삭제
+        tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+        
+        tableView.endUpdates() // 업데이트 종료
+        
+        // 삭제하기 전과 후의 배열을 비교하여 변경된 항목 확인
+        if !titles.contains(deletedItem) {
+            print("\(deletedItem) 항목이 삭제되었습니다.")
+        } else {
+            print("\(deletedItem) 항목은 삭제되지 않았습니다.")
         }
     }
 }

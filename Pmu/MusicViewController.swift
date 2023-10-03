@@ -42,11 +42,6 @@ class MusicViewController: UIViewController {
         // UITextView의 delegate를 설정
         txtView.delegate = self
         
-        
-        // 프로필 이미지 초기화
-        //self.profileImg.image = UIImage(named: "myPageFilled")
-        //self.profileImg.backgroundColor = UIColor.gray
-        
         // 프로필 이미지 로드 및 설정 호출
         loadProfileImage()
         
@@ -87,7 +82,7 @@ class MusicViewController: UIViewController {
     func loadProfileImage() {
         // KakaoLoginService 등의 다른 코드 내에서 데이터 사용 방법
         if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
-            if let profileImgURLString = loginResponse.data.profileImageURL,
+            if let profileImgURLString = loginResponse.data!.profileImageURL,
                let profileImgURL = URL(string: profileImgURLString) {
                 print("프로필 이미지 URL: \(profileImgURLString)") // 디버그 출력
                 // 이미지 다운로드 및 설정
@@ -118,29 +113,9 @@ class MusicViewController: UIViewController {
         }
     }
     
-    /*func loadProfileImage() {
-        if let profileImageURL = KakaoDataManager.shared.getLoginResponse()?.data.profileImageURL {
-            // Alamofire를 사용하여 프로필 이미지 다운로드
-            AF.request(profileImageURL).responseImage { response in
-                switch response.result {
-                case .success(let image):
-                    self.profileImg.image = image
-                case .failure(let error):
-                    print("Error downloading profile image: \(error)")
-                }
-            }
-        }
-    }*/
-       
-    /*func loadUsername() {
-        if let username = KakaoDataManager.shared.getLoginResponse()?.data.nickname {
-            nickNameLbl.text = username
-        }*/
-    
-    
     func setNickNameLabel() {
         if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
-            let nickname = loginResponse.data.nickname
+            let nickname = loginResponse.data!.nickname
             let formattedNickname = "\(nickname) 님을 위한"
             print("변경된 닉네임: \(formattedNickname)") // 디버그 출력
             nickNameLbl.text = formattedNickname
@@ -152,7 +127,6 @@ class MusicViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.txtView.resignFirstResponder()
     }
-    
 }
 
 extension MusicViewController: UITextViewDelegate {

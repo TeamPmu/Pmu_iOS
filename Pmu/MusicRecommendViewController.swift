@@ -40,22 +40,9 @@ class MusicRecommendViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        
-        //dismissBtn.layer.cornerRadius = 24
-        //dismissBtn.clipsToBounds = true
-        
-        //heartBtn.layer.cornerRadius = 24
-        //heartBtn.clipsToBounds = true
-        
         // 더미 음악 데이터를 가져오는 함수 호출
         getDummyMusic()
-        
-        // Do any additional setup after loading the view.
-        //musicAlbumImg.image = images[0]
-        //titleLbl.text = titles[0]
-        //artistLbl.text = artists[0]
-        
+
         print(artists.count)
         
         musicAlbumImg.layer.cornerRadius = 12
@@ -79,23 +66,7 @@ class MusicRecommendViewController: UIViewController {
         // 초기 화면 설정
         updateUI(with: currentIndex)
     }
-    
-    /*
-     @IBAction func dismissBtnTapped(_ sender: UIButton) {
-     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-     
-     // 스토리보드 ID로 두 번째 뷰 컨트롤러 인스턴스화
-     if let MainVC = storyboard.instantiateViewController(withIdentifier: "Main") as? BaseTableBarController {
-     // 윈도우 씬을 찾아서 루트 뷰 컨트롤러 변경
-     if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-     let window = windowScene.windows.first {
-     window.rootViewController = MainVC
-     }
-     }
-     
-     }
-     */
-    
+
     @IBAction func youtubeBtnTapped(_ sender: UIButton) {
         
         if let url = URL(string: musicURL[currentIndex]) {
@@ -114,44 +85,6 @@ class MusicRecommendViewController: UIViewController {
         
         
         self.dismiss(animated: true, completion: nil)
-        
-        /* let storyboard = UIStoryboard(name: "Main", bundle: nil)
-         
-         if let musicVC = storyboard.instantiateViewController(withIdentifier: "Main") as? BaseTableBarController {
-         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-         let window = windowScene.windows.first {
-         
-         // musicVC가 루트 뷰 컨트롤러로 나타난 후에 애니메이션 수행
-         UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: {
-         window.rootViewController = musicVC
-         }) { _ in
-         // 현재 뷰 컨트롤러를 위에서 아래로 사라지는 애니메이션으로 닫음
-         self.dismiss(animated: true, completion: nil)
-         }
-         }
-         }*/
-        
-        
-        /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
-         
-         // 스토리보드 ID로 두 번째 뷰 컨트롤러 인스턴스화
-         if let MusicVC = storyboard.instantiateViewController(withIdentifier: "Main") as? BaseTableBarController {
-         // 윈도우 씬을 찾아서 루트 뷰 컨트롤러 변경
-         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-         let window = windowScene.windows.first {
-         window.rootViewController = MusicVC
-         }
-         }*/
-        
-        
-        /*let MainVC =  UIStoryboard(name: "Main", bundle: nil)
-         .instantiateViewController(withIdentifier: "Main")
-         
-         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(MainVC, animated: true)*/
-        
-        // 버튼을 누를 때 이전 화면으로 이동
-        
-        //self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func heartBtnTapped(_ sender: UIButton) {
@@ -167,17 +100,6 @@ class MusicRecommendViewController: UIViewController {
         }
     }
     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
      // UISwipeGestureRecognizer 액션 함수: 왼쪽으로 스와이프할 때 호출됨
     @objc func swipeLeft(_ gesture: UISwipeGestureRecognizer) {
         // 다음 노래로 이동하는 로직을 여기에 추가
@@ -185,12 +107,6 @@ class MusicRecommendViewController: UIViewController {
         if currentIndex >= artists.count {
             currentIndex = 0 // 마지막 노래에서 다음 노래로 이동할 경우 첫 번째 노래로 돌아감
         }
-        
-        /*let transition = CATransition()
-         transition.duration = 0.5 // 애니메이션 지속 시간 (초)
-         transition.type = .push
-         transition.subtype = .fromRight
-         view.window?.layer.add(transition, forKey: kCATransition)*/
         
         // musicAlbumImg에 애니메이션 효과 주기
         UIView.transition(with: musicAlbumImg, duration: 0.2, options: .transitionCrossDissolve, animations: {

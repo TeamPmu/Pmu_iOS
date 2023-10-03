@@ -13,16 +13,18 @@ struct jwtTokenService {
     
     static let shared = jwtTokenService()
     
-    static func jwtToken (auth: String, completion: @escaping (NetworkResult<jwtTokenResponse>) -> Void){
+    static func jwtToken (auth: String, userId: Int, completion: @escaping (NetworkResult<jwtTokenResponse>) -> Void){
         let url = APIConstants.jwtURL
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "Authorization": auth  // Replace with your actual authorization header
         ]
-                
+        
+        let body: Parameters = ["userId" : userId]
+        
         let dataRequest = AF.request(url,
                                      method: .post,
-                                     parameters: nil,
+                                     parameters: body,
                                      encoding: JSONEncoding.default,
                                      headers: headers)
         
@@ -48,7 +50,8 @@ struct jwtTokenService {
                         // Update login response in KakaoDataManager
                         //KakaoDataManager.shared.updateLoginResponse(with: decodedData)
                         completion(.success(decodedData))
-                    case 400..<500: completion(.requestErr(decodedData))
+                    case 400..<500:
+                        completion(.requestErr(decodedData))
                     case 500..<600: completion(.serverErr)
                     default: completion(.networkFail)
                     }

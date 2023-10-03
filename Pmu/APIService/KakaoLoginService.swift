@@ -84,7 +84,9 @@ struct KakaoLoginService {
                         // Update login response in KakaoDataManager
                         KakaoDataManager.shared.updateLoginResponse(with: decodedData)
                         completion(.success(decodedData))
-                    case 400..<500: completion(.requestErr(decodedData))
+                    case 400..<500:
+                        //let failureData = try decoder.decode(FailureResponse.self, from: data)
+                        completion(.requestErr(decodedData))
                     case 500..<600: completion(.serverErr)
                     default: completion(.networkFail)
                     }
