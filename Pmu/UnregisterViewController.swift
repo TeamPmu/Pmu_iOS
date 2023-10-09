@@ -20,17 +20,8 @@ class UnregisterViewController: UIViewController {
     
     @IBAction func backBtnTapped(_ sender: UIButton) {
         
-        //self.dismiss(animated: true, completion: nil)
-        
-        // 화면이 좌측에서 우측으로 사라지는 애니메이션 추가
-        let transition = CATransition()
-        transition.duration = 0.2 // 애니메이션 지속 시간 설정
-        transition.type = CATransitionType.push // 푸시 애니메이션 타입 선택
-        transition.subtype = CATransitionSubtype.fromLeft // 방향 설정 (좌측에서 우측으로)
-        view.window?.layer.add(transition, forKey: kCATransition)
-        
         // 화면을 dismiss
-        self.dismiss(animated: false, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func unregisterBtnTapped(_ sender: UIButton) {
