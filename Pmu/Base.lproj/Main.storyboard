@@ -639,7 +639,7 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="노래 제목" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMf-b6-xiL">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="노래 제목" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMf-b6-xiL" customClass="MarqueeLabel" customModule="MarqueeLabel">
                                             <rect key="frame" x="20" y="549" width="350" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="350" id="6wG-Wk-tgY"/>
@@ -1349,7 +1349,7 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="노래 제목" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="odK-qf-3Sn">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="노래 제목" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="odK-qf-3Sn" customClass="MarqueeLabel" customModule="MarqueeLabel">
                                             <rect key="frame" x="20" y="549" width="350" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="WgC-fa-nKf"/>
@@ -1428,6 +1428,14 @@
             <point key="canvasLocation" x="6551" y="-1273"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="odK-qf-3Sn">
+            <size key="intrinsicContentSize" width="117.66666666666667" height="38.333333333333336"/>
+        </designable>
+        <designable name="xMf-b6-xiL">
+            <size key="intrinsicContentSize" width="117.66666666666667" height="38.333333333333336"/>
+        </designable>
+    </designables>
     <resources>
         <image name="agreebutton" width="350" height="60"/>
         <image name="checkedmark" width="24" height="24"/>

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MarqueeLabel
 
 // 삭제 요청을 받을 프로토콜 정의
 protocol DetailViewControllerDelegate: AnyObject {

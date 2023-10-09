@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MarqueeLabel
 
 class MusicRecommendViewController: UIViewController {
     
@@ -202,7 +203,7 @@ class MusicRecommendViewController: UIViewController {
             pickCnt: 0)
         
         let dummyMusic4: AroundMusic = AroundMusic(
-            name: "모든 것이 꿈이었네 (It Was All a Dream)",
+            name: "모든 것이 꿈이었네 (It Was All a Dream) ",
             coverImg: "https://is4-ssl.mzstatic.com/image/thumb/Music126/v4/b5/9c/27/b59c2792-bb97-2a40-f482-c6d5b3ae1cea/196626603180.jpg/100x100bb.jpg",
             genre: "hiphop",
             musicPre: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/79/97/b3/7997b3fd-b8b8-0540-787a-0ef0988e807c/mzaf_6188522879362145428.plus.aac.p.m4a",
