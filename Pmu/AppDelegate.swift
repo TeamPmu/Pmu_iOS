@@ -7,6 +7,8 @@
 
 import UIKit
 import KakaoSDKCommon
+import AWSMobileClient
+import AWSCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +24,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 탭 바 경계(border) 제거
         UITabBar.appearance().layer.borderWidth = 0
         UITabBar.appearance().layer.borderColor = UIColor.clear.cgColor
+        
+        // AWS 초기화
+        /*let credentialsProvider = AWSMobileClient.default().getCredentialsProvider()
+        let configuration = AWSServiceConfiguration(
+            region: .USEast1, // Lambda 함수가 있는 리전으로 변경하세요.
+            credentialsProvider: credentialsProvider
+        )
+        AWSServiceManager.default().defaultServiceConfiguration = configuration
+        */
         
         return true
     }

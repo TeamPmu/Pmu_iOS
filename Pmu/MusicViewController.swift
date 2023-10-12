@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Alamofire
+import AWSLambda
 
 class MusicViewController: UIViewController {
     
@@ -62,6 +63,24 @@ class MusicViewController: UIViewController {
         txtView.text = "프로필 사진 찍을 때 어떤 기분이셨나요?\n알려주세요! (최대 150자)"
         txtView.textColor = UIColor.lightGray
     }
+    
+    /*func invokeLambdaFunction() {
+        let lambdaInvoker = AWSLambdaInvoker.default()
+
+        let functionName = "YourLambdaFunctionName" // 호출할 Lambda 함수 이름
+        let requestPayload = ["key": "value"] // Lambda 함수로 전달할 데이터
+
+        lambdaInvoker.invokeFunction(functionName, jsonObject: requestPayload)
+            .continueWith { (task) -> Any? in
+                if let error = task.error {
+                    print("Error: \(error.localizedDescription)")
+                }
+                if let result = task.result as? [String: Any] {
+                    print("Lambda Result: \(result)")
+                }
+                return nil
+            }
+    }*/
     
     /*
     @IBAction func musicBtnTapped(_ sender: UIButton) {

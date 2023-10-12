@@ -42,7 +42,8 @@ class DetailViewController: UIViewController {
         titleLbl.text = titleText
         artistLbl.text = artistText
         
-        musicAlbumImg.layer.cornerRadius = 10
+        musicAlbumImg.layer.cornerRadius = 12
+        musicAlbumImg.clipsToBounds = true
         
         // 초기 상태에서는 heartYellow 이미지를 사용
         setHeartButtonImage()

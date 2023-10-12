@@ -19,7 +19,6 @@ class UnregisterViewController: UIViewController {
     }
     
     @IBAction func backBtnTapped(_ sender: UIButton) {
-        
         // 화면을 dismiss
         self.dismiss(animated: true, completion: nil)
     }

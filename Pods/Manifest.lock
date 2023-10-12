@@ -1,0 +1,79 @@
+PODS:
+  - Alamofire (5.7.1)
+  - AWSAuthCore (2.33.4):
+    - AWSCore (= 2.33.4)
+  - AWSCognitoIdentityProvider (2.33.4):
+    - AWSCognitoIdentityProviderASF (= 2.33.4)
+    - AWSCore (= 2.33.4)
+  - AWSCognitoIdentityProviderASF (2.33.4):
+    - AWSCore (= 2.33.4)
+  - AWSCore (2.33.4)
+  - AWSLambda (2.33.4):
+    - AWSCore (= 2.33.4)
+  - AWSMobileClient (2.33.4):
+    - AWSAuthCore (= 2.33.4)
+    - AWSCognitoIdentityProvider (= 2.33.4)
+    - AWSCognitoIdentityProviderASF (= 2.33.4)
+    - AWSCore (= 2.33.4)
+  - KakaoSDKAuth (2.15.0):
+    - KakaoSDKCommon (= 2.15.0)
+  - KakaoSDKCommon (2.15.0):
+    - KakaoSDKCommon/Common (= 2.15.0)
+    - KakaoSDKCommon/Network (= 2.15.0)
+  - KakaoSDKCommon/Common (2.15.0)
+  - KakaoSDKCommon/Network (2.15.0):
+    - Alamofire (~> 5.1)
+    - KakaoSDKCommon/Common (= 2.15.0)
+  - KakaoSDKTalk (2.15.0):
+    - KakaoSDKTemplate (= 2.15.0)
+    - KakaoSDKUser (= 2.15.0)
+  - KakaoSDKTemplate (2.15.0):
+    - KakaoSDKCommon/Common (= 2.15.0)
+  - KakaoSDKUser (2.15.0):
+    - KakaoSDKAuth (= 2.15.0)
+  - MarqueeLabel (4.3.2)
+
+DEPENDENCIES:
+  - Alamofire (~> 5.4)
+  - AWSLambda
+  - AWSMobileClient
+  - KakaoSDKAuth
+  - KakaoSDKCommon
+  - KakaoSDKTalk
+  - KakaoSDKUser
+  - MarqueeLabel
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - AWSAuthCore
+    - AWSCognitoIdentityProvider
+    - AWSCognitoIdentityProviderASF
+    - AWSCore
+    - AWSLambda
+    - AWSMobileClient
+    - KakaoSDKAuth
+    - KakaoSDKCommon
+    - KakaoSDKTalk
+    - KakaoSDKTemplate
+    - KakaoSDKUser
+    - MarqueeLabel
+
+SPEC CHECKSUMS:
+  Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  AWSAuthCore: 0584cee14bd5a692b8daa1c43b06df9524533692
+  AWSCognitoIdentityProvider: 74464aeebddb8546586f979c8ed055180a4b1855
+  AWSCognitoIdentityProviderASF: 28c6a2916512c08ded36b1aab4d92a1b5805d868
+  AWSCore: 83e3416d2224ba98b61d8eadcfcb1f90f48fab82
+  AWSLambda: 543fdf04c2ac0297cbd83d3b68de0ab5a7f5a07a
+  AWSMobileClient: ff115272d8b29f05443f82f5800036c498c5ca8b
+  KakaoSDKAuth: 0fe5cf1756e8a9f66f8fc77826061aafa93034f3
+  KakaoSDKCommon: 89d863b7f34398e6fb93a0acb28a204908551a39
+  KakaoSDKTalk: 846856743650b0eea4040a38368a7c1e8dcb0072
+  KakaoSDKTemplate: c9cbc64b0248c7a33c211a56dada7e38c1210751
+  KakaoSDKUser: a997ca5c4c18ece2ab30646ff74841bc29d4399d
+  MarqueeLabel: 15e524a6762552bb279cb17438b8a94990269fb9
+
+PODFILE CHECKSUM: aa79ece7e5ce5a595d7e20d0fd569a9f5f05aeeb
+
+COCOAPODS: 1.12.1

@@ -67,9 +67,8 @@ class MusicRecommendViewController: UIViewController {
         // 초기 화면 설정
         updateUI(with: currentIndex)
     }
-
+    
     @IBAction func youtubeBtnTapped(_ sender: UIButton) {
-        
         if let url = URL(string: musicURL[currentIndex]) {
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
