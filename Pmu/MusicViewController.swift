@@ -64,11 +64,33 @@ class MusicViewController: UIViewController {
         txtView.textColor = UIColor.lightGray
     }
     
-    /*func invokeLambdaFunction() {
+    /*
+    //프로필 URL 전달
+    func invokeLambdaEmotionFunction(profileURL: String) {
         let lambdaInvoker = AWSLambdaInvoker.default()
 
         let functionName = "YourLambdaFunctionName" // 호출할 Lambda 함수 이름
-        let requestPayload = ["key": "value"] // Lambda 함수로 전달할 데이터
+        let requestPayload = ["URL": profileURL] // Lambda 함수로 전달할 데이터
+
+        lambdaInvoker.invokeFunction(functionName, jsonObject: requestPayload)
+            .continueWith { (task) -> Any? in
+                if let error = task.error {
+                    print("Error: \(error.localizedDescription)")
+                }
+                if let result = task.result as? [String: Any] {
+                    print("Lambda Result: \(result)")
+                    UserDefaults.standard.set(result, forKey: "emotion")
+                }
+                return nil
+            }
+    }
+    
+    //감정, 텍스트 전달
+    func invokeLambdaMusicRecommandFunction(emotion: String, text: String) {
+        let lambdaInvoker = AWSLambdaInvoker.default()
+        
+        let functionName = "YourLambdaFunctionName" // 호출할 Lambda 함수 이름
+        let requestPayload = ["emotion": emotion, "text": text] // Lambda 함수로 전달할 데이터
 
         lambdaInvoker.invokeFunction(functionName, jsonObject: requestPayload)
             .continueWith { (task) -> Any? in
@@ -80,22 +102,42 @@ class MusicViewController: UIViewController {
                 }
                 return nil
             }
-    }*/
-    
-    /*
-    @IBAction func musicBtnTapped(_ sender: UIButton) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        // 스토리보드 ID로 두 번째 뷰 컨트롤러 인스턴스화
-        if let MusicRecoVC = storyboard.instantiateViewController(withIdentifier: "MusicReco") as? MusicRecommendViewController {
-            // 윈도우 씬을 찾아서 루트 뷰 컨트롤러 변경
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                let window = windowScene.windows.first {
-                window.rootViewController = MusicRecoVC
-            }
-        }
     }
     */
+    
+    @IBAction func musicBtnTapped(_ sender: UIButton) {
+        
+        // 텍스트 뷰에 입력된 텍스트 가져오기
+        guard let textToSave = txtView.text else {
+            return
+        }
+        
+        // 가져온 텍스트를 UserDefaults에 저장
+        UserDefaults.standard.set(textToSave, forKey: "savedText")
+        
+        // 저장 완료 메시지 또는 다른 작업 수행
+        print("Text saved successfully!")
+        
+        if let savedText = UserDefaults.standard.string(forKey: "savedText") {
+            // 가져온 문자열을 출력
+            print("Saved Text: \(savedText)")
+        } else {
+            // "savedText" 키에 대한 값이 없는 경우 처리
+            print("No saved text found.")
+        }
+        
+        /*
+        // UserDefaults에서 "emotion"과 "savedText" 키에 해당하는 값을 가져오기
+        if let emotion = UserDefaults.standard.string(forKey: "emotion"),
+           let savedText = UserDefaults.standard.string(forKey: "savedText") {
+            // 가져온 emotion 값을 이용하여 Lambda 함수 호출
+            self.invokeLambdaMusicRecommandFunction(emotion: emotion, text: savedText)
+        } else {
+            // "emotion" 또는 "savedText" 키에 대한 값이 없는 경우 처리
+            print("No emotion or saved text found in UserDefaults")
+        }
+        */
+    }
     
     // 프로필 이미지 로드 및 설정하는 함수
     func loadProfileImage() {
@@ -111,6 +153,7 @@ class MusicViewController: UIViewController {
                         DispatchQueue.main.async { // 다운로드 완료 후 메인 쓰레드에서 UI 업데이트
                             print("프로필 이미지 다운로드 및 설정 성공") // 디버그 출력
                             self.profileImg.image = profileImage
+                            //self.invokeLambdaEmotionFunction(profileURL: profileImgURLString)
                         }
                     } else {
                         DispatchQueue.main.async {
@@ -149,10 +192,9 @@ class MusicViewController: UIViewController {
 }
 
 extension MusicViewController: UITextViewDelegate {
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
+   func textViewDidEndEditing(_ textView: UITextView) {
         if txtView.text.isEmpty {
-            txtView.text =  "플레이스홀더입니다"
+            txtView.text =  "프로필 사진 찍을 때 어떤 기분이셨나요?\n알려주세요! (최대 150자)"
             txtView.textColor = UIColor.lightGray
         }
 

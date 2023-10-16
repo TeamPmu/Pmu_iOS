@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // AWS 초기화
         /*let credentialsProvider = AWSMobileClient.default().getCredentialsProvider()
         let configuration = AWSServiceConfiguration(
-            region: .USEast1, // Lambda 함수가 있는 리전으로 변경하세요.
+            region: .APNortheast2, // Lambda 함수가 있는 리전으로 변경하세요.
             credentialsProvider: credentialsProvider
         )
         AWSServiceManager.default().defaultServiceConfiguration = configuration

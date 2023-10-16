@@ -27,7 +27,7 @@ class ViewController: UIViewController {
         //loadProfileImage()
     }
     
-    func loadProfileImage() {
+    /*func loadProfileImage() {
         // KakaoLoginService 등의 다른 코드 내에서 데이터 사용 방법
         if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
             if let profileImgURLString = loginResponse.data?.profileImageURL,
@@ -55,7 +55,7 @@ class ViewController: UIViewController {
         } else {
             print("로그인 응답 데이터가 없음") // 디버그 출력
         }
-    }
+    }*/
     
     @IBAction func logInBtnTapped(_ sender: UIButton) {
         if UserApi.isKakaoTalkLoginAvailable() {
