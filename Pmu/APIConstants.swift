@@ -11,7 +11,9 @@ struct APIConstants {
     
     // MARK: - base URL
     
-    static let baseURL = "http://3.39.18.66:8080"
+    //static let baseURL = "http://3.39.18.66:8080"
+    
+    static let baseURL = "https://gbsadhqz30.execute-api.ap-northeast-2.amazonaws.com/pmu-api-gateway"
     
     // MARK: - Kakao
     
@@ -29,4 +31,10 @@ struct APIConstants {
     
     //회원탈퇴 (delete)
     static let withDrawURL = baseURL + "/api/user/withdraw"
+    
+    //AI 프사 -> 감정
+    static let imgToEmotionURL = baseURL + "/api/ai/emotion"
+    
+    //AI 감정 -> 노래 추천
+    static let emotionToMusicURL = baseURL + "/api/ai/lyrics"
 }

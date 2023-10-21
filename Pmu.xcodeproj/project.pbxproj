@@ -45,6 +45,10 @@
 		B3ECE8062A725AB600AABF89 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = B3ECE7FD2A725AB600AABF89 /* Pretendard-Thin.otf */; };
 		B3ECE8072A725AB600AABF89 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B3ECE7FE2A725AB600AABF89 /* Pretendard-Bold.otf */; };
 		B3ECE8082A725AB600AABF89 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = B3ECE7FF2A725AB600AABF89 /* Pretendard-ExtraLight.otf */; };
+		B3F0C2DA2ADD003200D6CE72 /* ImgToEmotionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F0C2D92ADD003200D6CE72 /* ImgToEmotionService.swift */; };
+		B3F0C2DC2ADD004500D6CE72 /* EmotionToMusicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F0C2DB2ADD004500D6CE72 /* EmotionToMusicService.swift */; };
+		B3F0C2DE2ADD0C6300D6CE72 /* ImgToEmotionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F0C2DD2ADD0C6300D6CE72 /* ImgToEmotionResponse.swift */; };
+		B3F0C2E02ADD117700D6CE72 /* EmotionToMusicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F0C2DF2ADD117700D6CE72 /* EmotionToMusicResponse.swift */; };
 		D779D965F164C364A4EB615C /* Pods_Pmu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66E80017FF209CCB83D32454 /* Pods_Pmu.framework */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +95,10 @@
 		B3ECE7FD2A725AB600AABF89 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		B3ECE7FE2A725AB600AABF89 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		B3ECE7FF2A725AB600AABF89 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
+		B3F0C2D92ADD003200D6CE72 /* ImgToEmotionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgToEmotionService.swift; sourceTree = "<group>"; };
+		B3F0C2DB2ADD004500D6CE72 /* EmotionToMusicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionToMusicService.swift; sourceTree = "<group>"; };
+		B3F0C2DD2ADD0C6300D6CE72 /* ImgToEmotionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgToEmotionResponse.swift; sourceTree = "<group>"; };
+		B3F0C2DF2ADD117700D6CE72 /* EmotionToMusicResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionToMusicResponse.swift; sourceTree = "<group>"; };
 		D3FA6F5F931E88F28BA0A48A /* Pods-Pmu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pmu.release.xcconfig"; path = "Target Support Files/Pods-Pmu/Pods-Pmu.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,6 +120,8 @@
 				B3943E782A8FA13200D1AAB6 /* KakaoLoginService.swift */,
 				B339604C2AA5AFCD008BA5B6 /* KakaoLogoutService.swift */,
 				B33960572AB60607008BA5B6 /* jwtTokenService.swift */,
+				B3F0C2D92ADD003200D6CE72 /* ImgToEmotionService.swift */,
+				B3F0C2DB2ADD004500D6CE72 /* EmotionToMusicService.swift */,
 			);
 			path = APIService;
 			sourceTree = "<group>";
@@ -174,6 +184,8 @@
 				B33960542AB6058F008BA5B6 /* jwtTokenResponse.swift */,
 				B339604E2AA99137008BA5B6 /* ExMusicList.swift */,
 				B33960592AC09828008BA5B6 /* FailureResponse.swift */,
+				B3F0C2DD2ADD0C6300D6CE72 /* ImgToEmotionResponse.swift */,
+				B3F0C2DF2ADD117700D6CE72 /* EmotionToMusicResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -353,9 +365,13 @@
 				B37C51562A762AF000C5F93A /* MusicRecommendViewController.swift in Sources */,
 				B3E36DEC2A73B5BD000794F7 /* MyPageViewController.swift in Sources */,
 				B3943E7B2A8FA5F400D1AAB6 /* NetworkHelper.swift in Sources */,
+				B3F0C2DE2ADD0C6300D6CE72 /* ImgToEmotionResponse.swift in Sources */,
+				B3F0C2E02ADD117700D6CE72 /* EmotionToMusicResponse.swift in Sources */,
 				B3E36DEE2A755D95000794F7 /* TableViewController.swift in Sources */,
 				B3E36DEA2A73B5AC000794F7 /* ListViewController.swift in Sources */,
+				B3F0C2DA2ADD003200D6CE72 /* ImgToEmotionService.swift in Sources */,
 				B339604D2AA5AFCD008BA5B6 /* KakaoLogoutService.swift in Sources */,
+				B3F0C2DC2ADD004500D6CE72 /* EmotionToMusicService.swift in Sources */,
 				B33C4BD72A6E50AA0098EE33 /* ViewController.swift in Sources */,
 				B3943E792A8FA13200D1AAB6 /* KakaoLoginService.swift in Sources */,
 				B33C4BD32A6E50AA0098EE33 /* AppDelegate.swift in Sources */,

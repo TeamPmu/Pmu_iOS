@@ -43,7 +43,7 @@ class MusicRecommendViewController: UIViewController {
         
         // 더미 음악 데이터를 가져오는 함수 호출
         getDummyMusic()
-
+        
         print(artists.count)
         
         musicAlbumImg.layer.cornerRadius = 12
@@ -63,6 +63,11 @@ class MusicRecommendViewController: UIViewController {
         let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(swipeRight(_:)))
         swipeRightGesture.direction = .right
         self.view.addGestureRecognizer(swipeRightGesture)
+        
+        // UserDefaults에서 초기 좋아요 상태를 가져오기
+        if UserDefaults.standard.value(forKey: "liked\(currentIndex)") == nil {
+            UserDefaults.standard.set(false, forKey: "liked\(currentIndex)")
+        }
         
         // 초기 화면 설정
         updateUI(with: currentIndex)
@@ -88,16 +93,32 @@ class MusicRecommendViewController: UIViewController {
     }
     
     @IBAction func heartBtnTapped(_ sender: UIButton) {
-        if heartBtnTap == false {
+        /*if heartBtnTap == false {
+         heartBtn.setImage(UIImage(named: "heartYellow"), for: .normal)
+         num+=1
+         
+         heartBtnTap = true
+         } else {
+         heartBtn.setImage(UIImage(named: "heart"), for: .normal)
+         num+=1
+         heartBtnTap = false
+         }*/
+        
+        // UserDefaults에서 좋아요 상태를 가져오기
+        var liked = UserDefaults.standard.bool(forKey: "liked\(currentIndex)")
+        
+        // 좋아요 상태 토글
+        liked.toggle()
+        
+        if liked { //true
             heartBtn.setImage(UIImage(named: "heartYellow"), for: .normal)
-            num+=1
-            
-            heartBtnTap = true
+            print("노래 저장 \(currentIndex)")
         } else {
             heartBtn.setImage(UIImage(named: "heart"), for: .normal)
-            num+=1
-            heartBtnTap = false
         }
+        
+        // UserDefaults에 좋아요 상태 저장
+        UserDefaults.standard.set(liked, forKey: "liked\(currentIndex)")
     }
     
      // UISwipeGestureRecognizer 액션 함수: 왼쪽으로 스와이프할 때 호출됨
@@ -144,7 +165,16 @@ class MusicRecommendViewController: UIViewController {
     // 노래 정보 업데이트 함수
     func updateUI(with index: Int) {
         
-        heartBtnTapped(heartBtn)
+        //heartBtnTapped(heartBtn)
+        
+        // 현재 노래의 좋아요 상태를 가져와서 버튼 이미지 업데이트
+        let liked = UserDefaults.standard.bool(forKey: "liked\(currentIndex)")
+        
+        if liked {
+            heartBtn.setImage(UIImage(named: "heartYellow"), for: .normal)
+        } else {
+            heartBtn.setImage(UIImage(named: "heart"), for: .normal)
+        }
         
         if index >= 0 && index < artists.count {
             musicAlbumImg.image = images[index]
@@ -152,13 +182,13 @@ class MusicRecommendViewController: UIViewController {
             titleLbl.text = titles[index]
             artistLbl.text = artists[index]
         }
-
+        
         if index == 0 {
             beforeMusicAlbumImg.image = images[artists.count-1] // 이전 음악 이미지를 nil로 설정
         } else {
             beforeMusicAlbumImg.image = images[index - 1] // 이전 음악 이미지를 업데이트
         }
-
+        
         if index == artists.count - 1 {
             nextMusicAlbumImg.image = images[0] // 다음 음악 이미지를 첫 번째 이미지로 설정
         } else {

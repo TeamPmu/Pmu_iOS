@@ -31,7 +31,7 @@ class SignUpViewController: UIViewController {
         signUpBtn.isEnabled = false
         
         // 프로필 이미지 로드 및 설정 호출
-        loadProfileImage()
+        //loadProfileImage()
         
         // Add a tap gesture recognizer to the view
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -47,6 +47,7 @@ class SignUpViewController: UIViewController {
         self.view.endEditing(true)
     }
     
+    /*
     func loadProfileImage() {
         // KakaoLoginService 등의 다른 코드 내에서 데이터 사용 방법
         if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
@@ -75,7 +76,7 @@ class SignUpViewController: UIViewController {
         } else {
             print("회원가입 응답 데이터가 없음") // 디버그 출력
         }
-    }
+    }*/
     
     @IBAction func checkBtnTapped(_ sender: UIButton) {
         if signUpBtn.isEnabled == false, let text = nameTextField.text, !text.isEmpty {

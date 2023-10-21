@@ -105,6 +105,92 @@ class MusicViewController: UIViewController {
     }
     */
     
+    //APIgateway 프사url 전달
+    func imgToEmotion(profileURL: String){
+        ImgToEmotionService.ImgToEmotion(profileURL: profileURL) { networkResult in
+            switch networkResult {
+            case .success (let imgToEmotionResponse) :
+                if let response = imgToEmotionResponse as? ImgToEmotionResponse {
+                    
+                    print("감정 받기 성공")
+                    print("Emotion: \(response.emotion)")
+                    
+                    UserDefaults.standard.set(response.emotion, forKey: "emotion")
+                }
+                
+            case .requestErr(let data):
+                print("imgToEmotion request error: \(data)")
+                // 요청 에러 처리
+                
+            case .serverErr:
+                print("imgToEmotion server error")
+                // 서버 에러 처리
+                
+            case .networkFail:
+                print("imgToEmotion network error")
+                // 네트워크 에러 처리
+                
+            case .pathErr:
+                print("imgToEmotion path error")
+                // 경로 에러 처리
+            }
+        }
+    }
+    
+    //APIgateway 감정, 텍스트 전달
+    func emotionToMusic(emotion: String, text: String){
+        EmotionToMusicService.emotionToMusic(emotion: emotion, text: text) { networkResult in
+            switch networkResult {
+            case .success (let emotionToMusicResponse) :
+                if let response = emotionToMusicResponse as? EmotionToMusicResponse {
+                    //    let MusicData = response.data
+                    
+                    print("추천음악 받기 성공")
+                    
+                    // Song 배열 출력
+                    for song in response.Song {
+                        print("Song: \(song)")
+                    }
+                    
+                    // Singer 배열 출력
+                    for singer in response.Singer {
+                        print("Singer: \(singer)")
+                    }
+                    
+                    // cover 배열 출력
+                    for cover in response.cover {
+                        print("Cover: \(cover)")
+                    }
+                    
+                    // youtube 배열 출력
+                    for youtube in response.youtube {
+                        print("YouTube: \(youtube)")
+                    }
+                    
+                    /*print("Emotion: \(MusicData!.musicAlbumURL)")
+                     print("Emotion: \(MusicData!.title)")
+                     print("Emotion: \(MusicData!.artist)")*/
+                }
+                
+            case .requestErr(let data):
+                print("emotionToMusic request error: \(data)")
+                // 요청 에러 처리
+                
+            case .serverErr:
+                print("emotionToMusic server error")
+                // 서버 에러 처리
+                
+            case .networkFail:
+                print("emotionToMusic network error")
+                // 네트워크 에러 처리
+                
+            case .pathErr:
+                print("emotionToMusic path error")
+                // 경로 에러 처리
+            }
+        }
+    }
+    
     @IBAction func musicBtnTapped(_ sender: UIButton) {
         
         // 텍스트 뷰에 입력된 텍스트 가져오기
@@ -137,6 +223,29 @@ class MusicViewController: UIViewController {
             print("No emotion or saved text found in UserDefaults")
         }
         */
+        
+        //apigateway
+        
+        if let emotion = UserDefaults.standard.string(forKey: "emotion"),
+           let savedText = UserDefaults.standard.string(forKey: "savedText") {
+            // 가져온 emotion 값을 이용하여 Lambda 함수 호출
+            emotionToMusic(emotion: emotion, text: savedText)
+        } else {
+            // "emotion" 또는 "savedText" 키에 대한 값이 없는 경우 처리
+            print("No emotion or saved text found in UserDefaults")
+        }
+        
+        
+        //emotionToMusic(emotion: "sad", text: "왜 계속 실패하는거지? 너무 슬퍼")
+        
+        /*if let savedText = UserDefaults.standard.string(forKey: "savedText") {
+            // 가져온 emotion 값을 이용하여 Lambda 함수 호출
+            emotionToMusic(emotion: "sad", text: savedText)
+        } else {
+            // "emotion" 또는 "savedText" 키에 대한 값이 없는 경우 처리
+            print("No emotion or saved text found in UserDefaults")
+        }*/
+        
     }
     
     // 프로필 이미지 로드 및 설정하는 함수
@@ -144,7 +253,7 @@ class MusicViewController: UIViewController {
         // KakaoLoginService 등의 다른 코드 내에서 데이터 사용 방법
         if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
             if let profileImgURLString = loginResponse.data!.profileImageURL,
-               let profileImgURL = URL(string: profileImgURLString) {
+               let profileImgURL = URL(string: profileImgURLString)  {
                 print("프로필 이미지 URL: \(profileImgURLString)") // 디버그 출력
                 // 이미지 다운로드 및 설정
                 DispatchQueue.global().async { // 비동기적으로 이미지 다운로드 수행
@@ -153,7 +262,13 @@ class MusicViewController: UIViewController {
                         DispatchQueue.main.async { // 다운로드 완료 후 메인 쓰레드에서 UI 업데이트
                             print("프로필 이미지 다운로드 및 설정 성공") // 디버그 출력
                             self.profileImg.image = profileImage
+                            
+                            print("프사url형식: \(profileImgURLString)")
+                            //프사url 전달
                             //self.invokeLambdaEmotionFunction(profileURL: profileImgURLString)
+                            self.imgToEmotion(profileURL: profileImgURLString)
+                            
+                            //self.imgToEmotion(profileURL: "https://t1.daumcdn.net/news/202301/05/iMBC/20230105175435888xbsp.jpg")
                         }
                     } else {
                         DispatchQueue.main.async {

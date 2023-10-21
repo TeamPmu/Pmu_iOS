@@ -74,7 +74,7 @@ class ViewController: UIViewController {
                     
                     // 로그인 처리
                     self.signIn(with: oauthToken.accessToken)
-                }
+                                    }
             }
         } else {
             UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
@@ -171,21 +171,52 @@ class ViewController: UIViewController {
             switch networkResult {
             case .success(let kakaoResponse):
                 if let response = kakaoResponse as? KakaoLoginResponse {
-                    let loginData = response.data
                     
-                    print("signIn 로그인 성공")
-                    print("AccessToken: \(loginData!.accessToken)")
-                    print("RefreshToken: \(loginData!.refreshToken)")
-                    print("UserID: \(loginData!.userID)")
-                    print("ProfileImageURL: \(loginData!.profileImageURL)")
-                    print("Nickname: \(loginData!.nickname)")
+                    if response.status == 404 {
+                        print(response.status)
+                        
+                        // 404 에러가 발생한 경우 회원가입 창으로 이동
+                        //print("signIn 404 회원가입 진행")
+                        self.presentSignUpViewController()
+                    } else {
+                        let loginData = response.data
+                        
+                        print("signIn 로그인 성공")
+                        print("AccessToken: \(loginData!.accessToken)")
+                        print("RefreshToken: \(loginData!.refreshToken)")
+                        print("UserID: \(loginData!.userID)")
+                        print("ProfileImageURL: \(loginData!.profileImageURL)")
+                        print("Nickname: \(loginData!.nickname)")
+                        
+                        // AccessToken을 Keychain에 저장
+                        KeyChain.saveToken(loginData!.accessToken, forKey: "pmuaccessToken")
+                        KeyChain.saveToken(loginData!.refreshToken, forKey: "pmurefreshToken")
+                        UserDefaults.standard.set(loginData!.userID, forKey: "userId")
+                        
+                        self.presentMainViewController()
+                    }
                     
-                    // AccessToken을 Keychain에 저장
-                    KeyChain.saveToken(loginData!.accessToken, forKey: "pmuaccessToken")
-                    KeyChain.saveToken(loginData!.refreshToken, forKey: "pmurefreshToken")
-                    UserDefaults.standard.set(loginData!.userID, forKey: "userId")
-                    
-                    self.presentMainViewController()
+                    /*if let accessToken = loginData?.accessToken {
+                        print("signIn 로그인 성공")
+                        print("AccessToken: \(loginData!.accessToken)")
+                        print("RefreshToken: \(loginData!.refreshToken)")
+                        print("UserID: \(loginData!.userID)")
+                        print("ProfileImageURL: \(loginData!.profileImageURL)")
+                        print("Nickname: \(loginData!.nickname)")
+                        
+                        // AccessToken을 Keychain에 저장
+                        KeyChain.saveToken(loginData!.accessToken, forKey: "pmuaccessToken")
+                        KeyChain.saveToken(loginData!.refreshToken, forKey: "pmurefreshToken")
+                        UserDefaults.standard.set(loginData!.userID, forKey: "userId")
+                        
+                        self.presentMainViewController()
+                    } else {
+                        print("AccessToken is nil")
+                        
+                        // 404 에러가 발생한 경우 회원가입 창으로 이동
+                        //print("signIn 404 회원가입 진행")
+                        self.presentSignUpViewController()
+                    }*/
                     
                 } else {
                     print("Response parsing error")
