@@ -25,9 +25,7 @@ class MusicViewController: UIViewController {
         // Do any additional setup after loading the view.
         profileImg.layer.cornerRadius = profileImg.frame.size.width/2
         profileImg.clipsToBounds = true
-        
-        txtView.delegate = self
-        
+                
         txtView.layer.cornerRadius = 10
         txtView.clipsToBounds = true
         
@@ -39,10 +37,9 @@ class MusicViewController: UIViewController {
         txtView.layer.borderWidth = 1
         txtView.layer.borderColor = borderGray.cgColor
         
-        
         // UITextView의 delegate를 설정
         txtView.delegate = self
-        
+
         // 프로필 이미지 로드 및 설정 호출
         loadProfileImage()
         
@@ -54,10 +51,26 @@ class MusicViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(clearTextView(_:)), name: NSNotification.Name("clearTextView"), object: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        textCountLbl.text = "0"
+        
+        // 텍스트 뷰 초기화 작업
+        //txtView.text = ""
+        
+        // 처음 화면이 로드되었을 때 플레이스 홀더처럼 보이게끔 만들어주기
+        txtView.text = "프로필 사진 찍을 때 어떤 기분이셨나요?\n알려주세요! (최대 150자)"
+        txtView.textColor = UIColor.lightGray
+        
+        // 노티피케이션 수신 등록
+        NotificationCenter.default.addObserver(self, selector: #selector(clearTextView(_:)), name: NSNotification.Name("clearTextView"), object: nil)
+    }
+    
     // 'clearTextView' 노티피케이션 수신 시 호출되는 메서드
     @objc func clearTextView(_ notification: Notification) {
         // 텍스트 뷰 초기화 작업
-        txtView.text = ""
+        //txtView.text = ""
         
         //처음 화면이 로드되었을 때 플레이스 홀더처럼 보이게끔 만들어주기
         txtView.text = "프로필 사진 찍을 때 어떤 기분이셨나요?\n알려주세요! (최대 150자)"
@@ -167,6 +180,8 @@ class MusicViewController: UIViewController {
                         print("YouTube: \(youtube)")
                     }
                     
+                    self.moveToMusicRecommandPage()
+                    
                     /*print("Emotion: \(MusicData!.musicAlbumURL)")
                      print("Emotion: \(MusicData!.title)")
                      print("Emotion: \(MusicData!.artist)")*/
@@ -191,8 +206,25 @@ class MusicViewController: UIViewController {
         }
     }
     
-    @IBAction func musicBtnTapped(_ sender: UIButton) {
+    func moveToMusicRecommandPage() {
+        /*let musicRecommendViewController = MusicRecommendViewController() // 두 번째 뷰 컨트롤러 인스턴스 생성
+        musicRecommendViewController.modalPresentationStyle = .overCurrentContext // 모달 스타일 설정 (배경 화면 투명도 유지)
         
+        self.present(musicRecommendViewController, animated: true, completion: nil) // 모달 화면 표시*/
+        
+        /*let MusicRecoVC = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "MusicReco")
+        
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
+            .changeRootViewController(MusicRecoVC, animated: true)*/
+        
+        guard let MusicRecoVC = self.storyboard?.instantiateViewController(withIdentifier: "MusicReco") as? MusicRecommendViewController else { return }
+        MusicRecoVC.modalTransitionStyle = .coverVertical
+        MusicRecoVC.modalPresentationStyle = .fullScreen
+        self.present(MusicRecoVC, animated: true, completion: nil)
+    }
+    
+    @IBAction func musicBtnTapped(_ sender: UIButton) {
         // 텍스트 뷰에 입력된 텍스트 가져오기
         guard let textToSave = txtView.text else {
             return
@@ -235,6 +267,7 @@ class MusicViewController: UIViewController {
             print("No emotion or saved text found in UserDefaults")
         }
         
+        //self.moveToMusicRecommandPage()
         
         //emotionToMusic(emotion: "sad", text: "왜 계속 실패하는거지? 너무 슬퍼")
         

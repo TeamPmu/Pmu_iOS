@@ -14,6 +14,56 @@ struct EmotionToMusicResponse: Codable {
     let youtube: [String]
 }
 
+class EmotionToMusicDataManager {
+    static let shared = EmotionToMusicDataManager() // 싱글톤 인스턴스
+    
+    private var emotionToMusicResponse: EmotionToMusicResponse?
+    private let dataQueue = DispatchQueue(label: "com.yourapp.dataQueue", attributes: .concurrent)
+    
+    private init() {}
+    
+    // 데이터 업데이트 메서드
+    func updateEmotionToMusicResponse(with response: EmotionToMusicResponse) {
+        dataQueue.async(flags: .barrier) {
+            self.emotionToMusicResponse = response
+            print("EmotionToMusicResponse updated: \(self.emotionToMusicResponse)") // 디버그용 출력
+        }
+    }
+    
+    // 데이터를 가져오는 메서드
+    func getEmotionToMusicResponse() -> EmotionToMusicResponse? {
+        var result: EmotionToMusicResponse?
+        dataQueue.sync {
+            result = self.emotionToMusicResponse
+        }
+        print("Getting EmotionToMusicResponse: \(result)") // 디버그용 출력
+        return result
+    }
+}
+
+
+//싱글톤
+/*class EmotionToMusicDataManager {
+    static let shared = EmotionToMusicDataManager() // 싱글톤 인스턴스
+    
+    private init() {}
+    
+    // 데이터를 저장하는 프로퍼티
+    private var emotionToMusicResponse: EmotionToMusicResponse?
+    
+    // 데이터 업데이트 메서드
+    func updateEmotionToMusicResponse(with response: EmotionToMusicResponse) {
+        self.emotionToMusicResponse = response
+        print("EmotionToMusicResponse updated: \(emotionToMusicResponse)") // 디버그용 출력
+    }
+    
+    // 데이터를 가져오는 메서드
+    func getEmotionToMusicResponse() -> EmotionToMusicResponse? {
+        print("Getting EmotionToMusicResponse: \(emotionToMusicResponse)") // 디버그용 출력
+        return emotionToMusicResponse
+    }
+}
+ 
 /*struct EmotionToMusicResponse: Codable {
     let status: Int
     let message: String
@@ -32,7 +82,7 @@ struct EmotionToMusicResponse: Codable {
         message = (try? values.decode(String.self, forKey: .message)) ?? ""
         data = (try? values.decode(MusicData.self, forKey: .data)) ?? nil
     }
-}
+}*/
 
 // MARK: - DataClass
 struct MusicData: Codable {

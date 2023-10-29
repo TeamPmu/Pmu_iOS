@@ -191,8 +191,8 @@ class SignUpViewController: UIViewController {
 
 // UITextFieldDelegate method to dismiss keyboard when Return key is pressed
 extension SignUpViewController : UITextFieldDelegate{
-func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-      textField.resignFirstResponder()
-      return true
-  }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

@@ -22,7 +22,6 @@ class MusicRecommendViewController: UIViewController {
     @IBOutlet weak var beforeMusicAlbumImg: UIImageView!
     @IBOutlet weak var nextMusicAlbumImg: UIImageView!
     
-    
     var num = 0
     var heartBtnTap = true
     var pageIndex = 0
@@ -42,7 +41,9 @@ class MusicRecommendViewController: UIViewController {
         super.viewDidLoad()
         
         // 더미 음악 데이터를 가져오는 함수 호출
-        getDummyMusic()
+        //getDummyMusic()
+        
+        getMusicInformation()
         
         print(artists.count)
         
@@ -65,18 +66,93 @@ class MusicRecommendViewController: UIViewController {
         self.view.addGestureRecognizer(swipeRightGesture)
         
         // UserDefaults에서 초기 좋아요 상태를 가져오기
-        if UserDefaults.standard.value(forKey: "liked\(currentIndex)") == nil {
+        /*if UserDefaults.standard.value(forKey: "liked\(currentIndex)") == nil {
             UserDefaults.standard.set(false, forKey: "liked\(currentIndex)")
-        }
+        }*/
         
         // 초기 화면 설정
-        updateUI(with: currentIndex)
+        //updateUI(with: currentIndex)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // UserDefaults에서 모든 liked 값을 초기화
+        for index in 0..<artists.count {
+            UserDefaults.standard.set(false, forKey: "liked\(index)")
+        }
+    }
+    
+    /*func getMusicInformation() {
+        // 어딘가에서 EmotionToMusicResponse를 필요로 하는 곳에서 다음과 같이 가져옵니다.
+        if let emotionToMusicResponse = EmotionToMusicDataManager.shared.getEmotionToMusicResponse() {
+            // 가져온 데이터를 사용할 수 있습니다.
+            
+            // var coverImages: [UIImage] = [] // 커버 이미지 배열
+            titles = emotionToMusicResponse.Song
+            artists = emotionToMusicResponse.Singer
+            musicURL = emotionToMusicResponse.youtube
+            
+            for coverURLString in emotionToMusicResponse.cover {
+                if let coverImgURL = URL(string: coverURLString),
+                   let imageData = try? Data(contentsOf: coverImgURL),
+                   let coverImage = UIImage(data: imageData) {
+                    images.append(coverImage)
+                } else {
+                    print("커버 이미지를 가져오는 데 실패했습니다.")
+                    // 실패한 경우 디폴트 이미지나 오류 처리를 수행할 수 있습니다.
+                    // coverImages.append(defaultImage)
+                }
+            }
+            
+            // coverImages 배열에 커버 이미지가 추가됩니다.
+        } else {
+            print("EmotionToMusicResponse가 없습니다.")
+        }
+    }*/
+    
+    func getMusicInformation() {
+        Task {
+            do {
+                if let emotionToMusicResponse = try await EmotionToMusicDataManager.shared.getEmotionToMusicResponse() {
+                    titles = emotionToMusicResponse.Song
+                    artists = emotionToMusicResponse.Singer
+                    musicURL = emotionToMusicResponse.youtube
+                    
+                    for coverURLString in emotionToMusicResponse.cover {
+                        if let coverImgURL = URL(string: coverURLString),
+                           let imageData = try? Data(contentsOf: coverImgURL),
+                           let coverImage = UIImage(data: imageData) {
+                            images.append(coverImage)
+                        } else {
+                            print("커버 이미지를 가져오는 데 실패했습니다.")
+                        }
+                    }
+                    
+                    // 데이터 로딩 후 초기 화면 설정
+                    updateUI(with: currentIndex)
+                } else {
+                    print("EmotionToMusicResponse가 없습니다.")
+                }
+            } catch {
+                print("Error: \(error)")
+            }
+        }
     }
     
     @IBAction func youtubeBtnTapped(_ sender: UIButton) {
-        if let url = URL(string: musicURL[currentIndex]) {
+        /*if let url = URL(string: musicURL[currentIndex]) {
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }*/
+        
+        if currentIndex < musicURL.count {
+            let url = musicURL[currentIndex]
+            if let url = URL(string: url) {
+                if UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
             }
         }
     }

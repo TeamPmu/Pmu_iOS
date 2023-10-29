@@ -34,7 +34,6 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
         setNickNameLabel()
         
         
-        
         for i in 0..<titles.count {
             print("Title: \(titles[i]), Artist: \(artists[i]), MusicURL: \(musicURL[i])")
         }

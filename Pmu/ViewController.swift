@@ -63,7 +63,7 @@ class ViewController: UIViewController {
                 if let error = error {
                     print(error)
                 } else if let oauthToken = oauthToken {
-                    print("loginWithKakaoTalk() success.")
+                    print("카카오톡으로 로그인 성공")
                     
                     // AccessToken을 Keychain에 저장
                     KeyChain.saveToken(oauthToken.accessToken, forKey: "accessToken")
@@ -74,7 +74,7 @@ class ViewController: UIViewController {
                     
                     // 로그인 처리
                     self.signIn(with: oauthToken.accessToken)
-                                    }
+                }
             }
         } else {
             UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
@@ -178,7 +178,7 @@ class ViewController: UIViewController {
                         // 404 에러가 발생한 경우 회원가입 창으로 이동
                         //print("signIn 404 회원가입 진행")
                         self.presentSignUpViewController()
-                    } else {
+                    } else if response.status == 200 {
                         let loginData = response.data
                         
                         print("signIn 로그인 성공")

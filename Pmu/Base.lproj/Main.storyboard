@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JlK-Z2-kqE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JlK-Z2-kqE">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -376,7 +376,6 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="musicBtnTapped:" destination="6hk-Ce-CTo" eventType="touchUpInside" id="iiN-jr-0vn"/>
-                                    <segue destination="Nly-Cs-qkP" kind="presentation" modalPresentationStyle="fullScreen" id="Y6D-r4-bmy"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4MH-lT-3L1">
@@ -729,7 +728,7 @@
                         <outlet property="bgMusicAlbumImg" destination="tWS-LL-bG1" id="afa-zU-a41"/>
                         <outlet property="dismissBtn" destination="iau-kw-Dxo" id="KTx-1c-ItL"/>
                         <outlet property="heartBtn" destination="wSe-WG-6tf" id="qAq-vr-sA6"/>
-                        <outlet property="musicAlbumImg" destination="jh6-JP-Vcr" id="5kg-4l-Lvw"/>
+                        <outlet property="musicAlbumImg" destination="jh6-JP-Vcr" id="S3q-dX-4wv"/>
                         <outlet property="nextMusicAlbumImg" destination="nD6-nl-bgS" id="ntd-6c-0Jq"/>
                         <outlet property="titleLbl" destination="xMf-b6-xiL" id="bXa-4b-n0K"/>
                         <outlet property="youtubeBtn" destination="fT9-o4-Pjn" id="f41-9I-a4D"/>
@@ -1158,11 +1157,6 @@
                             <constraint firstItem="8qJ-sg-U4W" firstAttribute="trailing" secondItem="UxU-DH-oS3" secondAttribute="trailing" id="puR-nP-TVB"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="dismissBtn" destination="7rQ-2m-5ra" id="YLi-5D-jjw"/>
-                        <outlet property="heartBtn" destination="0sx-uc-fwH" id="TXb-9o-q7S"/>
-                        <outlet property="musicAlbumImg" destination="4a0-IQ-Pr3" id="pIy-KK-nwy"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cad-gJ-Xb5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
