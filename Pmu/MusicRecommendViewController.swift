@@ -147,14 +147,31 @@ class MusicRecommendViewController: UIViewController {
             }
         }*/
         
-        if currentIndex < musicURL.count {
+        if let url = URL(string: musicURL[currentIndex]) {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:]) { success in
+                    if success {
+                        print("URL을 열었습니다.")
+                    } else {
+                        print("URL을 열 수 없습니다.")
+                    }
+                }
+            } else {
+                print("URL을 열 수 없습니다.")
+            }
+        } else {
+            print("유효하지 않은 URL입니다.") //폰에서 안되는 이유는 아마 최신 버전 아니라서 그런듯
+        }
+
+        print("현재 유튭 url \(musicURL[currentIndex])")
+        /*if currentIndex < musicURL.count {
             let url = musicURL[currentIndex]
             if let url = URL(string: url) {
                 if UIApplication.shared.canOpenURL(url) {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 }
             }
-        }
+        }*/
     }
     
     @IBAction func dismissBtnTapped(_ sender: UIButton) {
@@ -189,6 +206,40 @@ class MusicRecommendViewController: UIViewController {
         if liked { //true
             heartBtn.setImage(UIImage(named: "heartYellow"), for: .normal)
             print("노래 저장 \(currentIndex)")
+            
+            // MusicData 모델 클래스를 사용하여 데이터 추가
+            let musicData = MusicData.shared
+            musicData.images.append(images[currentIndex])
+            musicData.titles.append(titles[currentIndex])
+            musicData.artists.append(artists[currentIndex])
+            musicData.musicURLs.append(musicURL[currentIndex])
+            
+            // 데이터를 전달할 목적지 뷰 컨트롤러의 인스턴스를 생성
+            /*if let tableViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ListVC") as? TableViewController {
+             // 데이터를 설정
+             tableViewController.images.append(images[currentIndex])
+             tableViewController.titles.append(titles[currentIndex])
+             tableViewController.artists.append(artists[currentIndex])
+             tableViewController.musicURLs.append(musicURL[currentIndex])
+             
+             // 목적지 뷰 컨트롤러를 표시
+             self.navigationController?.pushViewController(tableViewController, animated: true)
+             }*/
+            
+            // 데이터를 전달
+            /*let notificationCenter = NotificationCenter.default
+             let notificationName = Notification.Name("MusicDataLiked")
+             
+             // 데이터를 userInfo로 전달
+             let userInfo: [String: Any] = [
+             "image": images[currentIndex],
+             "title": titles[currentIndex],
+             "artist": artists[currentIndex],
+             "musicURL": musicURL[currentIndex]
+             ]
+             print("저장 중,, \(images[currentIndex]),\(titles[currentIndex]),\(artists[currentIndex]),\(musicURL[currentIndex])")
+             
+             notificationCenter.post(name: notificationName, object: nil, userInfo: userInfo)*/
         } else {
             heartBtn.setImage(UIImage(named: "heart"), for: .normal)
         }

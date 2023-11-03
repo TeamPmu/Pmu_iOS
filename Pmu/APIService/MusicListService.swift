@@ -1,29 +1,30 @@
 //
-//  EmotionToMusicService.swift
+//  MusicListService.swift
 //  Pmu
 //
-//  Created by seohuibaek on 2023/10/16.
+//  Created by seohuibaek on 2023/11/02.
 //
 
 import Foundation
 import Alamofire
 
-class EmotionToMusicService {
-    static let shared = EmotionToMusicService()
+struct MusicListService {
     
-    static func emotionToMusic (emotion: String, text: String, completion: @escaping (NetworkResult<EmotionToMusicResponse>) -> Void){
-        let url = APIConstants.emotionToMusicURL
-        
+    static func musicList(musicId: String, auth: String, completion: @escaping (NetworkResult<MusicListResponse>) -> Void){
+        let url = APIConstants.musicListURL /* + "/\(musicId)" */
         let headers: HTTPHeaders = [
-            // Replace with your actual authorization header
             "Content-Type": "application/json",
+            "Authorization": auth  // Replace with your actual authorization header
         ]
         
-        let body: Parameters = ["emotion": emotion, "text": text]
+        print("Sending request to URL: \(url), Method: GET")
         
+        // Request 생성
+        // get통신에서는 encoding에 URLEncoding.default 사용
+        // post:  JSONEncoding.default
         let dataRequest = AF.request(url,
-                                     method: .post,
-                                     parameters: body,
+                                     method: .get,
+                                     parameters: nil,
                                      encoding: JSONEncoding.default,
                                      headers: headers)
         
@@ -37,23 +38,23 @@ class EmotionToMusicService {
                     return
                 }
                 
-                print("Received response with EmotionToMusic Status Code: \(statusCode)")
+                print("Received response with Status Code: \(statusCode)")
                 print(response)
                 
                 let decoder = JSONDecoder()
                 do {
-                    let decodedData = try decoder.decode(EmotionToMusicResponse.self, from: data)
+                    let decodedData = try decoder.decode(MusicListResponse.self, from: data)
                     
                     switch statusCode {
                     case 200..<300:
-                        EmotionToMusicDataManager.shared.updateEmotionToMusicResponse(with: decodedData)
+                        // Update login response in KakaoDataManager
+                        //KakaoDataManager.shared.updateLoginResponse(with: decodedData)
                         completion(.success(decodedData))
                     case 400..<500:
+                        //let failureData = try decoder.decode(FailureResponse.self, from: data)
                         completion(.requestErr(decodedData))
-                    case 500..<600:
-                        completion(.serverErr)
-                    default:
-                        completion(.networkFail)
+                    case 500..<600: completion(.serverErr)
+                    default: completion(.networkFail)
                     }
                 } catch {
                     print("Decoding failed with error: \(error)")

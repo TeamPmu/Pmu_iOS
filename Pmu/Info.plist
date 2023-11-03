@@ -15,6 +15,7 @@
 	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>youtube</string>
 		<string>kakaokompassauth</string>
 		<string>kakaolink</string>
 	</array>

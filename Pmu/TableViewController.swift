@@ -15,7 +15,7 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
     var titles: [String] = []
     var genres: [String] = []
     var artists: [String] = []
-    var musicURL: [String] = []
+    var musicURLs: [String] = []
     
     @IBOutlet weak var nicknameLbl: UILabel!
     
@@ -27,16 +27,44 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
         
         //navigationBar bottom bolder line 제거하기
         self.navigationController?.navigationBar.shadowImage = UIImage()
-
+        
         // 더미 음악 데이터를 가져오는 함수 호출
-        getDummyMusic()
+        //getDummyMusic()
         
         setNickNameLabel()
         
+        // NotificationCenter를 통해 데이터를 수신하기 위해 옵저버를 추가합니다.
+        //NotificationCenter.default.addObserver(self, selector: #selector(handleLikedMusicData(_:)), name: Notification.Name("MusicDataLiked"), object: nil)
+        
+        print(titles.count)
         
         for i in 0..<titles.count {
-            print("Title: \(titles[i]), Artist: \(artists[i]), MusicURL: \(musicURL[i])")
+            print("Title: \(titles[i]), Artist: \(artists[i]), MusicURL: \(musicURLs[i])")
         }
+    }
+    
+    // 데이터를 처리하는 메서드를 정의합니다.
+    @objc func handleLikedMusicData(_ notification: Notification) {
+        // NotificationCenter에서 넘어온 데이터를 확인합니다.
+        if let userInfo = notification.userInfo {
+            if let image = userInfo["image"] as? UIImage,
+               let title = userInfo["title"] as? String,
+               let artist = userInfo["artist"] as? String,
+               let musicURL = userInfo["musicURL"] as? String {
+                
+                images.append(image)
+                titles.append(title)
+                artists.append(artist)
+                musicURLs.append(musicURL)
+            }
+        }
+        
+        print("저장 된 노래,, \(images),\(titles),\(artists),\(musicURLs)")
+    }
+
+    // 반드시 뷰 컨트롤러가 해제될 때 NotificationCenter 옵저버를 제거해야 합니다.
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     func setNickNameLabel() {
@@ -53,14 +81,22 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
     // MARK: - UITableViewDataSource
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return images.count
+        //return images.count
+        return MusicData.shared.images.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        /*let cell = tableView.dequeueReusableCell(withIdentifier: "Tablecell", for: indexPath) as! TableViewCell
+         cell.titleLbl?.text = titles[indexPath.row]
+         cell.artistLbl?.text = artists[indexPath.row]
+         cell.musicAlbumImg?.image = images[indexPath.row]
+         return cell*/
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "Tablecell", for: indexPath) as! TableViewCell
-        cell.titleLbl?.text = titles[indexPath.row]
-        cell.artistLbl?.text = artists[indexPath.row]
-        cell.musicAlbumImg?.image = images[indexPath.row]
+        // MusicData 모델 클래스를 사용하여 데이터를 표시
+        cell.titleLbl?.text = MusicData.shared.titles[indexPath.row]
+        cell.artistLbl?.text = MusicData.shared.artists[indexPath.row]
+        cell.musicAlbumImg?.image = MusicData.shared.images[indexPath.row]
         return cell
     }
     
@@ -76,10 +112,10 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
         
         modalViewController.modalPresentationStyle = .fullScreen
         // 선택한 이미지를 모달 뷰 컨트롤러에 전달
-        modalViewController.albumImg = images[indexPath.row]
-        modalViewController.titleText = titles[indexPath.row]
-        modalViewController.artistText = artists[indexPath.row]
-        modalViewController.musicURL = musicURL[indexPath.row]
+        modalViewController.albumImg = MusicData.shared.images[indexPath.row]
+        modalViewController.titleText = MusicData.shared.titles[indexPath.row]
+        modalViewController.artistText = MusicData.shared.artists[indexPath.row]
+        modalViewController.musicURL = MusicData.shared.musicURLs[indexPath.row]
         //modalViewController.genreText = "Genre: " + genres[indexPath.row]
         
         present(modalViewController, animated: true, completion: nil)
@@ -172,7 +208,7 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
                 titles.append(dummyMusic.name) // 음악 이름 배열에 추가
                 genres.append(dummyMusic.genre) // 장르 배열에 추가
                 artists.append(dummyMusic.artist) // 아티스트 배열에 추가
-                musicURL.append(dummyMusic.musicPull)
+                musicURLs.append(dummyMusic.musicPull)
             }
         }
     }
@@ -181,10 +217,10 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
         if segue.identifier == "DetailSegue" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let destinationVC = segue.destination as! DetailViewController
-                destinationVC.albumImg = images[indexPath.row]
-                destinationVC.titleText = titles[indexPath.row]
-                destinationVC.artistText = artists[indexPath.row]
-                destinationVC.musicURL = musicURL[indexPath.row]
+                destinationVC.albumImg = MusicData.shared.images[indexPath.row]
+                destinationVC.titleText = MusicData.shared.titles[indexPath.row]
+                destinationVC.artistText = MusicData.shared.artists[indexPath.row]
+                destinationVC.musicURL = MusicData.shared.musicURLs[indexPath.row]
                 
                 // 수정: selectedIndex 설정
                 destinationVC.selectedIndex = indexPath.row
@@ -197,11 +233,11 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
     // 삭제 요청을 처리하는 메서드
     func deleteItem(atIndex index: Int) {
         // 데이터 배열에서 해당 음악 정보 삭제
-        let deletedItem = titles[index] // 삭제하기 전 항목을 저장
-        titles.remove(at: index)
-        artists.remove(at: index)
-        images.remove(at: index)
-        musicURL.remove(at: index)
+        let deletedItem = MusicData.shared.titles[index] // 삭제하기 전 항목을 저장
+        MusicData.shared.titles.remove(at: index)
+        MusicData.shared.artists.remove(at: index)
+        MusicData.shared.images.remove(at: index)
+        MusicData.shared.musicURLs.remove(at: index)
         
         // 테이블 뷰 업데이트
         tableView.beginUpdates() // 업데이트 시작

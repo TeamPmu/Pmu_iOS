@@ -37,4 +37,16 @@ struct APIConstants {
     
     //AI 감정 -> 노래 추천
     static let emotionToMusicURL = baseURL + "/api/ai/lyrics"
+    
+    //음악 저장 (post)
+    static let saveMusicURL = baseURL + "/api/music"
+    
+    //음악 삭제 (delete)
+    static let deleteMusicURL = baseURL + "/api/music"
+    
+    //플레이리스트 로드 (get)
+    static let musicListURL = baseURL + "/api/music"
+    
+    //음악 상세보기 (get)
+    static let musicDetailURL = baseURL + "/api/music"
 }
