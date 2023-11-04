@@ -10,17 +10,16 @@ import Alamofire
 
 struct MusicSaveSerivce {
     
-    static func musicSave(musicId: String, auth: String, coverImageUrl: String, genre: String, title: String, singer: String, youtubeUrl: String, completion: @escaping (NetworkResult<MusicSaveResponse>) -> Void){
+    static func musicSave(auth: String, coverImageUrl: String, title: String, singer: String, youtubeUrl: String, completion: @escaping (NetworkResult<MusicSaveResponse>) -> Void){
         let url = APIConstants.saveMusicURL
         
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
-            "Authorization": auth  // Replace with your actual authorization header
+            "Authorization": "Bearer \(auth)"  // Replace with your actual authorization header
         ]
         
         let body: Parameters = [
             "coverImageUrl" : coverImageUrl,
-            "genre": genre,
             "title": title,
             "singer": singer,
             "youtubeUrl": youtubeUrl]

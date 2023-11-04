@@ -27,6 +27,7 @@ class MusicRecommendViewController: UIViewController {
     var pageIndex = 0
     
     var images: [UIImage] = []
+    var imagesURL: [String] = []
     var titles: [String] = []
     var genres: [String] = []
     var artists: [String] = []
@@ -83,6 +84,81 @@ class MusicRecommendViewController: UIViewController {
         }
     }
     
+    func saveMusic(coverImageUrl: String, title: String, singer: String, youtubeUrl: String){
+        guard let appaccessToken = KeyChain.loadToken(forKey: "pmuaccessToken") else {
+            // 사용자 토큰이 없으면 이미 로그아웃된 상태
+            print("사용자 토큰이 없음. 노래 저장 불가.")
+            return
+        }
+        
+        MusicSaveSerivce.musicSave(auth: appaccessToken, coverImageUrl: coverImageUrl, title: title, singer: singer, youtubeUrl: youtubeUrl) { result in
+            switch result {
+            case .success(let musicSaveResponse):
+                if let response = musicSaveResponse as? MusicSaveResponse {
+                    let musicData = response.data
+                    print("musicData: \(musicSaveResponse)")
+                    print("\(title) 노래저장 성공")
+                    print("musicID: \(musicData?.musicId)")
+                    UserDefaults.standard.set(musicData?.musicId, forKey: coverImageUrl)
+                    print(coverImageUrl)
+                    print(UserDefaults.standard.string(forKey: coverImageUrl))
+                }
+            case .requestErr(let errorData):
+                //요청이 실패하였을 경우
+                print("노래저장 실패 - 요청 오류: \(errorData.message)")
+                
+            case .serverErr:
+                // 서버 오류
+                print("노래저장 실패 - 서버 오류")
+                
+            case .networkFail:
+                // 네트워크 오류
+                print("노래저장 실패 - 네트워크 오류")
+                
+            case .pathErr:
+                // 경로 오류
+                print("노래저장 실패 - 경로 오류")
+            }
+        }
+    }
+    
+    func deleteMusic(coverImageUrl: String){
+        guard let appaccessToken = KeyChain.loadToken(forKey: "pmuaccessToken") else {
+            // 사용자 토큰이 없으면 이미 로그아웃된 상태
+            print("사용자 토큰이 없음. 노래 삭제 불가.")
+            return
+        }
+        
+        guard let musicId = UserDefaults.standard.string(forKey: "\(coverImageUrl)") else {
+            // musicID가 없으면 처리할 내용 추가
+            print("musicID가 없음. 노래 삭제 불가.")
+            return
+        }
+
+        
+        MusicDeleteService.musicDelete(musicId: musicId, auth: appaccessToken) { result in
+            switch result {
+            case .success(let musicDeleteResponse):
+                print("musicDeleteResponse: \(musicDeleteResponse)")
+                print("노래삭제 성공")
+                
+                UserDefaults.standard.removeObject(forKey: coverImageUrl)
+            case .requestErr(let errorData):
+                //요청이 실패하였을 경우
+                print("노래삭제 실패 - 요청 오류: \(errorData.message)")
+            case .serverErr:
+                // 서버 오류
+                print("노래삭제 실패 - 서버 오류")
+            case .networkFail:
+                // 네트워크 오류
+                print("노래삭제 실패 - 네트워크 오류")
+            case .pathErr:
+                // 경로 오류
+                print("노래삭제 실패 - 경로 오류")
+            }
+        }
+    }
+    
     /*func getMusicInformation() {
         // 어딘가에서 EmotionToMusicResponse를 필요로 하는 곳에서 다음과 같이 가져옵니다.
         if let emotionToMusicResponse = EmotionToMusicDataManager.shared.getEmotionToMusicResponse() {
@@ -124,6 +200,7 @@ class MusicRecommendViewController: UIViewController {
                            let imageData = try? Data(contentsOf: coverImgURL),
                            let coverImage = UIImage(data: imageData) {
                             images.append(coverImage)
+                            imagesURL.append(coverURLString)
                         } else {
                             print("커버 이미지를 가져오는 데 실패했습니다.")
                         }
@@ -175,12 +252,10 @@ class MusicRecommendViewController: UIViewController {
     }
     
     @IBAction func dismissBtnTapped(_ sender: UIButton) {
-        
         //MusicViewController.txtView.text = "" // textView 초기화
         
         // 'clearTextView' Notification 보내기
         NotificationCenter.default.post(name: NSNotification.Name("clearTextView"), object: nil)
-        
         
         self.dismiss(animated: true, completion: nil)
     }
@@ -214,6 +289,8 @@ class MusicRecommendViewController: UIViewController {
             musicData.artists.append(artists[currentIndex])
             musicData.musicURLs.append(musicURL[currentIndex])
             
+            saveMusic(coverImageUrl: imagesURL[currentIndex], title: titles[currentIndex], singer: artists[currentIndex], youtubeUrl: musicURL[currentIndex])
+            
             // 데이터를 전달할 목적지 뷰 컨트롤러의 인스턴스를 생성
             /*if let tableViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ListVC") as? TableViewController {
              // 데이터를 설정
@@ -242,6 +319,8 @@ class MusicRecommendViewController: UIViewController {
              notificationCenter.post(name: notificationName, object: nil, userInfo: userInfo)*/
         } else {
             heartBtn.setImage(UIImage(named: "heart"), for: .normal)
+            
+            deleteMusic(coverImageUrl: imagesURL[currentIndex])
         }
         
         // UserDefaults에 좋아요 상태 저장

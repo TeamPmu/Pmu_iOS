@@ -25,10 +25,11 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var bgMusicAlbumImg: UIImageView!
     
     var isHeartSelected = true
-    var albumImg: UIImage?
-    var titleText: String?
-    var artistText: String?
+    var albumImg: UIImage? = nil
+    var titleText: String = ""
+    var artistText: String = ""
     var musicURL: String = ""
+    var musicID: String = ""
     
     weak var delegate: DetailViewControllerDelegate?
     var selectedIndex: Int?
@@ -37,16 +38,158 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        musicAlbumImg.image = albumImg
+        /*musicAlbumImg.image = albumImg
         bgMusicAlbumImg.image = albumImg
         titleLbl.text = titleText
-        artistLbl.text = artistText
+        artistLbl.text = artistText*/
         
         musicAlbumImg.layer.cornerRadius = 12
         musicAlbumImg.clipsToBounds = true
         
         // 초기 상태에서는 heartYellow 이미지를 사용
         setHeartButtonImage()
+        
+        musicList(musicID: musicID)
+    }
+    
+    func musicList(musicID: String){
+        guard let appaccessToken = KeyChain.loadToken(forKey: "pmuaccessToken") else {
+            // 사용자 토큰이 없으면 이미 로그아웃된 상태
+            print("사용자 토큰이 없음. 노래 리스트 불러오기 불가.")
+            return
+        }
+        
+        MusicDetailService.musicDetail(musicId: musicID, auth: appaccessToken) { result in
+            switch result {
+            case .success(let musicDetailResponse):
+                if let response = musicDetailResponse as? MusicDetailResponse {
+                    let musicData = response.data
+                    //print("musicData: \(musicListResponse)")
+                    print("노래상세정보 불러오기 성공")
+                    
+                    DispatchQueue.main.async {
+                        if let coverImageURL = URL(string: musicData!.coverImageURL),
+                           let imageData = try? Data(contentsOf: coverImageURL),
+                           let coverImage = UIImage(data: imageData) {
+                            self.musicAlbumImg.image = coverImage
+                            self.bgMusicAlbumImg.image = coverImage
+                        } else {
+                            print("커버 이미지를 가져오는 데 실패했습니다.")
+                        }
+                        
+                        self.titleLbl.text = musicData!.title
+                        self.artistLbl.text = musicData!.singer
+                        self.musicURL = musicData!.youtubeURL
+                    }
+                    
+                } else {
+                    // Handle the case where musicData is nil (optional is not set)
+                    print("musicData is nil")
+                }
+                
+                //print("musicdataarray: \(musicData)")
+                /*images.append(musicData.coverImageURL)
+                 titles.append(title)
+                 artists.append(artist)
+                 musicURLs.append(musicURL)*/
+                /*print("\(title) 노래리스트 불러오기 성공")
+                 print("musicID: \(musicData?.musicId)")
+                 UserDefaults.standard.set(musicData?.musicId, forKey: coverImageUrl)
+                 print(coverImageUrl)
+                 print(UserDefaults.standard.string(forKey: coverImageUrl))*/
+                
+            case .requestErr(let errorData):
+                //요청이 실패하였을 경우
+                print("노래리스트 불러오기 실패 - 요청 오류: \(errorData.message)")
+                
+            case .serverErr:
+                // 서버 오류
+                print("노래리스트 불러오기 실패 - 서버 오류")
+                
+            case .networkFail:
+                // 네트워크 오류
+                print("노래리스트 불러오기 실패 - 네트워크 오류")
+                
+            case .pathErr:
+                // 경로 오류
+                print("노래리스트 불러오기 실패 - 경로 오류")
+            }
+        }
+    }
+    
+    func saveMusic(coverImageUrl: String, title: String, singer: String, youtubeUrl: String){
+        guard let appaccessToken = KeyChain.loadToken(forKey: "pmuaccessToken") else {
+            // 사용자 토큰이 없으면 이미 로그아웃된 상태
+            print("사용자 토큰이 없음. 노래 저장 불가.")
+            return
+        }
+        
+        MusicSaveSerivce.musicSave(auth: appaccessToken, coverImageUrl: coverImageUrl, title: title, singer: singer, youtubeUrl: youtubeUrl) { result in
+            switch result {
+            case .success(let musicSaveResponse):
+                if let response = musicSaveResponse as? MusicSaveResponse {
+                    let musicData = response.data
+                    print("musicData: \(musicSaveResponse)")
+                    print("\(title) 노래저장 성공")
+                    print("musicID: \(musicData?.musicId)")
+                    UserDefaults.standard.set(musicData?.musicId, forKey: coverImageUrl)
+                    print(coverImageUrl)
+                    print(UserDefaults.standard.string(forKey: coverImageUrl))
+                }
+            case .requestErr(let errorData):
+                //요청이 실패하였을 경우
+                print("노래저장 실패 - 요청 오류: \(errorData.message)")
+                
+            case .serverErr:
+                // 서버 오류
+                print("노래저장 실패 - 서버 오류")
+                
+            case .networkFail:
+                // 네트워크 오류
+                print("노래저장 실패 - 네트워크 오류")
+                
+            case .pathErr:
+                // 경로 오류
+                print("노래저장 실패 - 경로 오류")
+            }
+        }
+    }
+    
+    func deleteMusic(coverImageUrl: String){
+        guard let appaccessToken = KeyChain.loadToken(forKey: "pmuaccessToken") else {
+            // 사용자 토큰이 없으면 이미 로그아웃된 상태
+            print("사용자 토큰이 없음. 노래 삭제 불가.")
+            return
+        }
+        
+        guard let musicId = UserDefaults.standard.string(forKey: "\(coverImageUrl)") else {
+            // musicID가 없으면 처리할 내용 추가
+            print("musicID가 없음. 노래 삭제 불가.")
+            return
+        }
+
+        
+        MusicDeleteService.musicDelete(musicId: musicId, auth: appaccessToken) { result in
+            switch result {
+            case .success(let musicDeleteResponse):
+                print("musicDeleteResponse: \(musicDeleteResponse)")
+                print("노래삭제 성공")
+                
+                UserDefaults.standard.removeObject(forKey: coverImageUrl)
+            case .requestErr(let errorData):
+                //요청이 실패하였을 경우
+                print("노래삭제 실패 - 요청 오류: \(errorData.message)")
+            case .serverErr:
+                // 서버 오류
+                print("노래삭제 실패 - 서버 오류")
+            case .networkFail:
+                // 네트워크 오류
+                print("노래삭제 실패 - 네트워크 오류")
+            case .pathErr:
+                // 경로 오류
+                print("노래삭제 실패 - 경로 오류")
+            }
+        }
     }
     
     @IBAction func heartBtnTapped(_ sender: UIButton) {
@@ -60,8 +203,12 @@ class DetailViewController: UIViewController {
     func setHeartButtonImage() {
         if isHeartSelected {
             heartBtn.setImage(UIImage(named: "heartYellow"), for: .normal)
+            
+            //saveMusic(coverImageUrl: imagesURL[currentIndex], title: titles[currentIndex], singer: artists[currentIndex], youtubeUrl: musicURL[currentIndex])
         } else {
             heartBtn.setImage(UIImage(named: "heart"), for: .normal)
+            
+            //deleteMusic(coverImageUrl: imagesURL[currentIndex])
         }
         
     }

@@ -10,11 +10,11 @@ import Alamofire
 
 struct MusicListService {
     
-    static func musicList(musicId: String, auth: String, completion: @escaping (NetworkResult<MusicListResponse>) -> Void){
-        let url = APIConstants.musicListURL /* + "/\(musicId)" */
+    static func musicList(auth: String, completion: @escaping (NetworkResult<MusicListResponse>) -> Void){
+        let url = APIConstants.musicListURL /* + "/page=0&size=8"*/
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
-            "Authorization": auth  // Replace with your actual authorization header
+            "Authorization": "Bearer \(auth)"  // Replace with your actual authorization header
         ]
         
         print("Sending request to URL: \(url), Method: GET")

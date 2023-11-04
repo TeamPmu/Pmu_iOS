@@ -16,9 +16,9 @@ struct MusicSaveResponse: Codable {
 
 // MARK: - DataClass
 struct MusicID: Codable {
-    let musicID: Int
+    let musicId: Int
 
     enum CodingKeys: String, CodingKey {
-        case musicID = "musicId"
+        case musicId = "musicId"
     }
 }

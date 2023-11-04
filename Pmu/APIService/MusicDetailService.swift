@@ -14,7 +14,7 @@ struct MusicDetailService {
         
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
-            "Authorization": auth  // Replace with your actual authorization header
+            "Authorization": "Bearer \(auth)"  // Replace with your actual authorization header
         ]
         
         let dataRequest = AF.request(url,

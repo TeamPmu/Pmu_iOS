@@ -16,6 +16,7 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
     var genres: [String] = []
     var artists: [String] = []
     var musicURLs: [String] = []
+    var musicIDs: [String] = []
     
     @IBOutlet weak var nicknameLbl: UILabel!
     
@@ -41,10 +42,140 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
         for i in 0..<titles.count {
             print("Title: \(titles[i]), Artist: \(artists[i]), MusicURL: \(musicURLs[i])")
         }
+        
+        musicList()
     }
     
+    func musicList(){
+        guard let appaccessToken = KeyChain.loadToken(forKey: "pmuaccessToken") else {
+            // 사용자 토큰이 없으면 이미 로그아웃된 상태
+            print("사용자 토큰이 없음. 노래 리스트 불러오기 불가.")
+            return
+        }
+        
+        /*guard let musicId = UserDefaults.standard.string(forKey: "\(coverImageUrl)") else {
+            // musicID가 없으면 처리할 내용 추가
+            print("musicID가 없음. 노래 삭제 불가.")
+            return
+        }*/
+
+        MusicListService.musicList(auth: appaccessToken) { result in
+            switch result {
+            case .success(let musicListResponse):
+                if let response = musicListResponse as? MusicListResponse {
+                    let musicData = response.data
+                    //print("musicData: \(musicListResponse)")
+                    print("노래리스트 불러오기 성공")
+                    
+                    if let musicData = musicData {
+                        for musicInfo in musicData {
+                            // Your code to process each musicInfo goes here
+                            //let coverImageURL = musicInfo.coverImageURL
+                            let title = musicInfo.title
+                            let artist = musicInfo.singer
+                            let musicID = String(musicInfo.musicID)
+                            //let musicURL = musicInfo.musicURL
+                            
+                            //images.append(coverImageURL)
+                            self.titles.append(title)
+                            self.artists.append(artist)
+                            self.musicIDs.append(musicID)
+                            
+                            //musicURLs.append(musicURL)
+                            
+                            if let coverImageURL = URL(string: musicInfo.coverImageURL),
+                               let imageData = try? Data(contentsOf: coverImageURL),
+                               let coverImage = UIImage(data: imageData) {
+                                self.images.append(coverImage)
+                            } else {
+                                print("커버 이미지를 가져오는 데 실패했습니다.")
+                            }
+                            
+                            print("Cover Image URL: \(musicInfo.coverImageURL)")
+                            print("Title: \(musicInfo.title)")
+                            print("Artist: \(musicInfo.singer)")
+                        }
+                        
+                        DispatchQueue.main.async {
+                            // UI 업데이트 코드
+                            self.tableView.reloadData()
+                        }
+
+                    } else {
+                        // Handle the case where musicData is nil (optional is not set)
+                        print("musicData is nil")
+                    }
+                    
+                    //print("musicdataarray: \(musicData)")
+                    /*images.append(musicData.coverImageURL)
+                    titles.append(title)
+                    artists.append(artist)
+                    musicURLs.append(musicURL)*/
+                    /*print("\(title) 노래리스트 불러오기 성공")
+                    print("musicID: \(musicData?.musicId)")
+                    UserDefaults.standard.set(musicData?.musicId, forKey: coverImageUrl)
+                    print(coverImageUrl)
+                    print(UserDefaults.standard.string(forKey: coverImageUrl))*/
+                }
+                
+            case .requestErr(let errorData):
+                //요청이 실패하였을 경우
+                print("노래리스트 불러오기 실패 - 요청 오류: \(errorData.message)")
+                
+            case .serverErr:
+                // 서버 오류
+                print("노래리스트 불러오기 실패 - 서버 오류")
+                
+            case .networkFail:
+                // 네트워크 오류
+                print("노래리스트 불러오기 실패 - 네트워크 오류")
+                
+            case .pathErr:
+                // 경로 오류
+                print("노래리스트 불러오기 실패 - 경로 오류")
+            }
+        }
+    }
+    
+    /*func deleteMusic(coverImageUrl: String){
+        guard let appaccessToken = KeyChain.loadToken(forKey: "pmuaccessToken") else {
+            // 사용자 토큰이 없으면 이미 로그아웃된 상태
+            print("사용자 토큰이 없음. 노래 삭제 불가.")
+            return
+        }
+        
+        guard let musicId = UserDefaults.standard.string(forKey: "\(coverImageUrl)") else {
+            // musicID가 없으면 처리할 내용 추가
+            print("musicID가 없음. 노래 삭제 불가.")
+            return
+        }
+
+        
+        MusicDeleteService.musicDelete(musicId: musicId, auth: appaccessToken) { result in
+            switch result {
+            case .success(let musicDeleteResponse):
+                print("musicDeleteResponse: \(musicDeleteResponse)")
+                print("노래삭제 성공")
+                
+                UserDefaults.standard.removeObject(forKey: coverImageUrl)
+            case .requestErr(let errorData):
+                //요청이 실패하였을 경우
+                print("노래삭제 실패 - 요청 오류: \(errorData.message)")
+            case .serverErr:
+                // 서버 오류
+                print("노래삭제 실패 - 서버 오류")
+            case .networkFail:
+                // 네트워크 오류
+                print("노래삭제 실패 - 네트워크 오류")
+            case .pathErr:
+                // 경로 오류
+                print("노래삭제 실패 - 경로 오류")
+            }
+        }
+    }*/
+    
     // 데이터를 처리하는 메서드를 정의합니다.
-    @objc func handleLikedMusicData(_ notification: Notification) {
+    /*@objc func handleLikedMusicData(_ notification: Notification) {
         // NotificationCenter에서 넘어온 데이터를 확인합니다.
         if let userInfo = notification.userInfo {
             if let image = userInfo["image"] as? UIImage,
@@ -66,7 +197,7 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
+    */
     func setNickNameLabel() {
         if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
             let nickname = loginResponse.data!.nickname
@@ -82,22 +213,22 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //return images.count
-        return MusicData.shared.images.count
+        return images.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        /*let cell = tableView.dequeueReusableCell(withIdentifier: "Tablecell", for: indexPath) as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Tablecell", for: indexPath) as! TableViewCell
          cell.titleLbl?.text = titles[indexPath.row]
          cell.artistLbl?.text = artists[indexPath.row]
          cell.musicAlbumImg?.image = images[indexPath.row]
-         return cell*/
+         return cell
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Tablecell", for: indexPath) as! TableViewCell
+        /*let cell = tableView.dequeueReusableCell(withIdentifier: "Tablecell", for: indexPath) as! TableViewCell
         // MusicData 모델 클래스를 사용하여 데이터를 표시
         cell.titleLbl?.text = MusicData.shared.titles[indexPath.row]
         cell.artistLbl?.text = MusicData.shared.artists[indexPath.row]
         cell.musicAlbumImg?.image = MusicData.shared.images[indexPath.row]
-        return cell
+        return cell*/
     }
     
     // MARK: - UITableViewDelegate
@@ -112,11 +243,13 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
         
         modalViewController.modalPresentationStyle = .fullScreen
         // 선택한 이미지를 모달 뷰 컨트롤러에 전달
-        modalViewController.albumImg = MusicData.shared.images[indexPath.row]
+        /*modalViewController.albumImg = MusicData.shared.images[indexPath.row]
         modalViewController.titleText = MusicData.shared.titles[indexPath.row]
         modalViewController.artistText = MusicData.shared.artists[indexPath.row]
-        modalViewController.musicURL = MusicData.shared.musicURLs[indexPath.row]
+        modalViewController.musicURL = MusicData.shared.musicURLs[indexPath.row]*/
         //modalViewController.genreText = "Genre: " + genres[indexPath.row]
+        
+        modalViewController.musicID = musicIDs[indexPath.row]
         
         present(modalViewController, animated: true, completion: nil)
     }
@@ -213,22 +346,23 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "DetailSegue" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let destinationVC = segue.destination as! DetailViewController
-                destinationVC.albumImg = MusicData.shared.images[indexPath.row]
+                /*destinationVC.albumImg = MusicData.shared.images[indexPath.row]
                 destinationVC.titleText = MusicData.shared.titles[indexPath.row]
                 destinationVC.artistText = MusicData.shared.artists[indexPath.row]
-                destinationVC.musicURL = MusicData.shared.musicURLs[indexPath.row]
+                destinationVC.musicURL = MusicData.shared.musicURLs[indexPath.row]*/
                 
+                //destinationVC.musicID = musicIDs[indexPath.row]
                 // 수정: selectedIndex 설정
                 destinationVC.selectedIndex = indexPath.row
                 
                 destinationVC.delegate = self // delegate를 설정하여 삭제 요청을 받을 수 있도록 함
             }
         }
-    }
+    }*/
     
     // 삭제 요청을 처리하는 메서드
     func deleteItem(atIndex index: Int) {

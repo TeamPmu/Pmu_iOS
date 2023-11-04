@@ -16,14 +16,14 @@ struct MusicDetailResponse: Codable {
 
 // MARK: - DataClass
 struct MusicDetailData: Codable {
-    let musicID: Int
-    let coverImageURL, genre, title, singer: String
+    let musicId: Int
+    let coverImageURL, title, singer: String
     let youtubeURL: String
 
     enum CodingKeys: String, CodingKey {
-        case musicID = "musicId"
+        case musicId = "musicId"
         case coverImageURL = "coverImageUrl"
-        case genre, title, singer
+        case title, singer
         case youtubeURL = "youtubeUrl"
     }
 }
