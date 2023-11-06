@@ -16,46 +16,13 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         //getFontName()
                 
         // 자동 로그인 시도
         tryAutoLogin()
-        
-        // 프로필 이미지 로드 및 설정 호출
-        //loadProfileImage()
     }
     
-    /*func loadProfileImage() {
-        // KakaoLoginService 등의 다른 코드 내에서 데이터 사용 방법
-        if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
-            if let profileImgURLString = loginResponse.data?.profileImageURL,
-               let profileImgURL = URL(string: profileImgURLString) {
-                print("프로필 이미지 URL: \(profileImgURLString)") // 디버그 출력
-                // 이미지 다운로드 및 설정
-                DispatchQueue.global().async { // 비동기적으로 이미지 다운로드 수행
-                    if let imageData = try? Data(contentsOf: profileImgURL),
-                       let profileImage = UIImage(data: imageData) {
-                        DispatchQueue.main.async { // 다운로드 완료 후 메인 쓰레드에서 UI 업데이트
-                            print("프로필 이미지 다운로드 및 설정 성공") // 디버그 출력
-                            //SignUpViewController().profileImg.image = profileImage
-                        }
-                    } else {
-                        SignUpViewController().profileImg.image = UIImage(named: "dress")
-                        SignUpViewController().profileImg.backgroundColor = UIColor.gray
-                        print("프로필 이미지 다운로드 실패") // 디버그 출력
-                    }
-                }
-            } else {
-                SignUpViewController().profileImg.image = UIImage(named: "dress")
-                SignUpViewController().profileImg.backgroundColor = UIColor.gray
-                print("프로필 이미지 URL 변환 실패") // 디버그 출력
-            }
-        } else {
-            print("로그인 응답 데이터가 없음") // 디버그 출력
-        }
-    }*/
     
     @IBAction func logInBtnTapped(_ sender: UIButton) {
         if UserApi.isKakaoTalkLoginAvailable() {
@@ -111,60 +78,6 @@ class ViewController: UIViewController {
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
             .changeRootViewController(mainVC, animated: true)
     }
-    
-    /*func signIn(with token: String) {
-        KakaoLoginService.login(auth: token) { networkResult in
-            switch networkResult {
-            case .success(let kakaoResponse):
-                if let response = kakaoResponse as? KakaoLoginResponse {
-                    let loginData = response.data
-                    
-                    // AccessToken을 Keychain에 저장
-                    KeyChain.saveToken(loginData!.accessToken, forKey: "pmuaccessToken")
-                    
-                    if KeyChain.loadToken(forKey: "pmuaccessToken") == loginData!.accessToken
-                    {
-                        if !loginData!.accessToken.isEmpty {
-                            DispatchQueue.main.async {
-                                print("signIn 로그인 성공")
-                                print("AccessToken: \(loginData!.accessToken)")
-                                print("RefreshToken: \(loginData!.refreshToken)")
-                                print("UserID: \(loginData!.userID)")
-                                print("ProfileImageURL: \(loginData!.profileImageURL)")
-                                print("Nickname: \(loginData!.nickname)")
-                                
-                                // AccessToken을 Keychain에 저장
-                                KeyChain.saveToken(loginData!.accessToken, forKey: "pmuaccessToken")
-                                KeyChain.saveToken(loginData!.refreshToken, forKey: "pmurefreshToken")
-                                
-                                self.presentMainViewController()
-                            }
-                        } else {
-                            print("AccessToken is empty")
-                            DispatchQueue.main.async {
-                                self.showAlert(title: "signIn Error", message: "An error occurred while processing the response.")
-                            }
-                        }
-                    }
-                } else {
-                    print("Response parsing error")
-                    DispatchQueue.main.async {
-                        self.showAlert(title: "signIn Error", message: "An error occurred while processing the response.")
-                    }
-                }
-            case .requestErr(let errorData):
-                print("Request Error:", errorData)
-                DispatchQueue.main.async {
-                    self.showAlert(title: "signIn Request Error", message: "Please try again.")
-                }
-            case .pathErr, .serverErr, .networkFail:
-                print("Network Error")
-                DispatchQueue.main.async {
-                    self.showAlert(title: "signIn Network Error", message: "Please try again later.")
-                }
-            }
-        }
-    }*/
     
     func signIn(with token: String) {
         KakaoLoginService.login(auth: token) { networkResult in

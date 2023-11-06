@@ -7,14 +7,14 @@
 
 import Foundation
 
-// MARK: - Welcome
+// MARK: - MusicDetailResponse
 struct MusicDetailResponse: Codable {
     let status: Int
     let message: String
     let data: MusicDetailData?
 }
 
-// MARK: - DataClass
+// MARK: - MusicDetailData
 struct MusicDetailData: Codable {
     let musicId: Int
     let coverImageURL, title, singer: String

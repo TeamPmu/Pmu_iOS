@@ -18,7 +18,7 @@ struct MusicDetailService {
         ]
         
         let dataRequest = AF.request(url,
-                                     method: .get,
+                                     method: .post,
                                      parameters: nil,
                                      encoding: JSONEncoding.default,
                                      headers: headers)

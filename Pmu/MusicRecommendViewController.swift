@@ -23,7 +23,8 @@ class MusicRecommendViewController: UIViewController {
     @IBOutlet weak var nextMusicAlbumImg: UIImageView!
     
     var num = 0
-    var heartBtnTap = true
+    var heartBtnTap = false
+    var liked = false
     var pageIndex = 0
     
     var images: [UIImage] = []
@@ -37,12 +38,9 @@ class MusicRecommendViewController: UIViewController {
     var titleText: String?
     var artistText: String?
     var currentIndex: Int = 0
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // 더미 음악 데이터를 가져오는 함수 호출
-        //getDummyMusic()
         
         getMusicInformation()
         
@@ -68,11 +66,14 @@ class MusicRecommendViewController: UIViewController {
         
         // UserDefaults에서 초기 좋아요 상태를 가져오기
         /*if UserDefaults.standard.value(forKey: "liked\(currentIndex)") == nil {
-            UserDefaults.standard.set(false, forKey: "liked\(currentIndex)")
-        }*/
+         UserDefaults.standard.set(false, forKey: "liked\(currentIndex)")
+         }*/
         
         // 초기 화면 설정
         //updateUI(with: currentIndex)
+        
+        UserDefaults.standard.set(false, forKey: "liked0")
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -134,7 +135,7 @@ class MusicRecommendViewController: UIViewController {
             print("musicID가 없음. 노래 삭제 불가.")
             return
         }
-
+        
         
         MusicDeleteService.musicDelete(musicId: musicId, auth: appaccessToken) { result in
             switch result {
@@ -158,34 +159,6 @@ class MusicRecommendViewController: UIViewController {
             }
         }
     }
-    
-    /*func getMusicInformation() {
-        // 어딘가에서 EmotionToMusicResponse를 필요로 하는 곳에서 다음과 같이 가져옵니다.
-        if let emotionToMusicResponse = EmotionToMusicDataManager.shared.getEmotionToMusicResponse() {
-            // 가져온 데이터를 사용할 수 있습니다.
-            
-            // var coverImages: [UIImage] = [] // 커버 이미지 배열
-            titles = emotionToMusicResponse.Song
-            artists = emotionToMusicResponse.Singer
-            musicURL = emotionToMusicResponse.youtube
-            
-            for coverURLString in emotionToMusicResponse.cover {
-                if let coverImgURL = URL(string: coverURLString),
-                   let imageData = try? Data(contentsOf: coverImgURL),
-                   let coverImage = UIImage(data: imageData) {
-                    images.append(coverImage)
-                } else {
-                    print("커버 이미지를 가져오는 데 실패했습니다.")
-                    // 실패한 경우 디폴트 이미지나 오류 처리를 수행할 수 있습니다.
-                    // coverImages.append(defaultImage)
-                }
-            }
-            
-            // coverImages 배열에 커버 이미지가 추가됩니다.
-        } else {
-            print("EmotionToMusicResponse가 없습니다.")
-        }
-    }*/
     
     func getMusicInformation() {
         Task {
@@ -218,12 +191,6 @@ class MusicRecommendViewController: UIViewController {
     }
     
     @IBAction func youtubeBtnTapped(_ sender: UIButton) {
-        /*if let url = URL(string: musicURL[currentIndex]) {
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        }*/
-        
         if let url = URL(string: musicURL[currentIndex]) {
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:]) { success in
@@ -239,16 +206,8 @@ class MusicRecommendViewController: UIViewController {
         } else {
             print("유효하지 않은 URL입니다.") //폰에서 안되는 이유는 아마 최신 버전 아니라서 그런듯
         }
-
+        
         print("현재 유튭 url \(musicURL[currentIndex])")
-        /*if currentIndex < musicURL.count {
-            let url = musicURL[currentIndex]
-            if let url = URL(string: url) {
-                if UIApplication.shared.canOpenURL(url) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                }
-            }
-        }*/
     }
     
     @IBAction func dismissBtnTapped(_ sender: UIButton) {
@@ -261,17 +220,6 @@ class MusicRecommendViewController: UIViewController {
     }
     
     @IBAction func heartBtnTapped(_ sender: UIButton) {
-        /*if heartBtnTap == false {
-         heartBtn.setImage(UIImage(named: "heartYellow"), for: .normal)
-         num+=1
-         
-         heartBtnTap = true
-         } else {
-         heartBtn.setImage(UIImage(named: "heart"), for: .normal)
-         num+=1
-         heartBtnTap = false
-         }*/
-        
         // UserDefaults에서 좋아요 상태를 가져오기
         var liked = UserDefaults.standard.bool(forKey: "liked\(currentIndex)")
         
@@ -283,40 +231,14 @@ class MusicRecommendViewController: UIViewController {
             print("노래 저장 \(currentIndex)")
             
             // MusicData 모델 클래스를 사용하여 데이터 추가
-            let musicData = MusicData.shared
+            /*let musicData = MusicData.shared
             musicData.images.append(images[currentIndex])
             musicData.titles.append(titles[currentIndex])
             musicData.artists.append(artists[currentIndex])
-            musicData.musicURLs.append(musicURL[currentIndex])
+            musicData.musicURLs.append(musicURL[currentIndex])*/
             
             saveMusic(coverImageUrl: imagesURL[currentIndex], title: titles[currentIndex], singer: artists[currentIndex], youtubeUrl: musicURL[currentIndex])
             
-            // 데이터를 전달할 목적지 뷰 컨트롤러의 인스턴스를 생성
-            /*if let tableViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ListVC") as? TableViewController {
-             // 데이터를 설정
-             tableViewController.images.append(images[currentIndex])
-             tableViewController.titles.append(titles[currentIndex])
-             tableViewController.artists.append(artists[currentIndex])
-             tableViewController.musicURLs.append(musicURL[currentIndex])
-             
-             // 목적지 뷰 컨트롤러를 표시
-             self.navigationController?.pushViewController(tableViewController, animated: true)
-             }*/
-            
-            // 데이터를 전달
-            /*let notificationCenter = NotificationCenter.default
-             let notificationName = Notification.Name("MusicDataLiked")
-             
-             // 데이터를 userInfo로 전달
-             let userInfo: [String: Any] = [
-             "image": images[currentIndex],
-             "title": titles[currentIndex],
-             "artist": artists[currentIndex],
-             "musicURL": musicURL[currentIndex]
-             ]
-             print("저장 중,, \(images[currentIndex]),\(titles[currentIndex]),\(artists[currentIndex]),\(musicURL[currentIndex])")
-             
-             notificationCenter.post(name: notificationName, object: nil, userInfo: userInfo)*/
         } else {
             heartBtn.setImage(UIImage(named: "heart"), for: .normal)
             
@@ -327,7 +249,7 @@ class MusicRecommendViewController: UIViewController {
         UserDefaults.standard.set(liked, forKey: "liked\(currentIndex)")
     }
     
-     // UISwipeGestureRecognizer 액션 함수: 왼쪽으로 스와이프할 때 호출됨
+    // UISwipeGestureRecognizer 액션 함수: 왼쪽으로 스와이프할 때 호출됨
     @objc func swipeLeft(_ gesture: UISwipeGestureRecognizer) {
         // 다음 노래로 이동하는 로직을 여기에 추가
         currentIndex += 1
@@ -346,8 +268,8 @@ class MusicRecommendViewController: UIViewController {
         
         updateUI(with: currentIndex)
     }
-     
-     // UISwipeGestureRecognizer 액션 함수: 오른쪽으로 스와이프할 때 호출됨
+    
+    // UISwipeGestureRecognizer 액션 함수: 오른쪽으로 스와이프할 때 호출됨
     @objc func swipeRight(_ gesture: UISwipeGestureRecognizer) {
         // 이전 노래로 이동하는 로직을 여기에 추가
         currentIndex -= 1
@@ -399,91 +321,6 @@ class MusicRecommendViewController: UIViewController {
             nextMusicAlbumImg.image = images[0] // 다음 음악 이미지를 첫 번째 이미지로 설정
         } else {
             nextMusicAlbumImg.image = images[index + 1] // 다음 음악 이미지를 업데이트
-        }
-    }
-    
-    //DummyMusic 갖고오기
-    func getDummyMusic(){
-        let dummyMusic1: AroundMusic = AroundMusic(
-            name: "Attention",
-            coverImg: "https://is3-ssl.mzstatic.com/image/thumb/Music125/v4/a8/e2/1b/a8e21b3b-9c8d-2974-2318-6bcd4c9d2370/075679884336.jpg/100x100bb.jpg",
-            genre: "pop",
-            musicPre: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/b5/32/d4/b532d45b-0e4d-6bf3-d7b5-e02007877318/mzaf_10109990520611630125.plus.aac.p.m4a",
-            musicPull: "https://www.youtube.com/watch?v=6QYcd7RggNU",
-            replyCnt: 0,
-            archiveId: 0,
-            artist: "Charlie Puth",
-            pickCnt: 0)
-        
-        let dummyMusic2: AroundMusic = AroundMusic(
-            name: "Attention",
-            coverImg: "https://is4-ssl.mzstatic.com/image/thumb/Music112/v4/4e/64/34/4e64344b-3ac6-c503-2c41-257a15401416/192641873096_Cover.jpg/100x100bb.jpg",
-            genre: "kpop",
-            musicPre: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/13/79/51/13795136-c3d0-1191-cc43-dcc16579a2f2/mzaf_8604667655746746744.plus.aac.p.m4a",
-            musicPull: "https://www.youtube.com/watch?v=o8RkbHv2_a0",
-            replyCnt: 0,
-            archiveId: 0,
-            artist: "NewJeans",
-            pickCnt: 0)
-        
-        let dummyMusic3: AroundMusic = AroundMusic(
-            name: "Sanso (Interlude)",
-            coverImg: "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/76/bc/37/76bc37d2-283d-f252-716e-183c268b8a87/197189280801.jpg/100x100bb.jpg",
-            genre: "hiphop",
-            musicPre: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/fc/05/e9/fc05e999-0e4f-2a28-e21d-3fd55a671208/mzaf_13793805966112651018.plus.aac.p.m4a",
-            musicPull: "https://www.youtube.com/watch?v=JaJCPjd4iE8",
-            replyCnt: 0,
-            archiveId: 0,
-            artist: "Beenzino",
-            pickCnt: 0)
-        
-        let dummyMusic4: AroundMusic = AroundMusic(
-            name: "모든 것이 꿈이었네 (It Was All a Dream) ",
-            coverImg: "https://is4-ssl.mzstatic.com/image/thumb/Music126/v4/b5/9c/27/b59c2792-bb97-2a40-f482-c6d5b3ae1cea/196626603180.jpg/100x100bb.jpg",
-            genre: "hiphop",
-            musicPre: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/79/97/b3/7997b3fd-b8b8-0540-787a-0ef0988e807c/mzaf_6188522879362145428.plus.aac.p.m4a",
-            musicPull: "https://www.youtube.com/watch?v=xICSRpVzATI",
-            replyCnt: 0,
-            archiveId: 0,
-            artist: "250",
-            pickCnt: 0)
-        
-        let dummyMusic5: AroundMusic = AroundMusic(
-            name: "Slay",
-            coverImg: "https://is3-ssl.mzstatic.com/image/thumb/Music115/v4/02/6a/99/026a998e-835f-81a9-d5e5-f0fbf091caf7/cover-C_JAMM_NEW.jpg/100x100bb.jpg",
-            genre: "hiphop",
-            musicPre: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/2c/7d/fc/2c7dfcb8-4c6b-f691-9c76-8fe499c3d6b7/mzaf_3230752141782334299.plus.aac.p.m4a",
-            musicPull: "https://www.youtube.com/watch?v=r67UF7Wpl08",
-            replyCnt: 0,
-            archiveId: 0,
-            artist: "C JAMM",
-            pickCnt: 0)
-        
-        let dummyMusic6: AroundMusic = AroundMusic(
-            name: "Super Shy",
-            coverImg: "https://is4-ssl.mzstatic.com/image/thumb/Music126/v4/63/e5/e2/63e5e2e4-829b-924d-a1dc-8058a1d69bd4/196922462702_Cover.jpg/100x100bb.jpg",
-            genre: "kpop",
-            musicPre: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/98/66/db/9866dbb4-6e6f-eedd-ea1c-4832542b8f3e/mzaf_1940197871229851903.plus.aac.p.m4a",
-            musicPull: "https://www.youtube.com/watch?v=ArmDp-zijuc",
-            replyCnt: 0,
-            archiveId: 0,
-            artist: "NewJeans",
-            pickCnt: 0)
-        
-        let dummyMusics: [AroundMusic] = [dummyMusic1, dummyMusic2, dummyMusic3, dummyMusic4, dummyMusic5, dummyMusic6]
-        
-        // 더미 음악 데이터에서 coverImg URL을 사용하여 UIImage 배열 생성
-        for dummyMusic in dummyMusics {
-            if let coverImgURL = URL(string: dummyMusic.coverImg),
-               let imageData = try? Data(contentsOf: coverImgURL),
-               let coverImage = UIImage(data: imageData) {
-                
-                images.append(coverImage)
-                titles.append(dummyMusic.name) // 음악 이름 배열에 추가
-                genres.append(dummyMusic.genre) // 장르 배열에 추가
-                artists.append(dummyMusic.artist) // 아티스트 배열에 추가
-                musicURL.append(dummyMusic.musicPull)
-            }
         }
     }
 }

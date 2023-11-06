@@ -12,9 +12,16 @@ class ListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         self.tabBarController?.tabBar.barTintColor = UIColor.white // 또는 원하는 배경색
         self.tabBarController?.tabBar.layer.borderWidth = 0
         self.tabBarController?.tabBar.layer.borderColor = UIColor.clear.cgColor
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //view.reloadData() // 테이블 뷰 리로드
+
+        //musicList()
     }
 }

@@ -77,47 +77,6 @@ class MusicViewController: UIViewController {
         txtView.textColor = UIColor.lightGray
     }
     
-    /*
-    //프로필 URL 전달
-    func invokeLambdaEmotionFunction(profileURL: String) {
-        let lambdaInvoker = AWSLambdaInvoker.default()
-
-        let functionName = "YourLambdaFunctionName" // 호출할 Lambda 함수 이름
-        let requestPayload = ["URL": profileURL] // Lambda 함수로 전달할 데이터
-
-        lambdaInvoker.invokeFunction(functionName, jsonObject: requestPayload)
-            .continueWith { (task) -> Any? in
-                if let error = task.error {
-                    print("Error: \(error.localizedDescription)")
-                }
-                if let result = task.result as? [String: Any] {
-                    print("Lambda Result: \(result)")
-                    UserDefaults.standard.set(result, forKey: "emotion")
-                }
-                return nil
-            }
-    }
-    
-    //감정, 텍스트 전달
-    func invokeLambdaMusicRecommandFunction(emotion: String, text: String) {
-        let lambdaInvoker = AWSLambdaInvoker.default()
-        
-        let functionName = "YourLambdaFunctionName" // 호출할 Lambda 함수 이름
-        let requestPayload = ["emotion": emotion, "text": text] // Lambda 함수로 전달할 데이터
-
-        lambdaInvoker.invokeFunction(functionName, jsonObject: requestPayload)
-            .continueWith { (task) -> Any? in
-                if let error = task.error {
-                    print("Error: \(error.localizedDescription)")
-                }
-                if let result = task.result as? [String: Any] {
-                    print("Lambda Result: \(result)")
-                }
-                return nil
-            }
-    }
-    */
-    
     //APIgateway 프사url 전달
     func imgToEmotion(profileURL: String){
         ImgToEmotionService.ImgToEmotion(profileURL: profileURL) { networkResult in
@@ -207,17 +166,6 @@ class MusicViewController: UIViewController {
     }
     
     func moveToMusicRecommandPage() {
-        /*let musicRecommendViewController = MusicRecommendViewController() // 두 번째 뷰 컨트롤러 인스턴스 생성
-        musicRecommendViewController.modalPresentationStyle = .overCurrentContext // 모달 스타일 설정 (배경 화면 투명도 유지)
-        
-        self.present(musicRecommendViewController, animated: true, completion: nil) // 모달 화면 표시*/
-        
-        /*let MusicRecoVC = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewController(withIdentifier: "MusicReco")
-        
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
-            .changeRootViewController(MusicRecoVC, animated: true)*/
-        
         guard let MusicRecoVC = self.storyboard?.instantiateViewController(withIdentifier: "MusicReco") as? MusicRecommendViewController else { return }
         MusicRecoVC.modalTransitionStyle = .coverVertical
         MusicRecoVC.modalPresentationStyle = .fullScreen
@@ -244,20 +192,6 @@ class MusicViewController: UIViewController {
             print("No saved text found.")
         }
         
-        /*
-        // UserDefaults에서 "emotion"과 "savedText" 키에 해당하는 값을 가져오기
-        if let emotion = UserDefaults.standard.string(forKey: "emotion"),
-           let savedText = UserDefaults.standard.string(forKey: "savedText") {
-            // 가져온 emotion 값을 이용하여 Lambda 함수 호출
-            self.invokeLambdaMusicRecommandFunction(emotion: emotion, text: savedText)
-        } else {
-            // "emotion" 또는 "savedText" 키에 대한 값이 없는 경우 처리
-            print("No emotion or saved text found in UserDefaults")
-        }
-        */
-        
-        //apigateway
-        
         if let emotion = UserDefaults.standard.string(forKey: "emotion"),
            let savedText = UserDefaults.standard.string(forKey: "savedText") {
             // 가져온 emotion 값을 이용하여 Lambda 함수 호출
@@ -266,19 +200,6 @@ class MusicViewController: UIViewController {
             // "emotion" 또는 "savedText" 키에 대한 값이 없는 경우 처리
             print("No emotion or saved text found in UserDefaults")
         }
-        
-        //self.moveToMusicRecommandPage()
-        
-        //emotionToMusic(emotion: "sad", text: "왜 계속 실패하는거지? 너무 슬퍼")
-        
-        /*if let savedText = UserDefaults.standard.string(forKey: "savedText") {
-            // 가져온 emotion 값을 이용하여 Lambda 함수 호출
-            emotionToMusic(emotion: "sad", text: savedText)
-        } else {
-            // "emotion" 또는 "savedText" 키에 대한 값이 없는 경우 처리
-            print("No emotion or saved text found in UserDefaults")
-        }*/
-        
     }
     
     // 프로필 이미지 로드 및 설정하는 함수

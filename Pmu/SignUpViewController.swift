@@ -30,9 +30,6 @@ class SignUpViewController: UIViewController {
         // 초기에 버튼을 비활성화
         signUpBtn.isEnabled = false
         
-        // 프로필 이미지 로드 및 설정 호출
-        //loadProfileImage()
-        
         // Add a tap gesture recognizer to the view
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
@@ -46,37 +43,6 @@ class SignUpViewController: UIViewController {
         self.nameTextField.resignFirstResponder()
         self.view.endEditing(true)
     }
-    
-    /*
-    func loadProfileImage() {
-        // KakaoLoginService 등의 다른 코드 내에서 데이터 사용 방법
-        if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
-            if let profileImgURLString = loginResponse.data!.profileImageURL,
-               let profileImgURL = URL(string: profileImgURLString) {
-                print("회원가입 프로필 이미지 URL: \(profileImgURLString)") // 디버그 출력
-                // 이미지 다운로드 및 설정
-                DispatchQueue.global().async { // 비동기적으로 이미지 다운로드 수행
-                    if let imageData = try? Data(contentsOf: profileImgURL),
-                       let profileImage = UIImage(data: imageData) {
-                        DispatchQueue.main.async { // 다운로드 완료 후 메인 쓰레드에서 UI 업데이트
-                            print("회원가입 프로필 이미지 다운로드 및 설정 성공") // 디버그 출력
-                            self.profileImg.image = profileImage
-                        }
-                    } else {
-                        self.profileImg.image = UIImage(named: "dress")
-                        self.profileImg.backgroundColor = UIColor.gray
-                        print("회원가입 프로필 이미지 다운로드 실패") // 디버그 출력
-                    }
-                }
-            } else {
-                self.profileImg.image = UIImage(named: "dress")
-                self.profileImg.backgroundColor = UIColor.gray
-                print("회원가입 프로필 이미지 URL 변환 실패") // 디버그 출력
-            }
-        } else {
-            print("회원가입 응답 데이터가 없음") // 디버그 출력
-        }
-    }*/
     
     @IBAction func checkBtnTapped(_ sender: UIButton) {
         if signUpBtn.isEnabled == false, let text = nameTextField.text, !text.isEmpty {

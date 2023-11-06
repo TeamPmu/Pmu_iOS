@@ -10,7 +10,8 @@ import MarqueeLabel
 
 // 삭제 요청을 받을 프로토콜 정의
 protocol DetailViewControllerDelegate: AnyObject {
-    func deleteItem(atIndex index: Int)
+    //func deleteItem(atIndex index: Int)
+    func reloadTableView()
 }
 
 class DetailViewController: UIViewController {
@@ -26,6 +27,7 @@ class DetailViewController: UIViewController {
     
     var isHeartSelected = true
     var albumImg: UIImage? = nil
+    var albumImgURL: String = ""
     var titleText: String = ""
     var artistText: String = ""
     var musicURL: String = ""
@@ -43,16 +45,19 @@ class DetailViewController: UIViewController {
         titleLbl.text = titleText
         artistLbl.text = artistText*/
         
+        musicDetail(musicID: musicID)
+        setHeartButtonImage()
+        
         musicAlbumImg.layer.cornerRadius = 12
+        //musicAlbumImg.layer.masksToBounds = true
         musicAlbumImg.clipsToBounds = true
         
         // 초기 상태에서는 heartYellow 이미지를 사용
-        setHeartButtonImage()
         
-        musicList(musicID: musicID)
+        print("디테일 musicID: \(musicID)")
     }
     
-    func musicList(musicID: String){
+    func musicDetail(musicID: String){
         guard let appaccessToken = KeyChain.loadToken(forKey: "pmuaccessToken") else {
             // 사용자 토큰이 없으면 이미 로그아웃된 상태
             print("사용자 토큰이 없음. 노래 리스트 불러오기 불가.")
@@ -64,7 +69,7 @@ class DetailViewController: UIViewController {
             case .success(let musicDetailResponse):
                 if let response = musicDetailResponse as? MusicDetailResponse {
                     let musicData = response.data
-                    //print("musicData: \(musicListResponse)")
+                    print("musicDetailResponse: \(musicDetailResponse)")
                     print("노래상세정보 불러오기 성공")
                     
                     DispatchQueue.main.async {
@@ -73,6 +78,7 @@ class DetailViewController: UIViewController {
                            let coverImage = UIImage(data: imageData) {
                             self.musicAlbumImg.image = coverImage
                             self.bgMusicAlbumImg.image = coverImage
+                            self.albumImgURL = musicData!.coverImageURL
                         } else {
                             print("커버 이미지를 가져오는 데 실패했습니다.")
                         }
@@ -100,19 +106,19 @@ class DetailViewController: UIViewController {
                 
             case .requestErr(let errorData):
                 //요청이 실패하였을 경우
-                print("노래리스트 불러오기 실패 - 요청 오류: \(errorData.message)")
+                print("노래상세정보 불러오기 실패 - 요청 오류: \(errorData.message)")
                 
             case .serverErr:
                 // 서버 오류
-                print("노래리스트 불러오기 실패 - 서버 오류")
+                print("노래상세정보 불러오기 실패 - 서버 오류")
                 
             case .networkFail:
                 // 네트워크 오류
-                print("노래리스트 불러오기 실패 - 네트워크 오류")
+                print("노래상세정보 불러오기 실패 - 네트워크 오류")
                 
             case .pathErr:
                 // 경로 오류
-                print("노래리스트 불러오기 실패 - 경로 오류")
+                print("노래상세정보 불러오기 실패 - 경로 오류")
             }
         }
     }
@@ -168,12 +174,15 @@ class DetailViewController: UIViewController {
             return
         }
 
-        
         MusicDeleteService.musicDelete(musicId: musicId, auth: appaccessToken) { result in
             switch result {
             case .success(let musicDeleteResponse):
                 print("musicDeleteResponse: \(musicDeleteResponse)")
                 print("노래삭제 성공")
+                
+                //print(self.titleLbl.text, self.artistLbl.text)
+                
+                //self.delegate?.reloadTableView() // 델리게이트를 통해 테이블 뷰 리로드 요청
                 
                 UserDefaults.standard.removeObject(forKey: coverImageUrl)
             case .requestErr(let errorData):
@@ -204,20 +213,29 @@ class DetailViewController: UIViewController {
         if isHeartSelected {
             heartBtn.setImage(UIImage(named: "heartYellow"), for: .normal)
             
-            //saveMusic(coverImageUrl: imagesURL[currentIndex], title: titles[currentIndex], singer: artists[currentIndex], youtubeUrl: musicURL[currentIndex])
+            /*if let title = titleLbl.text, let artist = artistLbl.text {
+                saveMusic(coverImageUrl: albumImgURL, title: title, singer: artist, youtubeUrl: musicURL)
+            } else {
+                print("Title 또는 Artist가 nil입니다.")
+            }*/
+            
         } else {
             heartBtn.setImage(UIImage(named: "heart"), for: .normal)
             
-            //deleteMusic(coverImageUrl: imagesURL[currentIndex])
+            //deleteMusic(coverImageUrl: albumImgURL)
         }
-        
     }
     
     @IBAction func dismissBtnTapped(_ sender: UIButton) {
-        // 추가: isHeartSelected가 false인 경우 삭제 요청을 보내기
-        if !isHeartSelected, let selectedIndex = selectedIndex {
-            delegate?.deleteItem(atIndex: selectedIndex)
+        if !self.isHeartSelected, let selectedIndex = self.selectedIndex {
+            deleteMusic(coverImageUrl: albumImgURL)
         }
+        
+        // Delegate를 통해 detailViewDidDismiss 메서드 호출
+        if let tableViewController = delegate as? TableViewController {
+            tableViewController.reloadTableView()
+        }
+        
         print(isHeartSelected)
         print("인덱스", selectedIndex)
         self.dismiss(animated: true, completion: nil)

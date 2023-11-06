@@ -16,6 +16,9 @@ class TableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        musicAlbumImg.layer.cornerRadius = 10
+        musicAlbumImg.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
