@@ -44,8 +44,6 @@ class MusicRecommendViewController: UIViewController {
         
         getMusicInformation()
         
-        print(artists.count)
-        
         musicAlbumImg.layer.cornerRadius = 12
         musicAlbumImg.clipsToBounds = true
         
@@ -72,16 +70,22 @@ class MusicRecommendViewController: UIViewController {
         // 초기 화면 설정
         //updateUI(with: currentIndex)
         
-        UserDefaults.standard.set(false, forKey: "liked0")
-
+        // liked 변수를 초기화하고 버튼의 이미지 설정
+        liked = UserDefaults.standard.bool(forKey: "liked\(currentIndex)")
+        if liked {
+            heartBtn.setImage(UIImage(named: "heartYellow"), for: .normal)
+        } else {
+            heartBtn.setImage(UIImage(named: "heart"), for: .normal)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // UserDefaults에서 모든 liked 값을 초기화
+        // UserDefaults에서 모든 liked 값을 초기화 (기존 코드 유지)
         for index in 0..<artists.count {
             UserDefaults.standard.set(false, forKey: "liked\(index)")
+            heartBtn.setImage(UIImage(named: "heart"), for: .normal)
         }
     }
     
@@ -221,7 +225,7 @@ class MusicRecommendViewController: UIViewController {
     
     @IBAction func heartBtnTapped(_ sender: UIButton) {
         // UserDefaults에서 좋아요 상태를 가져오기
-        var liked = UserDefaults.standard.bool(forKey: "liked\(currentIndex)")
+        liked = UserDefaults.standard.bool(forKey: "liked\(currentIndex)")
         
         // 좋아요 상태 토글
         liked.toggle()

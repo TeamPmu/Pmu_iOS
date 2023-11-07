@@ -30,7 +30,7 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
         setNickNameLabel()
-
+        
         print(titles.count)
         
         for i in 0..<titles.count {
@@ -38,12 +38,35 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
         }
         
         musicList()
+        
+        // UIRefreshControl 객체 선언
+        let refreshControl = UIRefreshControl()
+        
+        // refreshControl을 테이블 뷰에 연결
+        tableView.refreshControl = refreshControl
+        
+        // refreshControl의 target 및 action 설정
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        
+        // 진입 시 자동으로 새로 고침을 시작
+        refreshControl.beginRefreshing()
+        
+        // 데이터를 초기로드
+        refreshData(refreshControl)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         //musicList()
+    }
+    
+    @objc func refreshData(_ sender: UIRefreshControl) {
+        // 데이터를 다시 로드하거나 업데이트합니다.
+        musicList()
+        
+        // 데이터 로드가 완료되면 리프레시 컨트롤을 중지합니다.
+        sender.endRefreshing()
     }
     
     func musicList(){
@@ -218,6 +241,10 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
     
+    func reloadTableView() {
+        tableView.reloadData() // 테이블 뷰 리로드
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "DetailSegue" {
             if let indexPath = tableView.indexPathForSelectedRow {
@@ -259,9 +286,5 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
         } else {
             print("\(deletedItem) 항목은 삭제되지 않았습니다.")
         }
-    }
-    
-    func reloadTableView() {
-        tableView.reloadData() // 테이블 뷰 리로드
     }
 }

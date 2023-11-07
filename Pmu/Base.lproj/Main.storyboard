@@ -968,7 +968,6 @@
                                     <outlet property="artistLbl" destination="Ou6-Wu-HQ6" id="Fjs-mN-q6V"/>
                                     <outlet property="musicAlbumImg" destination="9R7-nS-Mlc" id="Dab-Dv-IP0"/>
                                     <outlet property="titleLbl" destination="5w8-ry-khg" id="2fh-o5-RAL"/>
-                                    <segue destination="kJS-oI-I3M" kind="presentation" identifier="DetailSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="GJ7-ET-z0M"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1412,10 +1411,10 @@
     </scenes>
     <designables>
         <designable name="odK-qf-3Sn">
-            <size key="intrinsicContentSize" width="117.66666666666667" height="38.333333333333336"/>
+            <size key="intrinsicContentSize" width="119.66666666666667" height="37.333333333333336"/>
         </designable>
         <designable name="xMf-b6-xiL">
-            <size key="intrinsicContentSize" width="117.66666666666667" height="38.333333333333336"/>
+            <size key="intrinsicContentSize" width="119.66666666666667" height="37.333333333333336"/>
         </designable>
     </designables>
     <resources>

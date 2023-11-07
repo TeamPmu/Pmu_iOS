@@ -12,6 +12,7 @@ import MarqueeLabel
 protocol DetailViewControllerDelegate: AnyObject {
     //func deleteItem(atIndex index: Int)
     func reloadTableView()
+    func musicList()
 }
 
 class DetailViewController: UIViewController {
@@ -123,44 +124,6 @@ class DetailViewController: UIViewController {
         }
     }
     
-    func saveMusic(coverImageUrl: String, title: String, singer: String, youtubeUrl: String){
-        guard let appaccessToken = KeyChain.loadToken(forKey: "pmuaccessToken") else {
-            // 사용자 토큰이 없으면 이미 로그아웃된 상태
-            print("사용자 토큰이 없음. 노래 저장 불가.")
-            return
-        }
-        
-        MusicSaveSerivce.musicSave(auth: appaccessToken, coverImageUrl: coverImageUrl, title: title, singer: singer, youtubeUrl: youtubeUrl) { result in
-            switch result {
-            case .success(let musicSaveResponse):
-                if let response = musicSaveResponse as? MusicSaveResponse {
-                    let musicData = response.data
-                    print("musicData: \(musicSaveResponse)")
-                    print("\(title) 노래저장 성공")
-                    print("musicID: \(musicData?.musicId)")
-                    UserDefaults.standard.set(musicData?.musicId, forKey: coverImageUrl)
-                    print(coverImageUrl)
-                    print(UserDefaults.standard.string(forKey: coverImageUrl))
-                }
-            case .requestErr(let errorData):
-                //요청이 실패하였을 경우
-                print("노래저장 실패 - 요청 오류: \(errorData.message)")
-                
-            case .serverErr:
-                // 서버 오류
-                print("노래저장 실패 - 서버 오류")
-                
-            case .networkFail:
-                // 네트워크 오류
-                print("노래저장 실패 - 네트워크 오류")
-                
-            case .pathErr:
-                // 경로 오류
-                print("노래저장 실패 - 경로 오류")
-            }
-        }
-    }
-    
     func deleteMusic(coverImageUrl: String){
         guard let appaccessToken = KeyChain.loadToken(forKey: "pmuaccessToken") else {
             // 사용자 토큰이 없으면 이미 로그아웃된 상태
@@ -183,7 +146,7 @@ class DetailViewController: UIViewController {
                 //print(self.titleLbl.text, self.artistLbl.text)
                 
                 //self.delegate?.reloadTableView() // 델리게이트를 통해 테이블 뷰 리로드 요청
-                
+                print(coverImageUrl)
                 UserDefaults.standard.removeObject(forKey: coverImageUrl)
             case .requestErr(let errorData):
                 //요청이 실패하였을 경우
@@ -227,17 +190,19 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func dismissBtnTapped(_ sender: UIButton) {
-        if !self.isHeartSelected, let selectedIndex = self.selectedIndex {
+        if !self.isHeartSelected {
             deleteMusic(coverImageUrl: albumImgURL)
         }
         
         // Delegate를 통해 detailViewDidDismiss 메서드 호출
         if let tableViewController = delegate as? TableViewController {
-            tableViewController.reloadTableView()
+            //tableViewController.reloadTableView()
+            tableViewController.musicList()
         }
         
         print(isHeartSelected)
         print("인덱스", selectedIndex)
+        
         self.dismiss(animated: true, completion: nil)
     }
     
