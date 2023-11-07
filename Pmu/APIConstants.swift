@@ -47,6 +47,6 @@ struct APIConstants {
     //플레이리스트 로드 (get)
     static let musicListURL = baseURL + "/api/music"
     
-    //음악 상세보기 (get)
+    //음악 상세보기 (post)
     static let musicDetailURL = baseURL + "/api/music"
 }

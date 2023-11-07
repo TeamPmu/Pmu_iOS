@@ -36,9 +36,15 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
         for i in 0..<titles.count {
             print("Title: \(titles[i]), Artist: \(artists[i]), MusicURL: \(musicURLs[i])")
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        musicList()
-        
+        refresh()
+    }
+    
+    func refresh() {
         // UIRefreshControl 객체 선언
         let refreshControl = UIRefreshControl()
         
@@ -55,13 +61,14 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
         refreshData(refreshControl)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        //musicList()
-    }
-    
     @objc func refreshData(_ sender: UIRefreshControl) {
+        
+        // 이전 데이터를 삭제
+        titles.removeAll()
+        artists.removeAll()
+        images.removeAll()
+        musicIDs.removeAll()
+        
         // 데이터를 다시 로드하거나 업데이트합니다.
         musicList()
         

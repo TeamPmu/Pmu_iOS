@@ -13,6 +13,7 @@ protocol DetailViewControllerDelegate: AnyObject {
     //func deleteItem(atIndex index: Int)
     func reloadTableView()
     func musicList()
+    func refresh()
 }
 
 class DetailViewController: UIViewController {
@@ -148,6 +149,9 @@ class DetailViewController: UIViewController {
                 //self.delegate?.reloadTableView() // 델리게이트를 통해 테이블 뷰 리로드 요청
                 print(coverImageUrl)
                 UserDefaults.standard.removeObject(forKey: coverImageUrl)
+                
+                //self.delegate?.refresh()
+                
             case .requestErr(let errorData):
                 //요청이 실패하였을 경우
                 print("노래삭제 실패 - 요청 오류: \(errorData.message)")
@@ -195,10 +199,10 @@ class DetailViewController: UIViewController {
         }
         
         // Delegate를 통해 detailViewDidDismiss 메서드 호출
-        if let tableViewController = delegate as? TableViewController {
+        /*if let tableViewController = delegate as? TableViewController {
             //tableViewController.reloadTableView()
             tableViewController.musicList()
-        }
+        }*/
         
         print(isHeartSelected)
         print("인덱스", selectedIndex)
