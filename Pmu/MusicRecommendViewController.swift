@@ -194,6 +194,21 @@ class MusicRecommendViewController: UIViewController {
         }
     }
     
+    func moveToMusicRecommandPage() {
+        guard let MusicRecoVC = self.storyboard?.instantiateViewController(withIdentifier: "MusicReco") as? MusicRecommendViewController else { return }
+        MusicRecoVC.modalTransitionStyle = .coverVertical
+        MusicRecoVC.modalPresentationStyle = .fullScreen
+        self.present(MusicRecoVC, animated: true, completion: nil)
+    }
+    
+    func presentMusicIndicatorViewController() {
+        let musicIndicatorVC = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "MusicIndicatorView")
+        
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
+            .changeRootViewController(musicIndicatorVC, animated: true)
+    }
+    
     @IBAction func youtubeBtnTapped(_ sender: UIButton) {
         if let url = URL(string: musicURL[currentIndex]) {
             if UIApplication.shared.canOpenURL(url) {
@@ -214,13 +229,36 @@ class MusicRecommendViewController: UIViewController {
         print("현재 유튭 url \(musicURL[currentIndex])")
     }
     
+    func presentMainViewController() {
+        let mainVC = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "Main")
+        
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
+            .changeRootViewController(mainVC, animated: true)
+        
+        /*guard let MusicVC = self.storyboard?.instantiateViewController(withIdentifier: "Main") as? MusicViewController else { return }
+        MusicVC.modalTransitionStyle = .coverVertical
+        MusicVC.modalPresentationStyle = .fullScreen
+        self.present(MusicVC, animated: true, completion: nil)*/
+    }
+    
     @IBAction func dismissBtnTapped(_ sender: UIButton) {
         //MusicViewController.txtView.text = "" // textView 초기화
         
         // 'clearTextView' Notification 보내기
         NotificationCenter.default.post(name: NSNotification.Name("clearTextView"), object: nil)
         
-        self.dismiss(animated: true, completion: nil)
+        //self.dismiss(animated: true, completion: nil)
+        
+        self.dismiss(animated: true){
+            self.presentMainViewController()
+            
+            /*let mainVC = UIStoryboard(name: "Main", bundle: nil)
+                .instantiateViewController(withIdentifier: "Main")
+            
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
+                .changeRootViewController(mainVC, animated: true)*/
+        }
     }
     
     @IBAction func heartBtnTapped(_ sender: UIButton) {

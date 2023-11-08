@@ -21,6 +21,9 @@
         <array key="Pretendard-Regular.otf">
             <string>Pretendard-Regular</string>
         </array>
+        <array key="Pretendard-SemiBold.otf">
+            <string>Pretendard-SemiBold</string>
+        </array>
     </customFonts>
     <scenes>
         <!--View Controller-->
@@ -339,6 +342,43 @@
             </objects>
             <point key="canvasLocation" x="2607.6923076923076" y="676.77725118483409"/>
         </scene>
+        <!--Emotion Indicator View Controller-->
+        <scene sceneID="K28-DP-9EE">
+            <objects>
+                <viewController storyboardIdentifier="EmotionIndicatorView" id="Uz7-bf-G8r" customClass="EmotionIndicatorViewController" customModule="Pmu" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vWJ-as-mu8">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="감정 분석 중..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVT-Qc-AYf">
+                                <rect key="frame" x="0.0" y="460.66666666666669" width="390" height="26.333333333333314"/>
+                                <fontDescription key="fontDescription" name="Pretendard-SemiBold" family="Pretendard" pointSize="22"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="vrc-Of-CCm">
+                                <rect key="frame" x="176.66666666666666" y="403.66666666666669" width="37" height="37"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="u6q-xj-JMf"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <constraints>
+                            <constraint firstItem="vrc-Of-CCm" firstAttribute="centerX" secondItem="vWJ-as-mu8" secondAttribute="centerX" id="EQw-DI-7Gk"/>
+                            <constraint firstItem="vrc-Of-CCm" firstAttribute="centerY" secondItem="vWJ-as-mu8" secondAttribute="centerY" id="IJ8-Do-nPT"/>
+                            <constraint firstItem="hVT-Qc-AYf" firstAttribute="top" secondItem="vrc-Of-CCm" secondAttribute="bottom" constant="20" id="KyZ-iR-hdH"/>
+                            <constraint firstItem="hVT-Qc-AYf" firstAttribute="leading" secondItem="u6q-xj-JMf" secondAttribute="leading" id="aoM-6t-b5v"/>
+                            <constraint firstItem="hVT-Qc-AYf" firstAttribute="centerX" secondItem="vWJ-as-mu8" secondAttribute="centerX" id="czT-c7-7Og"/>
+                            <constraint firstItem="hVT-Qc-AYf" firstAttribute="trailing" secondItem="u6q-xj-JMf" secondAttribute="trailing" id="niS-G6-WbP"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="indicatorView" destination="vrc-Of-CCm" id="IOZ-GP-t5I"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h5e-JZ-CMW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3394" y="677"/>
+        </scene>
         <!--Music View Controller-->
         <scene sceneID="7AK-HV-yPW">
             <objects>
@@ -423,6 +463,9 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="voC-zz-qbH">
+                                <rect key="frame" x="176.66666666666666" y="403.66666666666669" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xCM-W3-hbl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -445,14 +488,17 @@
                             <constraint firstItem="4MH-lT-3L1" firstAttribute="top" secondItem="Y14-vB-5O0" secondAttribute="bottom" constant="24" id="gBT-oD-mpb"/>
                             <constraint firstItem="ST2-QK-CEQ" firstAttribute="leading" secondItem="Y14-vB-5O0" secondAttribute="trailing" constant="12" id="nZK-YT-XUm"/>
                             <constraint firstItem="LWj-dc-J3G" firstAttribute="top" secondItem="6vV-T3-ihy" secondAttribute="bottom" constant="26" id="nzk-zT-tg6"/>
+                            <constraint firstItem="voC-zz-qbH" firstAttribute="centerX" secondItem="AIj-Kj-QRn" secondAttribute="centerX" id="oGU-ea-BFz"/>
                             <constraint firstItem="Y14-vB-5O0" firstAttribute="top" secondItem="tqf-gc-jC0" secondAttribute="bottom" constant="8" symbolic="YES" id="pf2-Lf-mkG"/>
                             <constraint firstItem="Y14-vB-5O0" firstAttribute="leading" secondItem="xCM-W3-hbl" secondAttribute="leading" constant="20" id="qMh-NW-rKt"/>
                             <constraint firstItem="ST2-QK-CEQ" firstAttribute="top" secondItem="xCM-W3-hbl" secondAttribute="top" constant="42" id="qdX-Rv-gfY"/>
+                            <constraint firstItem="voC-zz-qbH" firstAttribute="centerY" secondItem="AIj-Kj-QRn" secondAttribute="centerY" id="uzq-t4-SMX"/>
                             <constraint firstItem="LWj-dc-J3G" firstAttribute="top" secondItem="vQe-05-CzS" secondAttribute="bottom" constant="26" id="yrp-eO-fJR"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="music" selectedImage="musicFilled" id="YFe-Qw-KEj"/>
                     <connections>
+                        <outlet property="indicatorView" destination="voC-zz-qbH" id="yvj-mV-ZPZ"/>
                         <outlet property="musicButton" destination="LWj-dc-J3G" id="JL7-uQ-SRJ"/>
                         <outlet property="nickNameLbl" destination="tqf-gc-jC0" id="4cM-d8-QWc"/>
                         <outlet property="profileImg" destination="ST2-QK-CEQ" id="VwN-FN-F1j"/>
@@ -722,7 +768,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hy5-2q-SmV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5480" y="-533.17535545023691"/>
+            <point key="canvasLocation" x="6551" y="-533"/>
         </scene>
         <!--My Page View Controller-->
         <scene sceneID="OSG-X6-fxk">
@@ -1145,7 +1191,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cad-gJ-Xb5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7595" y="-533"/>
+            <point key="canvasLocation" x="7594" y="-533"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="hDm-s2-bVa">
@@ -1408,13 +1454,50 @@
             </objects>
             <point key="canvasLocation" x="6551" y="-1273"/>
         </scene>
+        <!--Music Indicator View Controller-->
+        <scene sceneID="eeo-5D-evq">
+            <objects>
+                <viewController storyboardIdentifier="MusicIndicatorView" id="dNc-5i-cL8" customClass="MusicIndicatorViewController" customModule="Pmu" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="It4-Xa-vuc">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="노래 추천 중..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oym-IM-cby">
+                                <rect key="frame" x="0.0" y="460.66666666666669" width="390" height="26.333333333333314"/>
+                                <fontDescription key="fontDescription" name="Pretendard-SemiBold" family="Pretendard" pointSize="22"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="UwG-4K-cIM">
+                                <rect key="frame" x="176.66666666666666" y="403.66666666666669" width="37" height="37"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ibc-pp-isy"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <constraints>
+                            <constraint firstItem="oym-IM-cby" firstAttribute="trailing" secondItem="ibc-pp-isy" secondAttribute="trailing" id="6bP-6H-WT1"/>
+                            <constraint firstItem="oym-IM-cby" firstAttribute="leading" secondItem="ibc-pp-isy" secondAttribute="leading" id="DKT-Gc-PfC"/>
+                            <constraint firstItem="UwG-4K-cIM" firstAttribute="centerX" secondItem="It4-Xa-vuc" secondAttribute="centerX" id="gIO-nc-JhS"/>
+                            <constraint firstItem="oym-IM-cby" firstAttribute="top" secondItem="UwG-4K-cIM" secondAttribute="bottom" constant="20" id="gvo-Gu-P2d"/>
+                            <constraint firstItem="oym-IM-cby" firstAttribute="centerX" secondItem="It4-Xa-vuc" secondAttribute="centerX" id="snn-ZQ-opT"/>
+                            <constraint firstItem="UwG-4K-cIM" firstAttribute="centerY" secondItem="It4-Xa-vuc" secondAttribute="centerY" id="xnJ-yP-xnW"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="indicatorView" destination="UwG-4K-cIM" id="tV1-hM-s1b"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FW5-r9-vzg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5480" y="-533"/>
+        </scene>
     </scenes>
     <designables>
         <designable name="odK-qf-3Sn">
-            <size key="intrinsicContentSize" width="119.66666666666667" height="37.333333333333336"/>
+            <size key="intrinsicContentSize" width="117.66666666666667" height="38.333333333333336"/>
         </designable>
         <designable name="xMf-b6-xiL">
-            <size key="intrinsicContentSize" width="119.66666666666667" height="37.333333333333336"/>
+            <size key="intrinsicContentSize" width="117.66666666666667" height="38.333333333333336"/>
         </designable>
     </designables>
     <resources>
@@ -1441,6 +1524,9 @@
         <image name="youtube" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

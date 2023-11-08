@@ -23,6 +23,8 @@
 		B33C4BDA2A6E50AA0098EE33 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B33C4BD82A6E50AA0098EE33 /* Main.storyboard */; };
 		B33C4BDC2A6E50AB0098EE33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B33C4BDB2A6E50AB0098EE33 /* Assets.xcassets */; };
 		B33C4BDF2A6E50AB0098EE33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B33C4BDD2A6E50AB0098EE33 /* LaunchScreen.storyboard */; };
+		B37A23572AFA31B7007EDAEA /* EmotionIndicatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37A23562AFA31B7007EDAEA /* EmotionIndicatorViewController.swift */; };
+		B37A23592AFA383F007EDAEA /* MusicIndicatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37A23582AFA383F007EDAEA /* MusicIndicatorViewController.swift */; };
 		B37C51562A762AF000C5F93A /* MusicRecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C51552A762AF000C5F93A /* MusicRecommendViewController.swift */; };
 		B37C51582A763B1C00C5F93A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C51572A763B1C00C5F93A /* SignUpViewController.swift */; };
 		B381439A2AF3BBBC00FECE5D /* MusicListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38143992AF3BBBC00FECE5D /* MusicListResponse.swift */; };
@@ -96,6 +98,8 @@
 		B33C4BDB2A6E50AB0098EE33 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B33C4BDE2A6E50AB0098EE33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B33C4BE02A6E50AB0098EE33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B37A23562AFA31B7007EDAEA /* EmotionIndicatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionIndicatorViewController.swift; sourceTree = "<group>"; };
+		B37A23582AFA383F007EDAEA /* MusicIndicatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicIndicatorViewController.swift; sourceTree = "<group>"; };
 		B37C51552A762AF000C5F93A /* MusicRecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicRecommendViewController.swift; sourceTree = "<group>"; };
 		B37C51572A763B1C00C5F93A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		B38143992AF3BBBC00FECE5D /* MusicListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListResponse.swift; sourceTree = "<group>"; };
@@ -211,6 +215,8 @@
 				B39772422A8CE5860026A6CC /* NetworkResult.swift */,
 				B3943E7A2A8FA5F400D1AAB6 /* NetworkHelper.swift */,
 				B33546D82AEEBA4D00D5A4C5 /* LikedMusicData.swift */,
+				B37A23562AFA31B7007EDAEA /* EmotionIndicatorViewController.swift */,
+				B37A23582AFA383F007EDAEA /* MusicIndicatorViewController.swift */,
 			);
 			path = Pmu;
 			sourceTree = "<group>";
@@ -405,6 +411,7 @@
 				B33960552AB60590008BA5B6 /* jwtTokenResponse.swift in Sources */,
 				B3E36DF02A755DFD000794F7 /* DetailViewController.swift in Sources */,
 				B33546D92AEEBA4D00D5A4C5 /* LikedMusicData.swift in Sources */,
+				B37A23592AFA383F007EDAEA /* MusicIndicatorViewController.swift in Sources */,
 				B38143A42AF3BE8A00FECE5D /* MusicDetailService.swift in Sources */,
 				B339605A2AC09828008BA5B6 /* FailureResponse.swift in Sources */,
 				B38143AA2AF3C1C900FECE5D /* MusicDetailResponse.swift in Sources */,
@@ -430,6 +437,7 @@
 				B33C4BD52A6E50AA0098EE33 /* SceneDelegate.swift in Sources */,
 				B381439A2AF3BBBC00FECE5D /* MusicListResponse.swift in Sources */,
 				B33960512AA99AB3008BA5B6 /* TableViewCell.swift in Sources */,
+				B37A23572AFA31B7007EDAEA /* EmotionIndicatorViewController.swift in Sources */,
 				B38143A22AF3BE7A00FECE5D /* MusicListService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

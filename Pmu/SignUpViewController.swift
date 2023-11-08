@@ -92,7 +92,8 @@ class SignUpViewController: UIViewController {
                             KeyChain.saveToken(signUpData!.accessToken, forKey: "pmuaccessToken")
                             KeyChain.saveToken(signUpData!.refreshToken, forKey: "pmurefreshToken")
                             
-                            self.presentMainViewController()
+                            //self.presentMainViewController()
+                            self.presentEmotionIndicatorViewController()
                         }
                     } else {
                         print("AccessToken is empty")
@@ -126,6 +127,14 @@ class SignUpViewController: UIViewController {
         
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
             .changeRootViewController(mainVC, animated: true)
+    }
+    
+    func presentEmotionIndicatorViewController() {
+        let emotionIndicatorVC = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "EmotionIndicatorView")
+        
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
+            .changeRootViewController(emotionIndicatorVC, animated: true)
     }
     
     func showAlert(title: String, message: String) {

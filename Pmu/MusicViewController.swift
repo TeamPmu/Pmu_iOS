@@ -8,20 +8,34 @@
 import Foundation
 import UIKit
 import Alamofire
-import AWSLambda
+//import AWSLambda
 
 class MusicViewController: UIViewController {
+    
+    lazy var activityIndicator: UIActivityIndicatorView = { // indicator가 사용될 때까지 인스턴스를 생성하지 않도록 lazy로 선언
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.center = self.splitViewController?.view.center ?? CGPoint() // indicator의 위치 설정
+        activityIndicator.style = UIActivityIndicatorView.Style.large // indicator의 스타일 설정, large와 medium이 있음
+        activityIndicator.startAnimating() // indicator 실행
+        activityIndicator.isHidden = false
+        return activityIndicator
+    }()
     
     @IBOutlet weak var profileImg: UIImageView!
     @IBOutlet weak var txtView: UITextView!
     @IBOutlet weak var musicButton: UIButton!
     @IBOutlet weak var textCountLbl: UILabel!
     @IBOutlet weak var nickNameLbl: UILabel!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     let borderGray = UIColor(red: 245, green: 245, blue: 245, alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //self.view.bringSubviewToFront(self.indicatorView)
+        //self.indicatorView.startAnimating()
+        
         // Do any additional setup after loading the view.
         profileImg.layer.cornerRadius = profileImg.frame.size.width/2
         profileImg.clipsToBounds = true
@@ -49,6 +63,8 @@ class MusicViewController: UIViewController {
         
         // 노티피케이션 수신 등록
         NotificationCenter.default.addObserver(self, selector: #selector(clearTextView(_:)), name: NSNotification.Name("clearTextView"), object: nil)
+        
+        self.view.addSubview(self.activityIndicator)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,6 +81,11 @@ class MusicViewController: UIViewController {
         
         // 노티피케이션 수신 등록
         NotificationCenter.default.addObserver(self, selector: #selector(clearTextView(_:)), name: NSNotification.Name("clearTextView"), object: nil)
+    }
+    
+    func stopActivityIndicator() {
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.stopAnimating()
     }
     
     // 'clearTextView' 노티피케이션 수신 시 호출되는 메서드
@@ -88,6 +109,9 @@ class MusicViewController: UIViewController {
                     print("Emotion: \(response.emotion)")
                     
                     UserDefaults.standard.set(response.emotion, forKey: "emotion")
+                    
+                    //self.indicatorView.stopAnimating()
+                    self.stopActivityIndicator()
                 }
                 
             case .requestErr(let data):
@@ -172,6 +196,19 @@ class MusicViewController: UIViewController {
         self.present(MusicRecoVC, animated: true, completion: nil)
     }
     
+    func presentMusicIndicatorViewController() {
+        /*let musicIndicatorVC = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "MusicIndicatorView")
+        
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
+            .changeRootViewController(musicIndicatorVC, animated: true)*/
+        
+        guard let musicIndicatorVC = self.storyboard?.instantiateViewController(withIdentifier: "MusicIndicatorView") as? MusicIndicatorViewController else { return }
+        musicIndicatorVC.modalTransitionStyle = .coverVertical
+        musicIndicatorVC.modalPresentationStyle = .fullScreen
+        self.present(musicIndicatorVC, animated: true, completion: nil)
+    }
+    
     @IBAction func musicBtnTapped(_ sender: UIButton) {
         // 텍스트 뷰에 입력된 텍스트 가져오기
         guard let textToSave = txtView.text else {
@@ -195,7 +232,8 @@ class MusicViewController: UIViewController {
         if let emotion = UserDefaults.standard.string(forKey: "emotion"),
            let savedText = UserDefaults.standard.string(forKey: "savedText") {
             // 가져온 emotion 값을 이용하여 Lambda 함수 호출
-            emotionToMusic(emotion: emotion, text: savedText)
+            self.presentMusicIndicatorViewController()
+            //emotionToMusic(emotion: emotion, text: savedText)
         } else {
             // "emotion" 또는 "savedText" 키에 대한 값이 없는 경우 처리
             print("No emotion or saved text found in UserDefaults")
@@ -220,7 +258,7 @@ class MusicViewController: UIViewController {
                             print("프사url형식: \(profileImgURLString)")
                             //프사url 전달
                             //self.invokeLambdaEmotionFunction(profileURL: profileImgURLString)
-                            self.imgToEmotion(profileURL: profileImgURLString)
+                            //self.imgToEmotion(profileURL: profileImgURLString)
                             
                             //self.imgToEmotion(profileURL: "https://t1.daumcdn.net/news/202301/05/iMBC/20230105175435888xbsp.jpg")
                         }

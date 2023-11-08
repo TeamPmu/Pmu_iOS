@@ -23,7 +23,6 @@ class ViewController: UIViewController {
         tryAutoLogin()
     }
     
-    
     @IBAction func logInBtnTapped(_ sender: UIButton) {
         if UserApi.isKakaoTalkLoginAvailable() {
             UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
@@ -79,6 +78,14 @@ class ViewController: UIViewController {
             .changeRootViewController(mainVC, animated: true)
     }
     
+    func presentEmotionIndicatorViewController() {
+        let emotionIndicatorVC = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "EmotionIndicatorView")
+        
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
+            .changeRootViewController(emotionIndicatorVC, animated: true)
+    }
+    
     func signIn(with token: String) {
         KakaoLoginService.login(auth: token) { networkResult in
             switch networkResult {
@@ -106,7 +113,8 @@ class ViewController: UIViewController {
                         KeyChain.saveToken(loginData!.refreshToken, forKey: "pmurefreshToken")
                         UserDefaults.standard.set(loginData!.userID, forKey: "userId")
                         
-                        self.presentMainViewController()
+                        //self.presentMainViewController()
+                        self.presentEmotionIndicatorViewController()
                     }
                     
                     /*if let accessToken = loginData?.accessToken {
@@ -162,13 +170,6 @@ class ViewController: UIViewController {
             }
         }
     }
-
-    func showAlert(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
-    }
     
     // 액세스 토큰을 갱신하고 진행하는 함수
     /*func refreshAccessTokenAndProceed() {
@@ -211,6 +212,7 @@ class ViewController: UIViewController {
                     
                     // 자동 로그인 또는 다른 작업 수행 가능
                     self.signIn(with: jwtResponse.data!.accessToken)
+                    self.showAlert(title: "자동 로그인", message: "자동 로그인 되었습니다.")
                     
                 case .requestErr(let errorData):
                     // 요청 오류 처리
@@ -232,6 +234,13 @@ class ViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     // 액세스 토큰을 갱신하는 함수
