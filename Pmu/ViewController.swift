@@ -12,15 +12,45 @@ import KakaoSDKUser
 
 class ViewController: UIViewController {
     
+    lazy var activityIndicator: UIActivityIndicatorView = { // indicator가 사용될 때까지 인스턴스를 생성하지 않도록 lazy로 선언
+        let activityIndicator = UIActivityIndicatorView()
+        
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        activityIndicator.center = self.view.center
+        //activityIndicator.center = self.splitViewController?.view.center ?? CGPoint() // indicator의 위치 설정
+        activityIndicator.style = UIActivityIndicatorView.Style.large // indicator의 스타일 설정, large와 medium이 있음
+        
+        activityIndicator.startAnimating() // indicator 실행
+        activityIndicator.isHidden = false
+        
+        indicatorBGView.isHidden = false
+        indicatorLbl.isHidden = false
+        
+        return activityIndicator
+    }()
+    
+    @IBOutlet weak var indicatorBGView: UIView!
+    @IBOutlet weak var indicatorLbl: UILabel!
+    
     @IBOutlet weak var logInBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //getFontName()
-                
+        
+        indicatorBGView.isHidden = true
+        indicatorLbl.isHidden = true
+        
         // 자동 로그인 시도
         tryAutoLogin()
+    }
+    
+    func stopActivityIndicator() {
+        indicatorBGView.isHidden = true
+        indicatorLbl.isHidden = true
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.stopAnimating()
     }
     
     @IBAction func logInBtnTapped(_ sender: UIButton) {
@@ -98,6 +128,7 @@ class ViewController: UIViewController {
                         // 404 에러가 발생한 경우 회원가입 창으로 이동
                         //print("signIn 404 회원가입 진행")
                         self.presentSignUpViewController()
+                        
                     } else if response.status == 200 {
                         let loginData = response.data
                         
@@ -113,8 +144,17 @@ class ViewController: UIViewController {
                         KeyChain.saveToken(loginData!.refreshToken, forKey: "pmurefreshToken")
                         UserDefaults.standard.set(loginData!.userID, forKey: "userId")
                         
+                        if let profileImgURLString = loginData!.profileImageURL {
+                            self.view.addSubview(self.activityIndicator)
+                            //self.view.bringSubviewToFront(self.activityIndicator)
+                            //self.imgToEmotion(profileURL: profileImgURLString)
+                            //indicator start
+                            
+                            //임의 설정
+                            self.imgToEmotion(profileURL: "https://image.news1.kr/system/photos/2023/3/17/5888431/article.jpg/dims/quality/80/optimize")
+                        }
                         //self.presentMainViewController()
-                        self.presentEmotionIndicatorViewController()
+                        //self.presentEmotionIndicatorViewController()
                     }
                     
                     /*if let accessToken = loginData?.accessToken {
@@ -232,6 +272,44 @@ class ViewController: UIViewController {
                 case .pathErr:
                     print("JWT 토큰 요청 실패 - 경로 오류")
                 }
+            }
+        }
+    }
+    
+    //APIgateway 프사url 전달
+    func imgToEmotion(profileURL: String){
+        ImgToEmotionService.ImgToEmotion(profileURL: profileURL) { networkResult in
+            switch networkResult {
+            case .success (let imgToEmotionResponse) :
+                if let response = imgToEmotionResponse as? ImgToEmotionResponse {
+                    
+                    print("감정 받기 성공")
+                    print("Emotion: \(response.emotion)")
+                    
+                    UserDefaults.standard.set(response.emotion, forKey: "emotion")
+                    
+                    //indicator 멈추기
+                    self.stopActivityIndicator()
+                    self.presentMainViewController()
+                    
+                    //self.indicatorView.stopAnimating()
+                }
+                
+            case .requestErr(let data):
+                print("imgToEmotion request error: \(data)")
+                // 요청 에러 처리
+                
+            case .serverErr:
+                print("imgToEmotion server error")
+                // 서버 에러 처리
+                
+            case .networkFail:
+                print("imgToEmotion network error")
+                // 네트워크 에러 처리
+                
+            case .pathErr:
+                print("imgToEmotion path error")
+                // 경로 에러 처리
             }
         }
     }

@@ -14,24 +14,37 @@ class MusicViewController: UIViewController {
     
     lazy var activityIndicator: UIActivityIndicatorView = { // indicator가 사용될 때까지 인스턴스를 생성하지 않도록 lazy로 선언
         let activityIndicator = UIActivityIndicatorView()
-        activityIndicator.center = self.splitViewController?.view.center ?? CGPoint() // indicator의 위치 설정
+        
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        activityIndicator.center = self.view.center
+        //activityIndicator.center = self.splitViewController?.view.center ?? CGPoint() // indicator의 위치 설정
         activityIndicator.style = UIActivityIndicatorView.Style.large // indicator의 스타일 설정, large와 medium이 있음
+        
         activityIndicator.startAnimating() // indicator 실행
         activityIndicator.isHidden = false
+        
+        indicatorBGView.isHidden = false
+        indicatorLbl.isHidden = false
+        
         return activityIndicator
     }()
+    
+    @IBOutlet weak var indicatorBGView: UIView!
+    @IBOutlet weak var indicatorLbl: UILabel!
     
     @IBOutlet weak var profileImg: UIImageView!
     @IBOutlet weak var txtView: UITextView!
     @IBOutlet weak var musicButton: UIButton!
     @IBOutlet weak var textCountLbl: UILabel!
     @IBOutlet weak var nickNameLbl: UILabel!
-    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     let borderGray = UIColor(red: 245, green: 245, blue: 245, alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        indicatorBGView.isHidden = true
+        indicatorLbl.isHidden = true
         
         //self.view.bringSubviewToFront(self.indicatorView)
         //self.indicatorView.startAnimating()
@@ -39,7 +52,7 @@ class MusicViewController: UIViewController {
         // Do any additional setup after loading the view.
         profileImg.layer.cornerRadius = profileImg.frame.size.width/2
         profileImg.clipsToBounds = true
-                
+        
         txtView.layer.cornerRadius = 10
         txtView.clipsToBounds = true
         
@@ -53,9 +66,11 @@ class MusicViewController: UIViewController {
         
         // UITextView의 delegate를 설정
         txtView.delegate = self
-
+        
         // 프로필 이미지 로드 및 설정 호출
-        loadProfileImage()
+        //loadProfileImage()
+        self.profileImg.image = UIImage(named: "exProfileImg.jpg")
+
         
         // Set the nickname label
         setNickNameLabel()
@@ -63,8 +78,6 @@ class MusicViewController: UIViewController {
         
         // 노티피케이션 수신 등록
         NotificationCenter.default.addObserver(self, selector: #selector(clearTextView(_:)), name: NSNotification.Name("clearTextView"), object: nil)
-        
-        self.view.addSubview(self.activityIndicator)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,7 +97,9 @@ class MusicViewController: UIViewController {
     }
     
     func stopActivityIndicator() {
-        activityIndicator.hidesWhenStopped = true
+        indicatorBGView.isHidden = true
+        indicatorLbl.isHidden = true
+        activityIndicator.hidesWhenStopped = true
         activityIndicator.stopAnimating()
     }
     
@@ -163,6 +178,7 @@ class MusicViewController: UIViewController {
                         print("YouTube: \(youtube)")
                     }
                     
+                    self.stopActivityIndicator()
                     self.moveToMusicRecommandPage()
                     
                     /*print("Emotion: \(MusicData!.musicAlbumURL)")
@@ -232,8 +248,10 @@ class MusicViewController: UIViewController {
         if let emotion = UserDefaults.standard.string(forKey: "emotion"),
            let savedText = UserDefaults.standard.string(forKey: "savedText") {
             // 가져온 emotion 값을 이용하여 Lambda 함수 호출
-            self.presentMusicIndicatorViewController()
-            //emotionToMusic(emotion: emotion, text: savedText)
+            //self.presentMusicIndicatorViewController()
+            self.view.addSubview(self.activityIndicator)
+            emotionToMusic(emotion: emotion, text: savedText)
+            
         } else {
             // "emotion" 또는 "savedText" 키에 대한 값이 없는 경우 처리
             print("No emotion or saved text found in UserDefaults")

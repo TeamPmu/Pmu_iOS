@@ -36,10 +36,17 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
         for i in 0..<titles.count {
             print("Title: \(titles[i]), Artist: \(artists[i]), MusicURL: \(musicURLs[i])")
         }
+        
+        musicList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        //tableView.delegate = self
+        //tableView.dataSource = self
+        
+        //musicList()
         
         refresh()
     }
@@ -90,6 +97,11 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
                     let musicData = response.data
                     print("musicListResponse: \(musicListResponse)")
                     print("노래리스트 불러오기 성공")
+                    
+                    self.titles.removeAll()
+                    self.artists.removeAll()
+                    self.images.removeAll()
+                    self.musicIDs.removeAll()
                     
                     if let musicData = musicData {
                         for musicInfo in musicData {
@@ -236,6 +248,9 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
         
         modalViewController.modalPresentationStyle = .fullScreen
         
+        //let destinationVC = segue.destination as! DetailViewController
+        modalViewController.delegate = self
+        
         modalViewController.musicID = musicIDs[indexPath.row]
         
         present(modalViewController, animated: true, completion: nil)
@@ -252,8 +267,11 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
         tableView.reloadData() // 테이블 뷰 리로드
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "DetailSegue" {
+    //override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+       // let destinationVC = segue.destination as! DetailViewController
+       // destinationVC.delegate = self
+        
+        /*if segue.identifier == "DetailSegue" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let destinationVC = segue.destination as! DetailViewController
                 /*destinationVC.albumImg = MusicData.shared.images[indexPath.row]
@@ -267,8 +285,8 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
                 
                 destinationVC.delegate = self // delegate를 설정하여 삭제 요청을 받을 수 있도록 함
             }
-        }
-    }
+        }*/
+   // }
     
     // 삭제 요청을 처리하는 메서드
     func deleteItem(atIndex index: Int) {

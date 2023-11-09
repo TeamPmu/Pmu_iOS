@@ -150,7 +150,8 @@ class DetailViewController: UIViewController {
                 print(coverImageUrl)
                 UserDefaults.standard.removeObject(forKey: coverImageUrl)
                 
-                //self.delegate?.refresh()
+                self.delegate?.refresh()
+                //self.delegate?.reloadTableView()
                 
             case .requestErr(let errorData):
                 //요청이 실패하였을 경우
@@ -196,6 +197,10 @@ class DetailViewController: UIViewController {
     @IBAction func dismissBtnTapped(_ sender: UIButton) {
         if !self.isHeartSelected {
             deleteMusic(coverImageUrl: albumImgURL)
+            // Delegate를 통해 reloadTableView 메서드 호출
+            //delegate?.reloadTableView()
+            //delegate?.refresh()
+            //delegate?.musicList()
         }
         
         // Delegate를 통해 detailViewDidDismiss 메서드 호출
@@ -205,7 +210,7 @@ class DetailViewController: UIViewController {
         }*/
         
         print(isHeartSelected)
-        print("인덱스", selectedIndex)
+        //print("인덱스", selectedIndex)
         
         self.dismiss(animated: true, completion: nil)
     }

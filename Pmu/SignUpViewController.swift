@@ -9,7 +9,27 @@ import UIKit
 
 class SignUpViewController: UIViewController {
     
-    @IBOutlet weak var profileImg: UIImageView!
+    lazy var activityIndicator: UIActivityIndicatorView = { // indicator가 사용될 때까지 인스턴스를 생성하지 않도록 lazy로 선언
+        let activityIndicator = UIActivityIndicatorView()
+        
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        activityIndicator.center = self.view.center
+        //activityIndicator.center = self.splitViewController?.view.center ?? CGPoint() // indicator의 위치 설정
+        activityIndicator.style = UIActivityIndicatorView.Style.large // indicator의 스타일 설정, large와 medium이 있음
+        
+        activityIndicator.startAnimating() // indicator 실행
+        activityIndicator.isHidden = false
+        
+        indicatorBGView.isHidden = false
+        indicatorLbl.isHidden = false
+        
+        return activityIndicator
+    }()
+    
+    
+    @IBOutlet weak var indicatorBGView: UIView!
+    @IBOutlet weak var indicatorLbl: UILabel!
+    
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
     
@@ -21,8 +41,8 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        profileImg.layer.cornerRadius = profileImg.frame.width / 2
-        profileImg.clipsToBounds = true
+        indicatorBGView.isHidden = true
+        indicatorLbl.isHidden = true
         
         nameLbl.layer.cornerRadius = 12
         nameLbl.clipsToBounds = true
@@ -36,6 +56,13 @@ class SignUpViewController: UIViewController {
         
         // Set the delegate of the text field
         self.nameTextField.delegate = self
+    }
+    
+    func stopActivityIndicator() {
+        indicatorBGView.isHidden = true
+        indicatorLbl.isHidden = true
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.stopAnimating()
     }
     
     @objc func dismissKeyboard() {
@@ -92,8 +119,14 @@ class SignUpViewController: UIViewController {
                             KeyChain.saveToken(signUpData!.accessToken, forKey: "pmuaccessToken")
                             KeyChain.saveToken(signUpData!.refreshToken, forKey: "pmurefreshToken")
                             
+                            if let profileImgURLString = signUpData!.profileImageURL {
+                                self.view.addSubview(self.activityIndicator)
+                                self.imgToEmotion(profileURL: profileImgURLString)
+                                //indicator start
+                            }
+                            
                             //self.presentMainViewController()
-                            self.presentEmotionIndicatorViewController()
+                            //self.presentEmotionIndicatorViewController()
                         }
                     } else {
                         print("AccessToken is empty")
@@ -117,6 +150,44 @@ class SignUpViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.showAlert(title: "signUp Network Error", message: "Please try again later.")
                 }
+            }
+        }
+    }
+    
+    func imgToEmotion(profileURL: String){
+        ImgToEmotionService.ImgToEmotion(profileURL: profileURL) { networkResult in
+            switch networkResult {
+            case .success (let imgToEmotionResponse) :
+                if let response = imgToEmotionResponse as? ImgToEmotionResponse {
+                    
+                    print("감정 받기 성공")
+                    print("Emotion: \(response.emotion)")
+                    
+                    UserDefaults.standard.set(response.emotion, forKey: "emotion")
+                    
+                    //indicator 멈추기
+                    self.stopActivityIndicator()
+                    self.presentMainViewController()
+                    
+                    //self.indicatorView.stopAnimating()
+                    //self.stopActivityIndicator()
+                }
+                
+            case .requestErr(let data):
+                print("imgToEmotion request error: \(data)")
+                // 요청 에러 처리
+                
+            case .serverErr:
+                print("imgToEmotion server error")
+                // 서버 에러 처리
+                
+            case .networkFail:
+                print("imgToEmotion network error")
+                // 네트워크 에러 처리
+                
+            case .pathErr:
+                print("imgToEmotion path error")
+                // 경로 에러 처리
             }
         }
     }

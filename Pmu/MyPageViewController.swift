@@ -32,7 +32,8 @@ class MyPageViewController: UIViewController {
         StackView.clipsToBounds = true
         
         // 프로필 이미지 로드 및 설정하는 함수
-        loadProfileImage()
+        //loadProfileImage()
+        self.profileImg.image = UIImage(named: "exProfileImg.jpg")
         
         setNickNameLabel()
     }

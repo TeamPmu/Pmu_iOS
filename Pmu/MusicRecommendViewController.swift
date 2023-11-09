@@ -71,10 +71,15 @@ class MusicRecommendViewController: UIViewController {
         //updateUI(with: currentIndex)
         
         // liked 변수를 초기화하고 버튼의 이미지 설정
-        liked = UserDefaults.standard.bool(forKey: "liked\(currentIndex)")
+       /* liked = UserDefaults.standard.bool(forKey: "liked\(currentIndex)")
         if liked {
             heartBtn.setImage(UIImage(named: "heartYellow"), for: .normal)
         } else {
+            heartBtn.setImage(UIImage(named: "heart"), for: .normal)
+        }*/
+        
+        for index in 0..<5 {
+            UserDefaults.standard.set(false, forKey: "liked\(index)")
             heartBtn.setImage(UIImage(named: "heart"), for: .normal)
         }
     }
@@ -83,7 +88,7 @@ class MusicRecommendViewController: UIViewController {
         super.viewWillAppear(animated)
         
         // UserDefaults에서 모든 liked 값을 초기화 (기존 코드 유지)
-        for index in 0..<artists.count {
+        for index in 0..<5 {
             UserDefaults.standard.set(false, forKey: "liked\(index)")
             heartBtn.setImage(UIImage(named: "heart"), for: .normal)
         }
