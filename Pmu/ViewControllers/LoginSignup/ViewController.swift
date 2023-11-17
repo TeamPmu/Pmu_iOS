@@ -36,9 +36,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //getFontName()
-        
+                
         indicatorBGView.isHidden = true
         indicatorLbl.isHidden = true
         
@@ -106,14 +104,6 @@ class ViewController: UIViewController {
         
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
             .changeRootViewController(mainVC, animated: true)
-    }
-    
-    func presentEmotionIndicatorViewController() {
-        let emotionIndicatorVC = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewController(withIdentifier: "EmotionIndicatorView")
-        
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
-            .changeRootViewController(emotionIndicatorVC, animated: true)
     }
     
     func signIn(with token: String) {
@@ -320,29 +310,4 @@ class ViewController: UIViewController {
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
     }
-    
-    // 액세스 토큰을 갱신하는 함수
-    /*func refreshAccessToken(completion: @escaping (Bool) -> Void) {
-        AuthApi.shared.refreshAccessToken { (oauthToken, error) in
-            if let error = error {
-                print("액세스 토큰 갱신 실패: \(error)")
-                completion(false)
-            } else if let oauthToken = oauthToken {
-                print("액세스 토큰 갱신 성공: \(oauthToken.accessToken)")
-                completion(true)
-            }
-        }
-    }*/
-    
-    /*func getFontName() {
-     for family in UIFont.familyNames {
-     
-     let sName: String = family as String
-     print("family: \(sName)")
-     
-     for name in UIFont.fontNames(forFamilyName: sName) {
-     print("name: \(name as String)")
-     }
-     }
-     }*/
 }

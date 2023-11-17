@@ -45,10 +45,7 @@ class MusicViewController: UIViewController {
         
         indicatorBGView.isHidden = true
         indicatorLbl.isHidden = true
-        
-        //self.view.bringSubviewToFront(self.indicatorView)
-        //self.indicatorView.startAnimating()
-        
+
         // Do any additional setup after loading the view.
         profileImg.layer.cornerRadius = profileImg.frame.size.width/2
         profileImg.clipsToBounds = true
@@ -84,10 +81,7 @@ class MusicViewController: UIViewController {
         super.viewWillAppear(animated)
         
         textCountLbl.text = "0"
-        
-        // 텍스트 뷰 초기화 작업
-        //txtView.text = ""
-        
+
         // 처음 화면이 로드되었을 때 플레이스 홀더처럼 보이게끔 만들어주기
         txtView.text = "프로필 사진 찍을 때 어떤 기분이셨나요?\n알려주세요! (최대 150자)"
         txtView.textColor = UIColor.lightGray
@@ -105,9 +99,6 @@ class MusicViewController: UIViewController {
     
     // 'clearTextView' 노티피케이션 수신 시 호출되는 메서드
     @objc func clearTextView(_ notification: Notification) {
-        // 텍스트 뷰 초기화 작업
-        //txtView.text = ""
-        
         //처음 화면이 로드되었을 때 플레이스 홀더처럼 보이게끔 만들어주기
         txtView.text = "프로필 사진 찍을 때 어떤 기분이셨나요?\n알려주세요! (최대 150자)"
         txtView.textColor = UIColor.lightGray
@@ -125,7 +116,6 @@ class MusicViewController: UIViewController {
                     
                     UserDefaults.standard.set(response.emotion, forKey: "emotion")
                     
-                    //self.indicatorView.stopAnimating()
                     self.stopActivityIndicator()
                 }
                 
@@ -154,7 +144,6 @@ class MusicViewController: UIViewController {
             switch networkResult {
             case .success (let emotionToMusicResponse) :
                 if let response = emotionToMusicResponse as? EmotionToMusicResponse {
-                    //    let MusicData = response.data
                     
                     print("추천음악 받기 성공")
                     
@@ -180,10 +169,6 @@ class MusicViewController: UIViewController {
                     
                     self.stopActivityIndicator()
                     self.moveToMusicRecommandPage()
-                    
-                    /*print("Emotion: \(MusicData!.musicAlbumURL)")
-                     print("Emotion: \(MusicData!.title)")
-                     print("Emotion: \(MusicData!.artist)")*/
                 }
                 
             case .requestErr(let data):
@@ -212,19 +197,6 @@ class MusicViewController: UIViewController {
         self.present(MusicRecoVC, animated: true, completion: nil)
     }
     
-    func presentMusicIndicatorViewController() {
-        /*let musicIndicatorVC = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewController(withIdentifier: "MusicIndicatorView")
-        
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
-            .changeRootViewController(musicIndicatorVC, animated: true)*/
-        
-        guard let musicIndicatorVC = self.storyboard?.instantiateViewController(withIdentifier: "MusicIndicatorView") as? MusicIndicatorViewController else { return }
-        musicIndicatorVC.modalTransitionStyle = .coverVertical
-        musicIndicatorVC.modalPresentationStyle = .fullScreen
-        self.present(musicIndicatorVC, animated: true, completion: nil)
-    }
-    
     @IBAction func musicBtnTapped(_ sender: UIButton) {
         // 텍스트 뷰에 입력된 텍스트 가져오기
         guard let textToSave = txtView.text else {
@@ -247,9 +219,9 @@ class MusicViewController: UIViewController {
         
         if let emotion = UserDefaults.standard.string(forKey: "emotion"),
            let savedText = UserDefaults.standard.string(forKey: "savedText") {
-            // 가져온 emotion 값을 이용하여 Lambda 함수 호출
-            //self.presentMusicIndicatorViewController()
+            
             self.view.addSubview(self.activityIndicator)
+            // 가져온 emotion 값을 이용하여 Lambda 함수 호출
             emotionToMusic(emotion: emotion, text: savedText)
             
         } else {

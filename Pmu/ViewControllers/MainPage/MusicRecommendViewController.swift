@@ -62,22 +62,6 @@ class MusicRecommendViewController: UIViewController {
         swipeRightGesture.direction = .right
         self.view.addGestureRecognizer(swipeRightGesture)
         
-        // UserDefaults에서 초기 좋아요 상태를 가져오기
-        /*if UserDefaults.standard.value(forKey: "liked\(currentIndex)") == nil {
-         UserDefaults.standard.set(false, forKey: "liked\(currentIndex)")
-         }*/
-        
-        // 초기 화면 설정
-        //updateUI(with: currentIndex)
-        
-        // liked 변수를 초기화하고 버튼의 이미지 설정
-       /* liked = UserDefaults.standard.bool(forKey: "liked\(currentIndex)")
-        if liked {
-            heartBtn.setImage(UIImage(named: "heartYellow"), for: .normal)
-        } else {
-            heartBtn.setImage(UIImage(named: "heart"), for: .normal)
-        }*/
-        
         for index in 0..<5 {
             UserDefaults.standard.set(false, forKey: "liked\(index)")
             heartBtn.setImage(UIImage(named: "heart"), for: .normal)
@@ -240,29 +224,14 @@ class MusicRecommendViewController: UIViewController {
         
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
             .changeRootViewController(mainVC, animated: true)
-        
-        /*guard let MusicVC = self.storyboard?.instantiateViewController(withIdentifier: "Main") as? MusicViewController else { return }
-        MusicVC.modalTransitionStyle = .coverVertical
-        MusicVC.modalPresentationStyle = .fullScreen
-        self.present(MusicVC, animated: true, completion: nil)*/
     }
     
     @IBAction func dismissBtnTapped(_ sender: UIButton) {
-        //MusicViewController.txtView.text = "" // textView 초기화
-        
         // 'clearTextView' Notification 보내기
         NotificationCenter.default.post(name: NSNotification.Name("clearTextView"), object: nil)
-        
-        //self.dismiss(animated: true, completion: nil)
-        
+                
         self.dismiss(animated: true){
             self.presentMainViewController()
-            
-            /*let mainVC = UIStoryboard(name: "Main", bundle: nil)
-                .instantiateViewController(withIdentifier: "Main")
-            
-            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
-                .changeRootViewController(mainVC, animated: true)*/
         }
     }
     
@@ -276,14 +245,7 @@ class MusicRecommendViewController: UIViewController {
         if liked { //true
             heartBtn.setImage(UIImage(named: "heartYellow"), for: .normal)
             print("노래 저장 \(currentIndex)")
-            
-            // MusicData 모델 클래스를 사용하여 데이터 추가
-            /*let musicData = MusicData.shared
-            musicData.images.append(images[currentIndex])
-            musicData.titles.append(titles[currentIndex])
-            musicData.artists.append(artists[currentIndex])
-            musicData.musicURLs.append(musicURL[currentIndex])*/
-            
+
             saveMusic(coverImageUrl: imagesURL[currentIndex], title: titles[currentIndex], singer: artists[currentIndex], youtubeUrl: musicURL[currentIndex])
             
         } else {
@@ -339,9 +301,6 @@ class MusicRecommendViewController: UIViewController {
     
     // 노래 정보 업데이트 함수
     func updateUI(with index: Int) {
-        
-        //heartBtnTapped(heartBtn)
-        
         // 현재 노래의 좋아요 상태를 가져와서 버튼 이미지 업데이트
         let liked = UserDefaults.standard.bool(forKey: "liked\(currentIndex)")
         

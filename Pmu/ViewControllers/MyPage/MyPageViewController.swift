@@ -145,20 +145,5 @@ class MyPageViewController: UIViewController {
         */
         print("회원탈퇴 토큰: \(KeyChain.loadToken(forKey: "pmuaccessToken"))")
     }
-    
-    // 로그아웃 또는 탈퇴 성공 시 호출되는 함수
-    /*private func clearUserData() {
-        // UI 초기화 (프로필 이미지, 닉네임 등)
-        self.profileImg.image = UIImage(named: "myPageFilled")
-        self.nickNameLbl.text = ""
-        
-        // 기타 데이터 초기화 또는 필요한 작업 수행
-        // ...
-        
-        // 예시: 로그아웃 또는 탈퇴 후, 다시 로그인 화면으로 이동
-        if let loginViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
-            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginViewController, animated: true)
-        }
-    }*/
 }
 

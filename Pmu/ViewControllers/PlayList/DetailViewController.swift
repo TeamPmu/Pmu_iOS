@@ -40,22 +40,14 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
-        /*musicAlbumImg.image = albumImg
-        bgMusicAlbumImg.image = albumImg
-        titleLbl.text = titleText
-        artistLbl.text = artistText*/
-        
+
         musicDetail(musicID: musicID)
         setHeartButtonImage()
         
         musicAlbumImg.layer.cornerRadius = 12
         //musicAlbumImg.layer.masksToBounds = true
         musicAlbumImg.clipsToBounds = true
-        
-        // 초기 상태에서는 heartYellow 이미지를 사용
-        
+                
         print("디테일 musicID: \(musicID)")
     }
     
@@ -144,9 +136,6 @@ class DetailViewController: UIViewController {
                 print("musicDeleteResponse: \(musicDeleteResponse)")
                 print("노래삭제 성공")
                 
-                //print(self.titleLbl.text, self.artistLbl.text)
-                
-                //self.delegate?.reloadTableView() // 델리게이트를 통해 테이블 뷰 리로드 요청
                 print(coverImageUrl)
                 UserDefaults.standard.removeObject(forKey: coverImageUrl)
                 
@@ -181,33 +170,15 @@ class DetailViewController: UIViewController {
         if isHeartSelected {
             heartBtn.setImage(UIImage(named: "heartYellow"), for: .normal)
             
-            /*if let title = titleLbl.text, let artist = artistLbl.text {
-                saveMusic(coverImageUrl: albumImgURL, title: title, singer: artist, youtubeUrl: musicURL)
-            } else {
-                print("Title 또는 Artist가 nil입니다.")
-            }*/
-            
         } else {
             heartBtn.setImage(UIImage(named: "heart"), for: .normal)
-            
-            //deleteMusic(coverImageUrl: albumImgURL)
         }
     }
     
     @IBAction func dismissBtnTapped(_ sender: UIButton) {
         if !self.isHeartSelected {
             deleteMusic(coverImageUrl: albumImgURL)
-            // Delegate를 통해 reloadTableView 메서드 호출
-            //delegate?.reloadTableView()
-            //delegate?.refresh()
-            //delegate?.musicList()
         }
-        
-        // Delegate를 통해 detailViewDidDismiss 메서드 호출
-        /*if let tableViewController = delegate as? TableViewController {
-            //tableViewController.reloadTableView()
-            tableViewController.musicList()
-        }*/
         
         print(isHeartSelected)
         //print("인덱스", selectedIndex)

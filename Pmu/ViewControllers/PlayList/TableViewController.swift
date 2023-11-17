@@ -9,8 +9,6 @@ import UIKit
 
 class TableViewController: UITableViewController, DetailViewControllerDelegate {
   
-    var data = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6","Item 7","Item 8", "Item 9"]
-    
     var images: [UIImage] = []
     var titles: [String] = []
     var genres: [String] = []
@@ -42,12 +40,7 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        //tableView.delegate = self
-        //tableView.dataSource = self
-        
-        //musicList()
-        
+
         refresh()
     }
     
@@ -69,7 +62,6 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
     }
     
     @objc func refreshData(_ sender: UIRefreshControl) {
-        
         // 이전 데이터를 삭제
         titles.removeAll()
         artists.removeAll()
@@ -146,17 +138,6 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
                         // Handle the case where musicData is nil (optional is not set)
                         print("musicData is nil")
                     }
-                    
-                    //print("musicdataarray: \(musicData)")
-                    /*images.append(musicData.coverImageURL)
-                    titles.append(title)
-                    artists.append(artist)
-                    musicURLs.append(musicURL)*/
-                    /*print("\(title) 노래리스트 불러오기 성공")
-                    print("musicID: \(musicData?.musicId)")
-                    UserDefaults.standard.set(musicData?.musicId, forKey: coverImageUrl)
-                    print(coverImageUrl)
-                    print(UserDefaults.standard.string(forKey: coverImageUrl))*/
                 }
                 
             case .requestErr(let errorData):
@@ -177,43 +158,6 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
             }
         }
     }
-    
-    /*func deleteMusic(coverImageUrl: String){
-        guard let appaccessToken = KeyChain.loadToken(forKey: "pmuaccessToken") else {
-            // 사용자 토큰이 없으면 이미 로그아웃된 상태
-            print("사용자 토큰이 없음. 노래 삭제 불가.")
-            return
-        }
-        
-        guard let musicId = UserDefaults.standard.string(forKey: "\(coverImageUrl)") else {
-            // musicID가 없으면 처리할 내용 추가
-            print("musicID가 없음. 노래 삭제 불가.")
-            return
-        }
-
-        
-        MusicDeleteService.musicDelete(musicId: musicId, auth: appaccessToken) { result in
-            switch result {
-            case .success(let musicDeleteResponse):
-                print("musicDeleteResponse: \(musicDeleteResponse)")
-                print("노래삭제 성공")
-                
-                UserDefaults.standard.removeObject(forKey: coverImageUrl)
-            case .requestErr(let errorData):
-                //요청이 실패하였을 경우
-                print("노래삭제 실패 - 요청 오류: \(errorData.message)")
-            case .serverErr:
-                // 서버 오류
-                print("노래삭제 실패 - 서버 오류")
-            case .networkFail:
-                // 네트워크 오류
-                print("노래삭제 실패 - 네트워크 오류")
-            case .pathErr:
-                // 경로 오류
-                print("노래삭제 실패 - 경로 오류")
-            }
-        }
-    }*/
     
     func setNickNameLabel() {
         if let loginResponse = KakaoDataManager.shared.getLoginResponse() {
@@ -266,28 +210,7 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
     func reloadTableView() {
         tableView.reloadData() // 테이블 뷰 리로드
     }
-    
-    //override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       // let destinationVC = segue.destination as! DetailViewController
-       // destinationVC.delegate = self
-        
-        /*if segue.identifier == "DetailSegue" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                let destinationVC = segue.destination as! DetailViewController
-                /*destinationVC.albumImg = MusicData.shared.images[indexPath.row]
-                destinationVC.titleText = MusicData.shared.titles[indexPath.row]
-                destinationVC.artistText = MusicData.shared.artists[indexPath.row]
-                destinationVC.musicURL = MusicData.shared.musicURLs[indexPath.row]*/
-                
-                destinationVC.musicID = musicIDs[indexPath.row]
-                // 수정: selectedIndex 설정
-                destinationVC.selectedIndex = indexPath.row
-                
-                destinationVC.delegate = self // delegate를 설정하여 삭제 요청을 받을 수 있도록 함
-            }
-        }*/
-   // }
-    
+
     // 삭제 요청을 처리하는 메서드
     func deleteItem(atIndex index: Int) {
         // 데이터 배열에서 해당 음악 정보 삭제
@@ -295,7 +218,6 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
         titles.remove(at: index)
         artists.remove(at: index)
         images.remove(at: index)
-        //MusicData.shared.musicURLs.remove(at: index)
         
         // 테이블 뷰 업데이트
         tableView.beginUpdates() // 업데이트 시작

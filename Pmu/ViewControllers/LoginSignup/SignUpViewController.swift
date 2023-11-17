@@ -168,9 +168,6 @@ class SignUpViewController: UIViewController {
                     //indicator 멈추기
                     self.stopActivityIndicator()
                     self.presentMainViewController()
-                    
-                    //self.indicatorView.stopAnimating()
-                    //self.stopActivityIndicator()
                 }
                 
             case .requestErr(let data):
@@ -198,14 +195,6 @@ class SignUpViewController: UIViewController {
         
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
             .changeRootViewController(mainVC, animated: true)
-    }
-    
-    func presentEmotionIndicatorViewController() {
-        let emotionIndicatorVC = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewController(withIdentifier: "EmotionIndicatorView")
-        
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
-            .changeRootViewController(emotionIndicatorVC, animated: true)
     }
     
     func showAlert(title: String, message: String) {

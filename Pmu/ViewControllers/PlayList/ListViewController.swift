@@ -20,8 +20,5 @@ class ListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //view.reloadData() // 테이블 뷰 리로드
-
-        //musicList()
     }
 }

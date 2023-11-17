@@ -48,8 +48,6 @@ struct MusicDeleteService {
                     
                     switch statusCode {
                     case 200..<300:
-                        // Update login response in KakaoDataManager
-                        //KakaoDataManager.shared.updateLoginResponse(with: decodedData)
                         completion(.success(decodedData))
                     case 400..<500: completion(.requestErr(decodedData))
                     case 500..<600: completion(.serverErr)

@@ -11,31 +11,6 @@ import Alamofire
 class ImgToEmotionService {
     static let shared = ImgToEmotionService()
     
-    /*
-    static func ImgToEmotion(profileUrl: String, completion: @escaping (Result<Any, Error>) -> Void) {
-        let url = APIConstants.imgToEmotionURL
-        
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "profileUrl": profileUrl// Replace with your actual authorization header
-        ]
-        
-        AF.request(url,
-                   method: .get,
-                   parameters: nil,
-                   encoding: JSONEncoding.default,
-                   headers: headers)
-            .validate()
-            .responseJSON { response in
-                switch response.result {
-                case .success(let value):
-                    completion(.success(value))
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-            }
-    }*/
-    
     static func ImgToEmotion (profileURL: String, completion: @escaping (NetworkResult<ImgToEmotionResponse>) -> Void){
         let url = APIConstants.imgToEmotionURL
         let authToken = "YOUR_AUTH_TOKEN"
@@ -43,8 +18,6 @@ class ImgToEmotionService {
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(authToken)",
             "Content-Type": "application/json",
-            //"profileURL": profileURL  // Replace with your actual authorization header
-            //"url" : profileURL
         ]
         
         let body: Parameters = ["url" : profileURL]
