@@ -204,7 +204,7 @@ class MusicViewController: UIViewController {
         }
         
         // 가져온 텍스트를 UserDefaults에 저장
-        UserDefaults.standard.set(textToSave, forKey: "savedText")
+        /*UserDefaults.standard.set(textToSave, forKey: "savedText")
         
         // 저장 완료 메시지 또는 다른 작업 수행
         print("Text saved successfully!")
@@ -215,19 +215,33 @@ class MusicViewController: UIViewController {
         } else {
             // "savedText" 키에 대한 값이 없는 경우 처리
             print("No saved text found.")
-        }
+        }*/
         
         if let emotion = UserDefaults.standard.string(forKey: "emotion"),
-           let savedText = UserDefaults.standard.string(forKey: "savedText") {
+           txtView.text != "" {
             
             self.view.addSubview(self.activityIndicator)
             // 가져온 emotion 값을 이용하여 Lambda 함수 호출
-            emotionToMusic(emotion: emotion, text: savedText)
+            print(txtView.text)
+            emotionToMusic(emotion: emotion, text: txtView.text)
             
         } else {
             // "emotion" 또는 "savedText" 키에 대한 값이 없는 경우 처리
             print("No emotion or saved text found in UserDefaults")
         }
+        
+        /*if let emotion = UserDefaults.standard.string(forKey: "emotion"),
+           let savedText = UserDefaults.standard.string(forKey: "savedText") {
+            
+            self.view.addSubview(self.activityIndicator)
+            // 가져온 emotion 값을 이용하여 Lambda 함수 호출
+            print(txtView.text)
+            emotionToMusic(emotion: emotion, text: txtView.text)
+            
+        } else {
+            // "emotion" 또는 "savedText" 키에 대한 값이 없는 경우 처리
+            print("No emotion or saved text found in UserDefaults")
+        }*/
     }
     
     // 프로필 이미지 로드 및 설정하는 함수

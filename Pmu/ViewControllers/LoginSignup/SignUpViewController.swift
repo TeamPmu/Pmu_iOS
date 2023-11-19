@@ -121,7 +121,10 @@ class SignUpViewController: UIViewController {
                             
                             if let profileImgURLString = signUpData!.profileImageURL {
                                 self.view.addSubview(self.activityIndicator)
-                                self.imgToEmotion(profileURL: profileImgURLString)
+                                //self.imgToEmotion(profileURL: profileImgURLString)
+                                
+                                //임의 설정
+                                self.imgToEmotion(profileURL: "https://image.news1.kr/system/photos/2023/3/17/5888431/article.jpg/dims/quality/80/optimize")
                                 //indicator start
                             }
                             
@@ -154,7 +157,7 @@ class SignUpViewController: UIViewController {
         }
     }
     
-    func imgToEmotion(profileURL: String){
+    func imgToEmotion(profileURL: String, retryCount: Int = 3){
         ImgToEmotionService.ImgToEmotion(profileURL: profileURL) { networkResult in
             switch networkResult {
             case .success (let imgToEmotionResponse) :
@@ -181,6 +184,15 @@ class SignUpViewController: UIViewController {
             case .networkFail:
                 print("imgToEmotion network error")
                 // 네트워크 에러 처리
+                
+                if retryCount > 0 {
+                    // 재시도 횟수가 남아있으면 재시도
+                    print("Retrying...")
+                    self.imgToEmotion(profileURL: profileURL, retryCount: retryCount - 1)
+                } else {
+                    print("Retry limit exceeded.")
+                    // 재시도 횟수 초과 시 다른 처리 수행
+                }
                 
             case .pathErr:
                 print("imgToEmotion path error")

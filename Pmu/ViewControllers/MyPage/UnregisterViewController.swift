@@ -39,6 +39,11 @@ class UnregisterViewController: UIViewController {
                     KeyChain.deleteToken(forKey: "pmuaccessToken")
                     KeyChain.deleteToken(forKey: "pmurefreshToken")
                     KeyChain.deleteToken(forKey: "accessToken")
+                    
+                    //모든 저장 데이터 삭제
+                    if let appDomain = Bundle.main.bundleIdentifier {
+                        UserDefaults.standard.removePersistentDomain(forName: appDomain)
+                    }
                     // 예시: 로그아웃 또는 탈퇴 후, 다시 로그인 화면으로 이동
                     if let loginViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as? ViewController {
                         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginViewController, animated: true)

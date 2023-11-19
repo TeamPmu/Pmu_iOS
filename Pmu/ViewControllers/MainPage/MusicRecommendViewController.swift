@@ -34,6 +34,8 @@ class MusicRecommendViewController: UIViewController {
     var artists: [String] = []
     var musicURL: [String] = []
     
+    var coverImageUrls: [String] = []
+    
     var albumImg: UIImage?
     var titleText: String?
     var artistText: String?
@@ -129,7 +131,6 @@ class MusicRecommendViewController: UIViewController {
             return
         }
         
-        
         MusicDeleteService.musicDelete(musicId: musicId, auth: appaccessToken) { result in
             switch result {
             case .success(let musicDeleteResponse):
@@ -199,23 +200,36 @@ class MusicRecommendViewController: UIViewController {
     }
     
     @IBAction func youtubeBtnTapped(_ sender: UIButton) {
-        if let url = URL(string: musicURL[currentIndex]) {
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:]) { success in
+        let urlString = musicURL[currentIndex]
+        if let encodedURLString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+           let url = URL(string: encodedURLString) {
+            openURL(url)
+        } else {
+            print("유효하지 않은 URL입니다.")
+        }
+    }
+    
+    func openURL(_ url: URL) {
+        if UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: { success in
                     if success {
                         print("URL을 열었습니다.")
                     } else {
                         print("URL을 열 수 없습니다.")
                     }
-                }
+                })
             } else {
-                print("URL을 열 수 없습니다.")
+                let success = UIApplication.shared.openURL(url)
+                if success {
+                    print("URL을 열었습니다.")
+                } else {
+                    print("URL을 열 수 없습니다.")
+                }
             }
         } else {
-            print("유효하지 않은 URL입니다.") //폰에서 안되는 이유는 아마 최신 버전 아니라서 그런듯
+            print("URL을 열 수 없습니다.")
         }
-        
-        print("현재 유튭 url \(musicURL[currentIndex])")
     }
     
     func presentMainViewController() {
@@ -244,9 +258,16 @@ class MusicRecommendViewController: UIViewController {
         
         if liked { //true
             heartBtn.setImage(UIImage(named: "heartYellow"), for: .normal)
-            print("노래 저장 \(currentIndex)")
+            //print("노래 저장 \(currentIndex)")
 
-            saveMusic(coverImageUrl: imagesURL[currentIndex], title: titles[currentIndex], singer: artists[currentIndex], youtubeUrl: musicURL[currentIndex])
+            if UserDefaults.standard.string(forKey: imagesURL[currentIndex]) != nil {
+                print("노래 저장 실패..")
+                print("저장 실패 이유: \(UserDefaults.standard.string(forKey: imagesURL[currentIndex]))")
+            } else {
+                saveMusic(coverImageUrl: imagesURL[currentIndex], title: titles[currentIndex], singer: artists[currentIndex], youtubeUrl: musicURL[currentIndex])
+                print("노래 저장 \(currentIndex)")
+    
+            }
             
         } else {
             heartBtn.setImage(UIImage(named: "heart"), for: .normal)

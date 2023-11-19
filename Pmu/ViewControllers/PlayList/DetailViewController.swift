@@ -187,10 +187,54 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func youtubeBtnTapped(_ sender: UIButton) {
-        if let url = URL(string: musicURL) {
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        /*if let url = URL(string: musicURL) {
+         if UIApplication.shared.canOpenURL(url) {
+         UIApplication.shared.open(url, options: [:]) { success in
+         if success {
+         print("URL을 열었습니다.")
+         } else {
+         print("URL을 열 수 없습니다.")
+         }
+         }
+         } else {
+         print("URL을 열 수 없습니다.")
+         }
+         } else {
+         print("유효하지 않은 URL입니다.") //폰에서 안되는 이유는 아마 최신 버전 아니라서 그런듯
+         }
+         
+         print("현재 유튭 url \(musicURL)")*/
+        
+        // 이미 musicURL이 옵셔널이 아닌 경우
+        let urlString = musicURL
+        if let encodedURLString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+           let url = URL(string: encodedURLString) {
+            openURL(url)
+        } else {
+            print("유효하지 않은 URL입니다.")
+        }
+    }
+    
+    func openURL(_ url: URL) {
+        if UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: { success in
+                    if success {
+                        print("URL을 열었습니다.")
+                    } else {
+                        print("URL을 열 수 없습니다.")
+                    }
+                })
+            } else {
+                let success = UIApplication.shared.openURL(url)
+                if success {
+                    print("URL을 열었습니다.")
+                } else {
+                    print("URL을 열 수 없습니다.")
+                }
             }
+        } else {
+            print("URL을 열 수 없습니다.")
         }
     }
 }

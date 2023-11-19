@@ -471,9 +471,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vQe-05-CzS">
-                                <rect key="frame" x="303" y="643" width="30" height="16"/>
+                                <rect key="frame" x="293" y="643" width="40" height="16"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="I96-Qw-O3t"/>
+                                    <constraint firstAttribute="width" constant="40" id="I96-Qw-O3t"/>
                                     <constraint firstAttribute="height" constant="16" id="o8e-Uk-oK4"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Pretendard-Medium" family="Pretendard" pointSize="12"/>
@@ -508,7 +508,7 @@
                             <constraint firstItem="DhA-HI-eZ5" firstAttribute="trailing" secondItem="xCM-W3-hbl" secondAttribute="trailing" id="Q8R-BG-bB9"/>
                             <constraint firstItem="4MH-lT-3L1" firstAttribute="top" secondItem="ST2-QK-CEQ" secondAttribute="bottom" constant="24" id="Sdg-jV-39h"/>
                             <constraint firstItem="LWj-dc-J3G" firstAttribute="leading" secondItem="xCM-W3-hbl" secondAttribute="leading" constant="20" id="USY-Xw-vxI"/>
-                            <constraint firstItem="vQe-05-CzS" firstAttribute="leading" secondItem="xCM-W3-hbl" secondAttribute="leading" constant="303" id="VsP-7l-Kok"/>
+                            <constraint firstItem="vQe-05-CzS" firstAttribute="leading" secondItem="xCM-W3-hbl" secondAttribute="leading" constant="293" id="VsP-7l-Kok"/>
                             <constraint firstItem="DhA-HI-eZ5" firstAttribute="centerX" secondItem="AIj-Kj-QRn" secondAttribute="centerX" id="WTH-f7-ZQD"/>
                             <constraint firstItem="Qyb-kN-Tp7" firstAttribute="trailing" secondItem="xCM-W3-hbl" secondAttribute="trailing" id="XnD-zg-nN4"/>
                             <constraint firstItem="6vV-T3-ihy" firstAttribute="leading" secondItem="vQe-05-CzS" secondAttribute="trailing" id="ars-3F-Q7f"/>
@@ -994,6 +994,10 @@
                                 <constraint firstItem="AdW-Yo-jGH" firstAttribute="top" secondItem="iI1-RU-OPq" secondAttribute="bottom" constant="8" symbolic="YES" id="jWY-7B-CcZ"/>
                             </constraints>
                         </view>
+                        <imageView key="tableFooterView" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blank" id="I2a-8O-gv2">
+                            <rect key="frame" x="0.0" y="256" width="390" height="50"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Tablecell" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Tablecell" rowHeight="80" id="kLL-qN-vbL" customClass="TableViewCell" customModule="Pmu" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="148" width="390" height="80"/>
@@ -1332,7 +1336,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sample" translatesAutoresizingMaskIntoConstraints="NO" id="fUL-hA-Cyt">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blank" translatesAutoresizingMaskIntoConstraints="NO" id="fUL-hA-Cyt">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p3c-7w-NdS">
@@ -1341,7 +1345,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sample" translatesAutoresizingMaskIntoConstraints="NO" id="xwZ-Jg-vO2">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blank" translatesAutoresizingMaskIntoConstraints="NO" id="xwZ-Jg-vO2">
                                             <rect key="frame" x="20" y="145" width="350" height="350"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="350" id="2Hq-1V-dkQ"/>
@@ -1488,6 +1492,7 @@
     </designables>
     <resources>
         <image name="agreebutton" width="350" height="60"/>
+        <image name="blank" width="339.33334350585938" height="41.333332061767578"/>
         <image name="checkedmark" width="24" height="24"/>
         <image name="checkmarkCircle" width="24" height="24"/>
         <image name="chevron" width="24" height="24"/>

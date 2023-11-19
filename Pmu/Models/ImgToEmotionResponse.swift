@@ -11,4 +11,8 @@ struct ImgToEmotionResponse: Codable {
     //let status: Int
     //let message: String
     let emotion: String
+    
+    enum CodingKeys: String, CodingKey {
+        case emotion = "emotion"
+    }
 }

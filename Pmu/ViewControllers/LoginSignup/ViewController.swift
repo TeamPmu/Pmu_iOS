@@ -267,12 +267,11 @@ class ViewController: UIViewController {
     }
     
     //APIgateway 프사url 전달
-    func imgToEmotion(profileURL: String){
+    func imgToEmotion(profileURL: String, retryCount: Int = 3) {
         ImgToEmotionService.ImgToEmotion(profileURL: profileURL) { networkResult in
             switch networkResult {
             case .success (let imgToEmotionResponse) :
                 if let response = imgToEmotionResponse as? ImgToEmotionResponse {
-                    
                     print("감정 받기 성공")
                     print("Emotion: \(response.emotion)")
                     
@@ -296,6 +295,14 @@ class ViewController: UIViewController {
             case .networkFail:
                 print("imgToEmotion network error")
                 // 네트워크 에러 처리
+                if retryCount > 0 {
+                    // 재시도 횟수가 남아있으면 재시도
+                    print("Retrying...")
+                    self.imgToEmotion(profileURL: profileURL, retryCount: retryCount - 1)
+                } else {
+                    print("Retry limit exceeded.")
+                    // 재시도 횟수 초과 시 다른 처리 수행
+                }
                 
             case .pathErr:
                 print("imgToEmotion path error")

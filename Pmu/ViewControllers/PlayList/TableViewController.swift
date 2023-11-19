@@ -63,10 +63,10 @@ class TableViewController: UITableViewController, DetailViewControllerDelegate {
     
     @objc func refreshData(_ sender: UIRefreshControl) {
         // 이전 데이터를 삭제
-        titles.removeAll()
-        artists.removeAll()
-        images.removeAll()
-        musicIDs.removeAll()
+        //titles.removeAll()
+        //artists.removeAll()
+        //images.removeAll()
+        //musicIDs.removeAll()
         
         // 데이터를 다시 로드하거나 업데이트합니다.
         musicList()
